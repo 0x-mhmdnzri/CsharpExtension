@@ -12,9 +12,9 @@
     "semantic_hash": "1f108288c6d180794d30a4c56cd06e5f"
   },
   "docs/workflow/state.json": {
-    "mtime": 1791791354.9554589,
-    "seen": 1791791382.6327906,
-    "ast_hash": "ea2767a2c9d9c06eead393a9cb235894",
+    "mtime": 1791791477.7567482,
+    "seen": 1791791479.218749,
+    "ast_hash": "ffbcd21974a8f040d8e6d1ac6fbf1b84",
     "semantic_hash": ""
   },
   "src/KnowledgeEngine/Class1.cs": {
@@ -180,8 +180,8 @@
     "semantic_hash": ""
   },
   "tests/Architecture.Tests/ContractSmokeTests.cs": {
-    "mtime": 1791791231.4536083,
-    "seen": 1791791382.6328235,
+    "mtime": 1791791477.768749,
+    "seen": 1791791479.2188053,
     "ast_hash": "829b2d881cb04023d1adc49d66fbd7c2",
     "semantic_hash": ""
   },
@@ -288,8 +288,8 @@
     "semantic_hash": ""
   },
   "docs/workflow/project-tasks.md": {
-    "mtime": 1791791339.1032991,
-    "seen": 1791791382.632858,
+    "mtime": 1791791477.7557433,
+    "seen": 1791791479.218863,
     "ast_hash": "80bbe49f8910cdbf27327aa3e85845b1",
     "semantic_hash": ""
   },
@@ -372,8 +372,8 @@
     "semantic_hash": ""
   },
   "docs/backlog.md": {
-    "mtime": 1791791338.5422459,
-    "seen": 1791791382.6328444,
+    "mtime": 1791791477.7547438,
+    "seen": 1791791479.2188406,
     "ast_hash": "ef34cfb43ddad20406c3999847cd7ad7",
     "semantic_hash": ""
   },
@@ -384,14 +384,14 @@
     "semantic_hash": ""
   },
   "tests/Architecture.Tests/Program.cs": {
-    "mtime": 1791791231.8682613,
-    "seen": 1791791382.6328244,
+    "mtime": 1791791477.7697477,
+    "seen": 1791791479.2188067,
     "ast_hash": "90b4c183874c88545eec6051b45e4ff4",
     "semantic_hash": ""
   },
   "src/Shared/Binder.cs": {
-    "mtime": 1791791308.8395872,
-    "seen": 1791791382.6328168,
+    "mtime": 1791791477.768749,
+    "seen": 1791791479.2187946,
     "ast_hash": "5ae78422ab6df8f634cab7b8e4d26de7",
     "semantic_hash": ""
   }
