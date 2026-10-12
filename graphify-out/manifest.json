@@ -12,9 +12,9 @@
     "semantic_hash": "1f108288c6d180794d30a4c56cd06e5f"
   },
   "docs/workflow/state.json": {
-    "mtime": 1791802413.8426938,
-    "seen": 1791802426.203442,
-    "ast_hash": "25f58d3bbd105c53135c4ba0f2494b12",
+    "mtime": 1791802476.5511467,
+    "seen": 1791802478.4664707,
+    "ast_hash": "58a2e04aae3f1ffcc238f557b1540716",
     "semantic_hash": ""
   },
   "src/KnowledgeEngine/Class1.cs": {
@@ -288,9 +288,9 @@
     "semantic_hash": ""
   },
   "docs/workflow/project-tasks.md": {
-    "mtime": 1791802413.566794,
-    "seen": 1791802426.203523,
-    "ast_hash": "caebe27958535e27ca619ddb8fd029dc",
+    "mtime": 1791802476.550147,
+    "seen": 1791802478.4666803,
+    "ast_hash": "a1904522fdddb841a53ae823d131a2e8",
     "semantic_hash": ""
   },
   "docs/design/binder-overload-resolution.md": {
@@ -384,8 +384,8 @@
     "semantic_hash": ""
   },
   "tests/Architecture.Tests/Program.cs": {
-    "mtime": 1791802293.0123787,
-    "seen": 1791802426.2034867,
+    "mtime": 1791802476.5634665,
+    "seen": 1791802478.4665868,
     "ast_hash": "9ebbd444c86c909368d82029649de7c1",
     "semantic_hash": ""
   },
@@ -456,14 +456,14 @@
     "semantic_hash": ""
   },
   "src/Shared/NuGetProjectIndex.cs": {
-    "mtime": 1791802358.2332146,
-    "seen": 1791802426.2034783,
+    "mtime": 1791802476.5624669,
+    "seen": 1791802478.4665647,
     "ast_hash": "4fa754fc095d30781844dc669f3b7356",
     "semantic_hash": ""
   },
   "tests/Architecture.Tests/NuGetProjectIndexTests.cs": {
-    "mtime": 1791802292.6434846,
-    "seen": 1791802426.203486,
+    "mtime": 1791802476.5634665,
+    "seen": 1791802478.4665842,
     "ast_hash": "e0c225ee73b224a1621dca30b14e7521",
     "semantic_hash": ""
   }
