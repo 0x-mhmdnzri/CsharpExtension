@@ -1,4 +1,5 @@
 const vscode = require('vscode');
+const fs = require('fs');
 const path = require('path');
 const cp = require('child_process');
 
@@ -13,8 +14,12 @@ function activate(context) {
       return;
     }
 
-    const serverDll = path.join(context.extensionPath, 'server', 'LanguageServer.dll');
-    serverProcess = cp.spawn('dotnet', [serverDll], { cwd: context.extensionPath });
+    const serverDirectory = path.join(context.extensionPath, 'server');
+    const bundledExecutable = path.join(serverDirectory, process.platform === 'win32' ? 'LanguageServer.exe' : 'LanguageServer');
+    const serverDll = path.join(serverDirectory, 'LanguageServer.dll');
+    const command = fs.existsSync(bundledExecutable) ? bundledExecutable : 'dotnet';
+    const argumentsForServer = command === 'dotnet' ? [serverDll] : [];
+    serverProcess = cp.spawn(command, argumentsForServer, { cwd: context.extensionPath });
     serverProcess.stdout.on('data', data => output.append(data.toString()));
     serverProcess.stderr.on('data', data => output.append(`[stderr] ${data}`));
     serverProcess.on('exit', (code, signal) => output.appendLine(`Preview server exited: code=${code ?? 'null'} signal=${signal ?? 'none'}`));

@@ -1,19 +1,30 @@
-{
-  "name": "dotnet-expert-advisor",
-  "displayName": ".NET Expert Advisor (Preview)",
-  "description": "Developer preview for the custom C# semantic engine and binder.",
-  "version": "0.1.0-alpha.1",
-  "publisher": "dotnet-expert-advisor",
-  "engines": { "vscode": "^1.90.0" },
-  "categories": ["Programming Languages", "Linters"],
-  "activationEvents": ["onCommand:dotnetExpertAdvisor.startServer"],
-  "main": "./extension.js",
-  "contributes": {
-    "commands": [
-      {
-        "command": "dotnetExpertAdvisor.startServer",
-        "title": ".NET Expert Advisor: Start Preview Server"
-      }
-    ]
-  }
+﻿{
+    "name":  "dotnet-expert-advisor",
+    "displayName":  ".NET Expert Advisor (Preview)",
+    "description":  "Developer preview for the custom C# semantic engine and binder.",
+    "version":  "0.1.0-alpha.1",
+    "publisher":  "dotnet-expert-advisor",
+    "engines":  {
+                    "vscode":  "^1.90.0"
+                },
+    "categories":  [
+                       "Programming Languages",
+                       "Linters"
+                   ],
+    "activationEvents":  [
+                             "onCommand:dotnetExpertAdvisor.startServer"
+                         ],
+    "main":  "./extension.js",
+    "contributes":  {
+                        "commands":  [
+                                         {
+                                             "command":  "dotnetExpertAdvisor.startServer",
+                                             "title":  ".NET Expert Advisor: Start Preview Server"
+                                         }
+                                     ]
+                    },
+    "repository":  {
+                       "type":  "git",
+                       "url":  "https://github.com/0x-mhmdnzri/CsharpExtension.git"
+                   }
 }
