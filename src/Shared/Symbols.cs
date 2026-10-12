@@ -62,6 +62,30 @@ public sealed record ConstructedTypeSymbol(
 public sealed record NullableTypeSymbol(TypeSymbol UnderlyingType)
     : TypeSymbol($"nullable:{UnderlyingType.Id}", $"Nullable<{UnderlyingType.Name}>", SymbolKind.NamedType, null, Accessibility.Public);
 
+public sealed record TupleTypeSymbol(ImmutableArray<TypeSymbol> ElementTypes)
+    : TypeSymbol(
+        $"tuple:{string.Join(',', ElementTypes.Select(element => element.Id))}",
+        $"({string.Join(", ", ElementTypes.Select(element => element.Name))})",
+        SymbolKind.TupleType,
+        null,
+        Accessibility.Public);
+
+public sealed record LambdaTypeSymbol(ImmutableArray<TypeSymbol> ParameterTypes, TypeSymbol ReturnType)
+    : TypeSymbol(
+        $"lambda:{string.Join(',', ParameterTypes.Select(parameter => parameter.Id))}->{ReturnType.Id}",
+        "lambda",
+        SymbolKind.DynamicType,
+        null,
+        Accessibility.NotApplicable);
+
+public sealed record MethodGroupTypeSymbol(ImmutableArray<MethodSymbol> Methods)
+    : TypeSymbol(
+        $"method-group:{string.Join(',', Methods.Select(method => method.Id))}",
+        "method-group",
+        SymbolKind.DynamicType,
+        null,
+        Accessibility.NotApplicable);
+
 public sealed record ErrorTypeSymbol(
     string Id,
     string Name,

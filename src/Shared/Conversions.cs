@@ -10,6 +10,9 @@ public enum ConversionKind
     ImplicitReference,
     Boxing,
     ImplicitNullable,
+    ImplicitTuple,
+    AnonymousFunction,
+    MethodGroup,
     NullLiteral,
     UserDefined,
     Unknown,
@@ -67,6 +70,22 @@ public sealed class ConversionClassifier : IConversionClassifier
             return IsReferenceType(target) || IsNullableType(target)
                 ? new(ConversionKind.NullLiteral, ConversionQuality.Best, true, true, null)
                 : NoConversion("null literal cannot convert to a non-nullable value type");
+
+        if (source is TupleTypeSymbol sourceTuple && target is TupleTypeSymbol targetTuple)
+        {
+            if (sourceTuple.ElementTypes.Length != targetTuple.ElementTypes.Length)
+                return NoConversion("tuple arity differs");
+            var elementConversions = sourceTuple.ElementTypes.Zip(targetTuple.ElementTypes, (from, to) => ClassifyCore(from, to, context));
+            return elementConversions.All(conversion => conversion.Exists && conversion.IsImplicit)
+                ? new(ConversionKind.ImplicitTuple, ConversionQuality.Good, true, true, "all tuple element conversions are implicit")
+                : NoConversion("at least one tuple element has no implicit conversion");
+        }
+
+        if (target is NamedTypeSymbol { TypeKind: TypeKind.Delegate } && source is LambdaTypeSymbol)
+            return new(ConversionKind.AnonymousFunction, ConversionQuality.Good, true, true, "lambda is converted to a delegate target");
+
+        if (target is NamedTypeSymbol { TypeKind: TypeKind.Delegate } && source is MethodGroupTypeSymbol)
+            return new(ConversionKind.MethodGroup, ConversionQuality.Good, true, true, "method group is converted to a delegate target");
 
         if (TryClassifyNumeric(source, target, out var numeric))
             return numeric;
@@ -161,6 +180,7 @@ public sealed class ConversionClassifier : IConversionClassifier
         {
             NamedTypeSymbol named => named.TypeKind is TypeKind.Struct or TypeKind.Enum,
             ConstructedTypeSymbol constructed => IsValueType(constructed.Definition),
+            TupleTypeSymbol => true,
             _ => false
         };
 
