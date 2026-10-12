@@ -64,7 +64,7 @@
 | ID | عنوان | وضعیت | وابستگی | شاخه پیشنهادی |
 |---|---|---|---|---|
 | IDE-001 | پیاده‌سازی transport اختصاصی روی stdio | done | SEM-001 | feature/ide/stdio-protocol |
-| IDE-002 | completion context و edit range | backlog | LANG-003، SEM-001 | feature/ide/completion-context |
+| IDE-002 | completion context و edit range | done | LANG-003، SEM-001 | feature/ide/completion-context |
 | IDE-003 | signature help، hover و go-to definition | backlog | SEM-001 | feature/ide/navigation |
 | IDE-004 | diagnostics، code action و rename | backlog | SEM-003، SEM-004 | feature/ide/actions |
 | IDE-005 | ranking بر اساس context و project graph | backlog | IDE-002، SEM-006 | feature/ide/context-ranking |
