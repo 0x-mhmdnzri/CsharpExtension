@@ -26,3 +26,7 @@ Desktop.ini
 .env.*
 !.env.example
 
+
+# Project-local external workflow tool checkout (not shipped with the extension)
+.tools/
+

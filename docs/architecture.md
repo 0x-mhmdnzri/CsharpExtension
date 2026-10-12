@@ -9,7 +9,9 @@
 
 ## هدف
 
-ساخت یک Language Intelligence Platform برای C# و .NET که علاوه بر completion معمول، ساختار واقعی پروژه، روابط نمادها، قراردادهای API، رفتار runtime، هزینه‌های حافظه و اصول طراحی را تحلیل کند و پیشنهادهای دقیق، قابل توضیح و قابل آزمون ارائه دهد.
+ساخت یک Language Intelligence Platform برای C# و .NET که completion، parsing، semantic analysis، ساختار واقعی پروژه، روابط نمادها، قراردادهای API، رفتار runtime، هزینه‌های حافظه و اصول طراحی را خودش کنترل کند و پیشنهادهای دقیق، قابل توضیح و قابل آزمون ارائه دهد.
+
+هسته افزونه نباید به language server، موتور IntelliSense، سرویس ابری، مدل خارجی یا package تحلیل کد خارجی وابسته باشد. VS Code فقط بستر editor است؛ parser، semantic engine، index، ranking و protocol adapter در همین repository توسعه داده می‌شوند.
 
 هر پیشنهاد باید به یک علت فنی، بخش مشخصی از پروژه و یک یا چند منبع دانش متصل باشد. پیشنهاد بدون دلیل، منبع یا قابلیت بازتولید در تست پذیرفته نمی‌شود.
 
@@ -54,7 +56,7 @@
 
 ## تصمیم معماری اصلی
 
-برای کنترل کامل completion و ranking، افزونه به یک language server اختصاصی نیاز دارد. این server از Roslyn به‌عنوان موتور compiler و semantic analysis استفاده می‌کند و از طریق LSP با VS Code ارتباط دارد.
+برای کنترل کامل completion و ranking، افزونه به یک language server اختصاصی نیاز دارد. این server parser، symbol table، type system، flow analysis، index و ranking خودش را دارد و از طریق transport اختصاصی با VS Code ارتباط دارد. استفاده از Roslyn یا language server C# به‌عنوان authority مجاز نیست؛ سازگاری رفتاری با قواعد زبان باید با corpus و specification داخلی سنجیده شود.
 
 افزونه VS Code مسئول UI، تنظیمات، مدیریت lifecycle و به‌روزرسانی بسته‌های دانش است. تحلیل سنگین در process جداگانه انجام می‌شود تا crash یا مصرف حافظه آن editor را از کار نیندازد.
 
@@ -82,16 +84,18 @@
 - جلوگیری از پیشنهادهای تکراری یا متناقض
 - ارائه trace قابل مشاهده برای debug
 
-### 3. Roslyn Analysis Host
+### 3. C# Compiler Intelligence Host
 
 مسئولیت‌ها:
 
-- AdhocWorkspace یا workspace متصل به solution
-- Project، Compilation، SemanticModel و Symbol
-- Syntax Tree، Operation Tree و Control/Data Flow
-- Analyzer و CodeFix integration
+- workspace و document lifecycle اختصاصی
+- lexer، parser، syntax tree و syntax recovery
+- symbol table، type system، overload resolution و nullable flow
+- control/data/exception/async flow
 - incremental analysis و cancellation
-- مدیریت چند Target Framework
+- مدیریت C# 6 تا 15 و چند Target Framework
+
+نام `RoslynHost` فعلاً برای سازگاری با skeleton حفظ شده است؛ در milestone استقلال compiler باید به `CompilerIntelligenceHost` تغییر کند یا صریحاً به adapter آزمایشی خارج از runtime محدود شود.
 
 ### 4. Project Semantic Graph
 
@@ -313,7 +317,7 @@ docs/
 ### مرحله یک: هسته language server
 
 - workspace و document lifecycle
-- Roslyn compilation و semantic model
+- compiler داخلی و semantic model
 - completion پایه و diagnostics
 - logging، cancellation و cache
 
@@ -360,7 +364,7 @@ docs/
 
 - زبان پیاده‌سازی: C#
 - ارتباط editor: LSP
-- موتور semantic: Roslyn
+- موتور semantic: پیاده‌سازی داخلی؛ Roslyn فقط در صورت تصمیم جداگانه برای ابزار مقایسه‌ای خارج از runtime
 - اجرای تحلیل: local-first
 - knowledge update: بسته‌های نسخه‌دار و امضاشده
 - Blog source: فقط منابع رسمی Microsoft

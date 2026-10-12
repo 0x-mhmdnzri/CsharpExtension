@@ -1,0 +1,25 @@
+{
+  "project": "DotnetExpertAdvisor",
+  "workflow": "gitflow",
+  "currentBranch": "develop",
+  "version": "0.1.0-alpha.1",
+  "currentTask": null,
+  "lastCompleted": ["GOV-001", "GOV-002", "GOV-003", "GOV-004", "GOV-005"],
+  "nextTask": "LANG-001",
+  "requirements": {
+    "ownIntellisense": true,
+    "externalLanguageService": false,
+    "externalRuntimeService": false,
+    "csharpVersions": [6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+    "entityFramework": true,
+    "microsoftBlogKnowledgeUpdates": true,
+    "nugetPackageIndexing": true,
+    "contextAwareRanking": true
+  },
+  "validation": {
+    "build": "passed",
+    "tests": "architecture smoke contract available",
+    "graphify": "installed project-scoped",
+    "ponytail": "installed project-scoped"
+  }
+}
