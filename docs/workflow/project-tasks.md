@@ -105,7 +105,7 @@
 | ID | عنوان | وضعیت | وابستگی | شاخه پیشنهادی |
 |---|---|---|---|---|
 | BIND-001 | تعریف Symbol hierarchy و ErrorTypeSymbol | done | LANG-003، META-001 | feature/binder/symbols |
-| BIND-002 | Binder chain و LookupResult با دلیل شکست | backlog | BIND-001 | feature/binder/lookup |
+| BIND-002 | Binder chain و LookupResult با دلیل شکست | done | BIND-001 | feature/binder/lookup |
 | BIND-003 | ConversionClassifier ساختاریافته و cache | backlog | BIND-001 | feature/binder/conversions |
 | BIND-004 | Member lookup و extension method lookup | backlog | BIND-002، BIND-003 | feature/binder/member-lookup |
 | BIND-005 | Overload resolution کامل با candidate rejection | backlog | BIND-003، BIND-004 | feature/binder/overload |

@@ -6,12 +6,12 @@
 - Unclassified: 4 file(s) not represented in the graph (top: (none) 2, .props 1, .Config 1)
 
 ## Summary
-- 492 nodes · 638 edges · 40 communities (32 shown, 8 thin omitted)
+- 492 nodes · 638 edges · 39 communities (31 shown, 8 thin omitted)
 - Extraction: 95% EXTRACTED · 5% INFERRED · 0% AMBIGUOUS · INFERRED: 33 edges (avg confidence: 0.89)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `43623817`
+- Built from commit: `05a939ca`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -46,7 +46,6 @@
 - Ponytail
 - سیاست نسخه‌گذاری
 - SuggestionCategory
-- SuggestionSeverity
 - ponytail-debt/SKILL.md
 - SemanticGraph/Class1.cs
 - Protocol/Class1.cs
@@ -62,12 +61,12 @@
 2. `Accessibility` - 15 edges
 3. `Symbol` - 15 edges
 4. `معماری سامانه هوشمندی C# و .NET برای VS Code` - 15 edges
-5. `TypeSymbol` - 13 edges
-6. `DocumentAnalysis` - 13 edges
+5. `DocumentAnalysis` - 13 edges
+6. `TypeSymbol` - 13 edges
 7. `GraphSnapshot` - 12 edges
-8. `backlog اصلی` - 11 edges
-9. `SuggestionCandidate` - 11 edges
-10. `طراحی دقت‌محور Binder و Overload Resolution` - 11 edges
+8. `SuggestionCandidate` - 11 edges
+9. `طراحی دقت‌محور Binder و Overload Resolution` - 11 edges
+10. `طراحی شبیه‌ساز EF Core و Translatability` - 11 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `قرارداد RuleEngine` --references--> `KnowledgeSnapshot`  [INFERRED]
@@ -76,19 +75,19 @@
   docs/architecture.md → src/RoslynHost/RoslynHost.cs
 - `مرزهای ماژول‌ها` --references--> `RoslynHost`  [INFERRED]
   docs/internal-contracts.md → src/RoslynHost/RoslynHost.cs
+- `قرارداد Completion` --references--> `CompletionItem`  [INFERRED]
+  docs/lsp-contract.md → src/Protocol/ProtocolModels.cs
 - `Symbols` --references--> `NamedTypeSymbol`  [INFERRED]
-  docs/design/binder-overload-resolution.md → src/Shared/Symbols.cs
-- `Symbols` --references--> `ErrorTypeSymbol`  [INFERRED]
   docs/design/binder-overload-resolution.md → src/Shared/Symbols.cs
 
 ## Import Cycles
 - None detected.
 
-## Communities (40 total, 8 thin omitted)
+## Communities (39 total, 8 thin omitted)
 
 ### Community 0 - "Contracts.cs"
-Cohesion: 0.14
-Nodes (21): DotnetExpertAdvisor.SemanticGraph, IRoslynHost, ISemanticGraph, SemanticGraph, DocumentAnalysis, DocumentId, DocumentRequest, Evidence (+13 more)
+Cohesion: 0.12
+Nodes (25): DotnetExpertAdvisor.SemanticGraph, ISemanticGraph, SemanticGraph, DocumentAnalysis, DocumentId, DocumentRequest, Evidence, GraphEdge (+17 more)
 
 ### Community 1 - "Shared.csproj"
 Cohesion: 0.07
@@ -103,8 +102,8 @@ Cohesion: 0.06
 Nodes (26): ADR-001: semantic engine اختصاصی, Consequences, Decision, ADR-002: language server جدا از VS Code client, Consequences, Decision, ADR-003: knowledge pack امضاشده, Consequences (+18 more)
 
 ### Community 4 - "معماری سامانه هوشمندی C# و .NET برای VS Code"
-Cohesion: 0.06
-Nodes (32): 1. VS Code Client, 2. Custom C# Language Server, 4. Project Semantic Graph, 5. Runtime and Memory Model, 6. Rule Engine, 7. Knowledge Engine, 8. Ranking Engine, pipeline به‌روزرسانی Microsoft Blog (+24 more)
+Cohesion: 0.08
+Nodes (24): pipeline به‌روزرسانی Microsoft Blog, امنیت و حریم خصوصی, تصمیم معماری اصلی, تصمیم پیشنهادی فعلی, دامنه قابلیت‌ها, دانش و به‌روزرسانی, ساختار repository پیشنهادی, قابلیت‌های CLR و حافظه (+16 more)
 
 ### Community 5 - "تصمیم‌های معماری"
 Cohesion: 0.07
@@ -115,8 +114,8 @@ Cohesion: 0.10
 Nodes (19): DotnetExpertAdvisor.KnowledgeEngine, DocumentContext, Evidence, observability, SemanticContext, SuggestionCandidate, جریان درخواست completion, خطا و cancellation (+11 more)
 
 ### Community 7 - "DotnetExpertAdvisor.Shared"
-Cohesion: 0.12
-Nodes (13): DotnetExpertAdvisor.Shared, DotnetExpertAdvisor.RuleEngine, DotnetExpertAdvisor.RoslynHost, DotnetExpertAdvisor.Architecture.Tests, DotnetExpertAdvisor.RankingEngine, 3. C# Compiler Intelligence Host, مرزهای ماژول‌ها, IRankingEngine (+5 more)
+Cohesion: 0.08
+Nodes (22): DotnetExpertAdvisor.Shared, DotnetExpertAdvisor.RuleEngine, DotnetExpertAdvisor.RoslynHost, DotnetExpertAdvisor.Architecture.Tests, DotnetExpertAdvisor.RankingEngine, 1. VS Code Client, 2. Custom C# Language Server, 3. C# Compiler Intelligence Host (+14 more)
 
 ### Community 8 - "طراحی دقت‌محور Binder و Overload Resolution"
 Cohesion: 0.11
@@ -206,16 +205,12 @@ Nodes (4): سیاست نسخه‌گذاری, منبع نسخه, نسخه‌ها�
 Cohesion: 0.40
 Nodes (5): SuggestionCategory, Completion, Correctness, Design, Performance
 
-### Community 30 - "SuggestionSeverity"
-Cohesion: 0.40
-Nodes (5): SuggestionSeverity, Error, Hint, Info, Warning
-
 ### Community 31 - "ponytail-debt/SKILL.md"
 Cohesion: 0.50
 Nodes (3): Boundaries, Output, Scan
 
 ## Knowledge Gaps
-- **59 isolated node(s):** `Namespace`, `NamedType`, `TypeParameter`, `ArrayType`, `PointerType` (+54 more)
+- **59 isolated node(s):** `net10.0`, `Microsoft.NET.Sdk`, `net10.0`, `Microsoft.NET.Sdk`, `net10.0` (+54 more)
   These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 309 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
 - **8 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -224,15 +219,15 @@ _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `DotnetExpertAdvisor.Shared` connect `DotnetExpertAdvisor.Shared` to `Contracts.cs`, `Symbols.cs`, `قراردادهای داخلی سامانه`, `قرارداد LSP و مدل پاسخ پیشنهادها`, `RuntimeModel.cs`?**
   _High betweenness centrality (0.112) - this node is a cross-community bridge._
-- **What connects `Namespace`, `NamedType`, `TypeParameter` to the rest of the system?**
+- **What connects `net10.0`, `Microsoft.NET.Sdk`, `net10.0` to the rest of the system?**
   _59 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Contracts.cs` be split into smaller, more focused modules?**
-  _Cohesion score 0.14268292682926828 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.12222222222222222 - nodes in this community are weakly interconnected._
 - **Why does `RoslynHost` connect `DotnetExpertAdvisor.Shared` to `Contracts.cs`?**
   _High betweenness centrality (0.069) - this node is a cross-community bridge._
 - **Should `Shared.csproj` be split into smaller, more focused modules?**
   _Cohesion score 0.06984126984126984 - nodes in this community are weakly interconnected._
-- **Why does `اجزای سامانه` connect `معماری سامانه هوشمندی C# و .NET برای VS Code` to `DotnetExpertAdvisor.Shared`?**
+- **Why does `اجزای سامانه` connect `DotnetExpertAdvisor.Shared` to `معماری سامانه هوشمندی C# و .NET برای VS Code`?**
   _High betweenness centrality (0.052) - this node is a cross-community bridge._
 - **Should `Symbols.cs` be split into smaller, more focused modules?**
   _Cohesion score 0.12462462462462462 - nodes in this community are weakly interconnected._
