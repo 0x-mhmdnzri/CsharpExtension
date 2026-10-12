@@ -1,51 +1,51 @@
 # Graph Report - CsharpVscode  (2026-10-12)
 
 ## Corpus Check
-- 76 files · ~22,169 words
+- 78 files · ~22,644 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 5 file(s) not represented in the graph (top: (none) 3, .props 1, .Config 1)
 
 ## Summary
-- 815 nodes · 1294 edges · 47 communities (38 shown, 9 thin omitted)
+- 832 nodes · 1336 edges · 46 communities (36 shown, 10 thin omitted)
 - Extraction: 94% EXTRACTED · 6% INFERRED · 0% AMBIGUOUS · INFERRED: 76 edges (avg confidence: 0.87)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `756ca85f`
+- Built from commit: `4e6c3c67`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
-- ConversionQuality
+- Contracts.cs
 - Shared.csproj
 - .Tokenize
 - TypeSymbol
-- Contracts.cs
-- adr/README.md
-- DotnetExpertAdvisor.Shared
 - LanguageFeature
+- DotnetExpertAdvisor.Shared
+- adr/README.md
+- Binder
+- TypeProvider
 - تصمیم‌های معماری
+- .Read
 - قراردادهای داخلی سامانه
-- ImmutableArray
 - معماری سامانه هوشمندی C# و .NET برای VS Code
-- طراحی دقت‌محور Binder و Overload Resolution
 - backlog اصلی
 - ConversionKind
-- قرارداد LSP و مدل پاسخ پیشنهادها
 - SymbolKind
 - package.json
+- طراحی دقت‌محور Binder و Overload Resolution
 - extension.js
 - طراحی شبیه‌ساز EF Core و Translatability
 - Product Backlog
 - طراحی Rule Engine
 - ماتریس پوشش C# و CLR
-- Binder
 - مشارکت و Git Flow
 - Schemaهای داده
 - Ponytail Help
 - طراحی Knowledge Pipeline
 - قرارداد دقت پیشنهاد
 - طراحی ارزیابی و کیفیت پیشنهادها
+- ConversionQuality
 - Ponytail, lazy senior dev mode
 - ponytail-audit/SKILL.md
 - Ponytail Gain
@@ -61,40 +61,39 @@
 - RuntimeModel/Class1.cs
 - KnowledgeEngine/Class1.cs
 - RoslynHost/Class1.cs
-- TypeKind
 
 ## God Nodes (most connected - your core abstractions)
 1. `TypeSymbol` - 40 edges
 2. `ConversionClassifier` - 33 edges
 3. `LanguageFeature` - 33 edges
 4. `Symbol` - 30 edges
-5. `TypeProvider` - 19 edges
-6. `ConversionKind` - 19 edges
-7. `DotnetExpertAdvisor.Shared` - 18 edges
+5. `DotnetExpertAdvisor.Shared` - 20 edges
+6. `TypeProvider` - 19 edges
+7. `ConversionKind` - 19 edges
 8. `CSharpLexer` - 18 edges
 9. `SymbolKind` - 18 edges
 10. `NamedTypeSymbol` - 16 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `Binder chain` --references--> `LookupResult`  [INFERRED]
-  docs/design/binder-overload-resolution.md → src/Shared/Binder.cs
 - `قرارداد RuleEngine` --references--> `KnowledgeSnapshot`  [INFERRED]
   docs/internal-contracts.md → src/KnowledgeEngine/KnowledgeEngine.cs
 - `3. C# Compiler Intelligence Host` --references--> `RoslynHost`  [INFERRED]
   docs/architecture.md → src/RoslynHost/RoslynHost.cs
 - `مرزهای ماژول‌ها` --references--> `RoslynHost`  [INFERRED]
   docs/internal-contracts.md → src/RoslynHost/RoslynHost.cs
+- `Binder chain` --references--> `LookupResult`  [INFERRED]
+  docs/design/binder-overload-resolution.md → src/Shared/Binder.cs
 - `قرارداد Completion` --references--> `CompletionItem`  [INFERRED]
   docs/lsp-contract.md → src/Protocol/ProtocolModels.cs
 
 ## Import Cycles
 - None detected.
 
-## Communities (47 total, 9 thin omitted)
+## Communities (46 total, 10 thin omitted)
 
-### Community 0 - "ConversionQuality"
-Cohesion: 0.33
-Nodes (6): ConversionQuality, Best, Good, Invalid, RequiresRuntimeCheck, Uncertain
+### Community 0 - "Contracts.cs"
+Cohesion: 0.06
+Nodes (48): DotnetExpertAdvisor.RuleEngine, DotnetExpertAdvisor.RoslynHost, DotnetExpertAdvisor.RankingEngine, 1. VS Code Client, 2. Custom C# Language Server, 3. C# Compiler Intelligence Host, 4. Project Semantic Graph, 5. Runtime and Memory Model (+40 more)
 
 ### Community 1 - "Shared.csproj"
 Cohesion: 0.07
@@ -102,47 +101,43 @@ Nodes (20): net10.0, Microsoft.NET.Sdk, net10.0, Microsoft.NET.Sdk, net10.0, Mic
 
 ### Community 2 - ".Tokenize"
 Cohesion: 0.06
-Nodes (38): LanguageCapabilities, CSharpLexer, LexerDiagnostic, LexResult, SyntaxToken, TextChangeRange, TextSpan, End (+30 more)
+Nodes (37): CSharpLexer, LexerDiagnostic, LexResult, SyntaxToken, TextChangeRange, TextSpan, End, TokenKind (+29 more)
 
 ### Community 3 - "TypeSymbol"
 Cohesion: 0.06
-Nodes (48): Symbols, LookupOptions, ConversionCacheKey, ConversionClassifier, CachedConversionCount, ConversionContext, ConversionResult, Identity (+40 more)
+Nodes (55): Symbols, ConversionCacheKey, ConversionClassifier, CachedConversionCount, ConversionContext, ConversionResult, Identity, IConversionClassifier (+47 more)
 
-### Community 4 - "Contracts.cs"
-Cohesion: 0.06
-Nodes (48): DotnetExpertAdvisor.RuleEngine, DotnetExpertAdvisor.RoslynHost, DotnetExpertAdvisor.RankingEngine, 1. VS Code Client, 2. Custom C# Language Server, 3. C# Compiler Intelligence Host, 4. Project Semantic Graph, 5. Runtime and Memory Model (+40 more)
+### Community 4 - "LanguageFeature"
+Cohesion: 0.05
+Nodes (41): LanguageCapabilities, LanguageFeature, CollectionExpressions, ExtensionMembers, FieldKeyword, FileScopedNamespaces, GenericMath, GlobalUsings (+33 more)
 
-### Community 5 - "adr/README.md"
+### Community 5 - "DotnetExpertAdvisor.Shared"
+Cohesion: 0.07
+Nodes (24): DotnetExpertAdvisor.Shared, DotnetExpertAdvisor.Protocol, DotnetExpertAdvisor.Architecture.Tests, DotnetExpertAdvisor.SemanticGraph, DotnetExpertAdvisor.RuntimeModel, `runtime/explainSuggestion`, زمان‌بندی و سطح تحلیل, قابلیت اختصاصی (+16 more)
+
+### Community 6 - "adr/README.md"
 Cohesion: 0.06
 Nodes (26): ADR-001: semantic engine اختصاصی, Consequences, Decision, ADR-002: language server جدا از VS Code client, Consequences, Decision, ADR-003: knowledge pack امضاشده, Consequences (+18 more)
 
-### Community 6 - "DotnetExpertAdvisor.Shared"
-Cohesion: 0.08
-Nodes (20): DotnetExpertAdvisor.Shared, DotnetExpertAdvisor.Architecture.Tests, DotnetExpertAdvisor.SemanticGraph, DotnetExpertAdvisor.RuntimeModel, IRuntimeModel, RuntimeEstimate, RuntimeModel, LanguageVersion (+12 more)
-
-### Community 7 - "LanguageFeature"
+### Community 7 - "Binder"
 Cohesion: 0.07
-Nodes (29): LanguageFeature, CollectionExpressions, ExtensionMembers, FieldKeyword, FileScopedNamespaces, GenericMath, GlobalUsings, InitOnlySetters (+21 more)
+Nodes (27): Binder chain, Syntax, لایه‌های الزاماً جدا, Binder, Kind, Parent, BinderScopeKind, Block (+19 more)
 
-### Community 8 - "تصمیم‌های معماری"
+### Community 9 - "تصمیم‌های معماری"
 Cohesion: 0.07
 Nodes (26): ADR-001: موتور semantic اختصاصی, ADR-002: language server جدا از VS Code client, ADR-003: knowledge pack به‌جای self-modifying code, ADR-004: snapshot و generation برای consistency, ADR-005: precision مقدم بر recall در ruleهای فعال, ADR-006: عدم وابستگی خارجی در runtime افزونه, ADR-007: پشتیبانی C# 6 تا 15 با capability matrix, ADR-008: NuGet و EF به‌عنوان بخشی از semantic context (+18 more)
 
-### Community 9 - "قراردادهای داخلی سامانه"
+### Community 10 - ".Read"
+Cohesion: 0.08
+Nodes (12): AssemblyMetadataIndex, AssemblyMetadataReader, MetadataAssemblyReference, MetadataGenericParameter, MetadataMember, MetadataType, MetadataTypeForwarder, NuGetAsset (+4 more)
+
+### Community 11 - "قراردادهای داخلی سامانه"
 Cohesion: 0.10
 Nodes (19): DotnetExpertAdvisor.KnowledgeEngine, DocumentContext, Evidence, observability, SemanticContext, SuggestionCandidate, جریان درخواست completion, خطا و cancellation (+11 more)
 
-### Community 10 - "ImmutableArray"
-Cohesion: 0.06
-Nodes (9): AssemblyMetadataIndex, AssemblyMetadataReader, MetadataAssemblyReference, MetadataGenericParameter, MetadataMember, MetadataSignatureDecoder, MetadataType, MetadataTypeForwarder (+1 more)
-
-### Community 11 - "معماری سامانه هوشمندی C# و .NET برای VS Code"
+### Community 12 - "معماری سامانه هوشمندی C# و .NET برای VS Code"
 Cohesion: 0.08
 Nodes (24): pipeline به‌روزرسانی Microsoft Blog, امنیت و حریم خصوصی, تصمیم معماری اصلی, تصمیم پیشنهادی فعلی, دامنه قابلیت‌ها, دانش و به‌روزرسانی, ساختار repository پیشنهادی, قابلیت‌های CLR و حافظه (+16 more)
-
-### Community 12 - "طراحی دقت‌محور Binder و Overload Resolution"
-Cohesion: 0.11
-Nodes (17): Best-effort و speculative binding, Better function member, Binder chain, Candidate set, Conversion Classifier, Generic Inference, Member Lookup, Nullable flow (+9 more)
 
 ### Community 13 - "backlog اصلی"
 Cohesion: 0.11
@@ -152,17 +147,17 @@ Nodes (17): backlog اصلی, milestone دقت‌محور Binder, milestone شب
 Cohesion: 0.12
 Nodes (17): ConversionKind, AnonymousFunction, Boxing, CollectionExpression, ExplicitNumeric, Identity, ImplicitNullable, ImplicitNumeric (+9 more)
 
-### Community 15 - "قرارداد LSP و مدل پاسخ پیشنهادها"
-Cohesion: 0.13
-Nodes (14): DotnetExpertAdvisor.Protocol, `runtime/explainSuggestion`, زمان‌بندی و سطح تحلیل, قابلیت اختصاصی, قابلیت‌های پایه, قرارداد Completion, قرارداد LSP و مدل پاسخ پیشنهادها, هدف (+6 more)
-
-### Community 16 - "SymbolKind"
+### Community 15 - "SymbolKind"
 Cohesion: 0.12
 Nodes (16): SymbolKind, ArrayType, DynamicType, ErrorType, Event, Field, FunctionPointerType, Local (+8 more)
 
-### Community 17 - "package.json"
+### Community 16 - "package.json"
 Cohesion: 0.12
 Nodes (15): activationEvents, categories, contributes, commands, description, displayName, engines, vscode (+7 more)
+
+### Community 17 - "طراحی دقت‌محور Binder و Overload Resolution"
+Cohesion: 0.13
+Nodes (14): Best-effort و speculative binding, Better function member, Candidate set, Conversion Classifier, Generic Inference, Member Lookup, Nullable flow, Overload Resolution (+6 more)
 
 ### Community 18 - "extension.js"
 Cohesion: 0.18
@@ -184,33 +179,33 @@ Nodes (10): Correctness, Design, Performance, Schema پیشنهادی Rule, اص
 Cohesion: 0.20
 Nodes (9): 1. اجرای CLR، assembly و deployment, 2. مدل انواع و dispatch, 3. انواع ضروری و امکانات زبان, 4. exception، memory و resource lifetime, 5. hosting، loading، reflection و serialization, 6. threading و asynchronous execution, استفاده در پیشنهادها, قرارداد پوشش (+1 more)
 
-### Community 23 - "Binder"
-Cohesion: 0.08
-Nodes (23): Binder, Kind, Parent, BinderScopeKind, Block, Global, Imports, Lambda (+15 more)
-
-### Community 24 - "مشارکت و Git Flow"
+### Community 23 - "مشارکت و Git Flow"
 Cohesion: 0.22
 Nodes (8): جریان feature, جریان hotfix, جریان release, شاخه‌ها, قواعد تغییر, مشارکت و Git Flow, نام‌گذاری commit, نسخه‌گذاری
 
-### Community 25 - "Schemaهای داده"
+### Community 24 - "Schemaهای داده"
 Cohesion: 0.22
 Nodes (8): Compatibility, GraphEdge, GraphNode, KnowledgeReference, RuleDescriptor, Schemaهای داده, Settings, شناسه‌ها
 
-### Community 26 - "Ponytail Help"
+### Community 25 - "Ponytail Help"
 Cohesion: 0.25
 Nodes (7): Configure Default Mode, Deactivate, Levels, More, Ponytail Help, Skills, Update
 
-### Community 27 - "طراحی Knowledge Pipeline"
+### Community 26 - "طراحی Knowledge Pipeline"
 Cohesion: 0.25
 Nodes (7): Blog crawler, Manifest, تولید Rule, شناسه و نسخه, طراحی Knowledge Pipeline, مراحل ingestion, منابع
 
-### Community 28 - "قرارداد دقت پیشنهاد"
+### Community 27 - "قرارداد دقت پیشنهاد"
 Cohesion: 0.29
 Nodes (6): Quality gates, SuggestionContract, SuggestionEvidence, قرارداد دقت پیشنهاد, قواعد اجباری, منابع دانشی
 
-### Community 29 - "طراحی ارزیابی و کیفیت پیشنهادها"
+### Community 28 - "طراحی ارزیابی و کیفیت پیشنهادها"
 Cohesion: 0.29
 Nodes (6): Feedback کاربر, آستانه اولیه نسخه آزمایشی, تست‌های لازم, طراحی ارزیابی و کیفیت پیشنهادها, مجموعه آزمون, معیارهای اصلی
+
+### Community 29 - "ConversionQuality"
+Cohesion: 0.33
+Nodes (6): ConversionQuality, Best, Good, Invalid, RequiresRuntimeCheck, Uncertain
 
 ### Community 30 - "Ponytail, lazy senior dev mode"
 Cohesion: 0.40
@@ -240,29 +235,25 @@ Nodes (4): سیاست نسخه‌گذاری, منبع نسخه, نسخه‌ها�
 Cohesion: 0.50
 Nodes (3): Boundaries, Output, Scan
 
-### Community 46 - "TypeKind"
-Cohesion: 0.25
-Nodes (8): TypeKind, Class, Delegate, Enum, Error, Interface, Record, Struct
-
 ## Knowledge Gaps
 - **168 isolated node(s):** `net10.0`, `Microsoft.NET.Sdk`, `net10.0`, `Microsoft.NET.Sdk`, `net10.0` (+163 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 474 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **9 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 475 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **10 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `DotnetExpertAdvisor.Shared` connect `DotnetExpertAdvisor.Shared` to `.Tokenize`, `TypeSymbol`, `Contracts.cs`, `قراردادهای داخلی سامانه`, `ImmutableArray`, `قرارداد LSP و مدل پاسخ پیشنهادها`, `Binder`?**
-  _High betweenness centrality (0.188) - this node is a cross-community bridge._
+- **Why does `DotnetExpertAdvisor.Shared` connect `DotnetExpertAdvisor.Shared` to `Contracts.cs`, `.Tokenize`, `TypeSymbol`, `LanguageFeature`, `Binder`, `.Read`, `قراردادهای داخلی سامانه`?**
+  _High betweenness centrality (0.189) - this node is a cross-community bridge._
 - **Are the 3 inferred relationships involving `ConversionClassifier` (e.g. with `MemberLookup` and `.ValidateConversionClassifier()`) actually correct?**
   _`ConversionClassifier` has 3 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `net10.0`, `Microsoft.NET.Sdk`, `net10.0` to the rest of the system?**
   _168 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Should `Contracts.cs` be split into smaller, more focused modules?**
+  _Cohesion score 0.060528559249786874 - nodes in this community are weakly interconnected._
 - **Should `Shared.csproj` be split into smaller, more focused modules?**
   _Cohesion score 0.06984126984126984 - nodes in this community are weakly interconnected._
 - **Should `.Tokenize` be split into smaller, more focused modules?**
-  _Cohesion score 0.060641627543035995 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.06409130816505706 - nodes in this community are weakly interconnected._
 - **Should `TypeSymbol` be split into smaller, more focused modules?**
-  _Cohesion score 0.06177076183939602 - nodes in this community are weakly interconnected._
-- **Should `Contracts.cs` be split into smaller, more focused modules?**
-  _Cohesion score 0.0629399585921325 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.056105610561056105 - nodes in this community are weakly interconnected._
