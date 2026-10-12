@@ -121,6 +121,18 @@
 | KNOW-007 | اتصال topic tags به RuleDescriptor و SuggestionCandidate | backlog | KNOW-006، BIND-001 | feature/knowledge/topic-evidence |
 | KNOW-008 | تعریف quality gate برای compile-valid و nullable-safe suggestions | backlog | BIND-007، QA-002 | feature/qa/suggestion-gates |
 
+### milestone شبیه‌ساز EF و translatability
+
+| ID | عنوان | وضعیت | وابستگی | شاخه پیشنهادی |
+|---|---|---|---|---|
+| EF-005 | مدل provenance/confidence و IsComplete | ready | EF-001 | feature/ef/provenance |
+| EF-006 | بازسازی convention و data annotation | backlog | EF-005، BIND-002 | feature/ef/conventions |
+| EF-007 | interpreter ایستای Fluent API | backlog | EF-006، BIND-004 | feature/ef/fluent-interpreter |
+| EF-008 | query provenance و IQueryable root tracking | backlog | EF-007، BIND-005 | feature/ef/query-provenance |
+| EF-009 | ماتریس provider/version translatability | backlog | EF-008، NUGET-003 | feature/ef/translatability |
+| EF-010 | completion Include/ThenInclude و query operators | backlog | EF-008 | feature/ef/query-completion |
+| EF-011 | ModelSnapshot cross-check و conflict diagnostics | backlog | EF-007 | feature/ef/snapshot-crosscheck |
+
 ## مسیر اجرای بعدی
 
 ```text

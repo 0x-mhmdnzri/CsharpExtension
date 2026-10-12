@@ -288,9 +288,9 @@
     "semantic_hash": ""
   },
   "docs/workflow/project-tasks.md": {
-    "mtime": 1791789653.3430233,
-    "seen": 1791789687.2202144,
-    "ast_hash": "2eb8307e7c70457dc5de22757c51af1b",
+    "mtime": 1791789808.9977615,
+    "seen": 1791789839.781622,
+    "ast_hash": "f7a373ea5a5e88b899a6855c932c66dc",
     "semantic_hash": ""
   },
   "docs/design/binder-overload-resolution.md": {
@@ -309,6 +309,12 @@
     "mtime": 1791789652.366997,
     "seen": 1791789687.22021,
     "ast_hash": "243cb8b256bdc79004d0104202d36f79",
+    "semantic_hash": ""
+  },
+  "docs/design/ef-model-translatability.md": {
+    "mtime": 1791789808.4548614,
+    "seen": 1791789839.7816117,
+    "ast_hash": "42bf6b29353be3802d527e345a34fb2c",
     "semantic_hash": ""
   }
 }
