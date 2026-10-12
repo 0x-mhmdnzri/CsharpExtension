@@ -43,6 +43,14 @@ public static class NuGetProjectIndexTests
                 Path.Combine(root, "packages"), "net8.0");
             if (api.Packages.Length != 1 || api.Packages[0].Metadata.Types.All(type => type.Name != "CSharpLexer"))
                 throw new InvalidOperationException("Package compile API was not indexed.");
+            var cached = NuGetApiCache.Materialize("Example.Core", "1.2.3", "net8.0",
+                api.Packages[0].AssemblyPath, Path.Combine(root, "cache"));
+            if (!File.Exists(cached.Path) || cached.ContentHash.Length != 64 || !cached.Path.Contains(cached.ContentHash, StringComparison.Ordinal))
+                throw new InvalidOperationException("NuGet API cache is not content addressed.");
+            var cachedAgain = NuGetApiCache.Materialize("Example.Core", "1.2.3", "net8.0",
+                api.Packages[0].AssemblyPath, Path.Combine(root, "cache"));
+            if (cachedAgain.ContentHash != cached.ContentHash || cachedAgain.Path != cached.Path)
+                throw new InvalidOperationException("NuGet API cache key is unstable.");
         }
         finally { if (Directory.Exists(root)) Directory.Delete(root, true); }
     }

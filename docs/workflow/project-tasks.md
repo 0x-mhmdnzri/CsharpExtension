@@ -57,7 +57,7 @@
 | META-002 | assembly reference و target framework index | done | META-001 | feature/metadata/framework-index |
 | NUGET-001 | خواندن PackageReference و assets file | done | META-002 | feature/nuget/project-index |
 | NUGET-002 | ایندکس package/type/member و API usage | done | NUGET-001 | feature/nuget/api-index |
-| NUGET-003 | به‌روزرسانی index هنگام اضافه‌شدن package جدید | backlog | NUGET-002 | feature/nuget/incremental-update |
+| NUGET-003 | به‌روزرسانی index هنگام اضافه‌شدن package جدید | done | NUGET-002 | feature/nuget/incremental-update |
 
 ### فاز 4: IntelliSense و VS Code
 

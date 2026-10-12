@@ -12,9 +12,9 @@
     "semantic_hash": "1f108288c6d180794d30a4c56cd06e5f"
   },
   "docs/workflow/state.json": {
-    "mtime": 1791802806.600597,
-    "seen": 1791802808.2526085,
-    "ast_hash": "4b36f23b95e4b3766219911f99094cd8",
+    "mtime": 1791802856.8326788,
+    "seen": 1791802858.680341,
+    "ast_hash": "586d2305a087b530f07766e64bfb0684",
     "semantic_hash": ""
   },
   "src/KnowledgeEngine/Class1.cs": {
@@ -288,9 +288,9 @@
     "semantic_hash": ""
   },
   "docs/workflow/project-tasks.md": {
-    "mtime": 1791802806.300267,
-    "seen": 1791802808.2526865,
-    "ast_hash": "59181f9786caf83c5ffe02aa06cc7900",
+    "mtime": 1791802856.8316748,
+    "seen": 1791802858.6804175,
+    "ast_hash": "0fb19ff5d6ee6510e2b699f932b2e573",
     "semantic_hash": ""
   },
   "docs/design/binder-overload-resolution.md": {
@@ -456,14 +456,14 @@
     "semantic_hash": ""
   },
   "src/Shared/NuGetProjectIndex.cs": {
-    "mtime": 1791802759.6479826,
-    "seen": 1791802808.2526436,
+    "mtime": 1791802856.8436773,
+    "seen": 1791802858.6803753,
     "ast_hash": "c656b560457faa9f1db6a0a15b547e22",
     "semantic_hash": ""
   },
   "tests/Architecture.Tests/NuGetProjectIndexTests.cs": {
-    "mtime": 1791802777.229532,
-    "seen": 1791802808.2526507,
+    "mtime": 1791802856.8436773,
+    "seen": 1791802858.6803825,
     "ast_hash": "ae484daad8e355cb69af07b117eeaf82",
     "semantic_hash": ""
   }

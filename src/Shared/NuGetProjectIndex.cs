@@ -1,4 +1,5 @@
 using System.Collections.Immutable;
+using System.Security.Cryptography;
 using System.Text.Json;
 using System.Xml;
 using System.Xml.Linq;
@@ -15,6 +16,8 @@ public sealed record NuGetPackageApi(string PackageId, string PackageVersion, st
     AssemblyMetadataIndex Metadata);
 public sealed record NuGetApiIndex(string TargetFramework,
     ImmutableArray<NuGetPackageApi> Packages);
+public sealed record NuGetCachedAssembly(string PackageId, string PackageVersion,
+    string TargetFramework, string ContentHash, string Path);
 
 public static class NuGetProjectIndexReader
 {
@@ -119,5 +122,22 @@ public static class NuGetProjectIndexReader
         if (!package.TryGetProperty(kind, out var files) || files.ValueKind != JsonValueKind.Object) return;
         foreach (var file in files.EnumerateObject())
             assets.Add(new NuGetAsset(id, version, file.Name, kind));
+    }
+}
+
+public static class NuGetApiCache
+{
+    public static NuGetCachedAssembly Materialize(string packageId, string packageVersion,
+        string targetFramework, string assemblyPath, string cacheRoot)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(assemblyPath);
+        ArgumentException.ThrowIfNullOrWhiteSpace(cacheRoot);
+        using var stream = File.OpenRead(assemblyPath);
+        var hash = Convert.ToHexString(SHA256.HashData(stream)).ToLowerInvariant();
+        var path = Path.Combine(cacheRoot, packageId.ToLowerInvariant(), packageVersion.ToLowerInvariant(),
+            targetFramework.Replace(',', '_').Replace('=', '_'), $"{hash}.dll");
+        Directory.CreateDirectory(Path.GetDirectoryName(path)!);
+        if (!File.Exists(path)) File.Copy(assemblyPath, path);
+        return new NuGetCachedAssembly(packageId, packageVersion, targetFramework, hash, path);
     }
 }

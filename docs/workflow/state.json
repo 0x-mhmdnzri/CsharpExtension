@@ -3,7 +3,7 @@
     "workflow":  "gitflow",
     "currentBranch":  "develop",
     "version":  "0.1.0-alpha.1",
-    "currentTask":  "NUGET-003",
+    "currentTask":  "IDE-001",
     "lastCompleted":  [
                           "GOV-001",
                           "GOV-002",
@@ -21,9 +21,10 @@
                           "META-001",
                           "META-002",
                           "NUGET-001",
-                          "NUGET-002"
+                          "NUGET-002",
+                          "NUGET-003"
                       ],
-    "nextTask":  "NUGET-003",
+    "nextTask":  "IDE-001",
     "requirements":  {
                          "ownIntellisense":  true,
                          "externalLanguageService":  false,
@@ -47,7 +48,7 @@
                      },
     "validation":  {
                        "build":  "passed",
-                       "tests":  "NuGet project/assets/API index: build and smoke checks passed",
+                       "tests":  "NuGet project/assets/API index and content-addressed cache: build and smoke checks passed",
                        "graphify":  "installed project-scoped",
                        "ponytail":  "installed project-scoped"
                    }
