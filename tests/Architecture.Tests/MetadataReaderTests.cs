@@ -18,7 +18,7 @@ public static class MetadataReaderTests
         var xmlPath = Path.Combine(Path.GetTempPath(), $"metadata-{Guid.NewGuid():N}.xml");
         try
         {
-            File.WriteAllText(xmlPath, "<doc><members><member name='T:Example'><summary>Example docs</summary></member></members></doc>");
+            File.WriteAllText(xmlPath, "<doc><members><member name='T:Example'><summary>Example docs</summary></member><member name='T:DotnetExpertAdvisor.Shared.CSharpLexer'><summary>Lexer docs</summary></member><member name='M:DotnetExpertAdvisor.Shared.CSharpLexer.Tokenize'><summary>Tokenize docs</summary></member></members></doc>");
             using var stream = File.OpenRead(path);
             var index = reader.Read(stream, xmlPath);
             if (!stream.CanRead || index.Name != "Shared" || index.ModuleId == Guid.Empty)
@@ -29,6 +29,9 @@ public static class MetadataReaderTests
             var type = index.Types.Single(t => t.Name == "CSharpLexer");
             var method = type.Members.Single(m => m.Name == "Tokenize");
             if (method.Signature.IsEmpty || method.Il.IsEmpty || string.IsNullOrWhiteSpace(method.DecodedSignature) ||
+                method.DocumentationId != "M:DotnetExpertAdvisor.Shared.CSharpLexer.Tokenize" ||
+                !method.Documentation.Contains("Tokenize docs", StringComparison.Ordinal) ||
+                type.DocumentationId != "T:DotnetExpertAdvisor.Shared.CSharpLexer" ||
                 !index.Documentation.ContainsKey("T:Example"))
                 throw new InvalidOperationException("Method signature, IL or documentation was lost.");
             var generic = reader.Read(typeof(Dictionary<,>).Assembly.Location);

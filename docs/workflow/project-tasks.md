@@ -156,4 +156,3 @@ NUGET-001 → NUGET-002 → NUGET-003
 - graph به‌روز شده باشد.
 - مستندات و task state به‌روز شده باشند.
 - commit روی branch درست ثبت شده باشد.
-
