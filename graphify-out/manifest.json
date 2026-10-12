@@ -12,9 +12,9 @@
     "semantic_hash": "1f108288c6d180794d30a4c56cd06e5f"
   },
   "docs/workflow/state.json": {
-    "mtime": 1791801825.3846886,
-    "seen": 1791801827.589465,
-    "ast_hash": "959588e49ec2f039682842630308d606",
+    "mtime": 1791802061.6811044,
+    "seen": 1791802083.754791,
+    "ast_hash": "d0db43504f75c9e701f027ec525a4220",
     "semantic_hash": ""
   },
   "src/KnowledgeEngine/Class1.cs": {
@@ -288,9 +288,9 @@
     "semantic_hash": ""
   },
   "docs/workflow/project-tasks.md": {
-    "mtime": 1791801825.3846886,
-    "seen": 1791801827.5896246,
-    "ast_hash": "a4714f2907caafbb72b450370ed7ea1d",
+    "mtime": 1791802061.4419184,
+    "seen": 1791802083.7548687,
+    "ast_hash": "cba9fd55cb959983ca71e3b3b7c89685",
     "semantic_hash": ""
   },
   "docs/design/binder-overload-resolution.md": {
@@ -444,15 +444,15 @@
     "semantic_hash": ""
   },
   "src/Shared/AssemblyMetadataReader.cs": {
-    "mtime": 1791801825.3966866,
-    "seen": 1791801827.58952,
-    "ast_hash": "eb9fc92588ab401eb8398e42c8893e8a",
+    "mtime": 1791801989.4453506,
+    "seen": 1791802083.7548177,
+    "ast_hash": "781bdf84beb7e2c808f57039f0c45c6a",
     "semantic_hash": ""
   },
   "tests/Architecture.Tests/MetadataReaderTests.cs": {
-    "mtime": 1791801825.3976912,
-    "seen": 1791801827.5895493,
-    "ast_hash": "0226a918c56d6e6ff7a0d52b134b791a",
+    "mtime": 1791802013.1641707,
+    "seen": 1791802083.7548323,
+    "ast_hash": "6b2c5962360e1a45192f2ebe1705ea50",
     "semantic_hash": ""
   }
 }

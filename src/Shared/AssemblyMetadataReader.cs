@@ -25,7 +25,7 @@ public sealed record AssemblyMetadataIndex(string Name, Version Version, Guid Mo
     ImmutableArray<MetadataType> Types, ImmutableArray<string> References,
     ImmutableDictionary<string, string> Documentation,
     ImmutableArray<MetadataAssemblyReference> AssemblyReferences,
-    ImmutableArray<MetadataTypeForwarder> TypeForwarders);
+    ImmutableArray<MetadataTypeForwarder> TypeForwarders, TargetFrameworkId TargetFramework);
 
 public sealed class AssemblyMetadataReader
 {
@@ -50,6 +50,7 @@ public sealed class AssemblyMetadataReader
             throw new BadImageFormatException("A managed assembly manifest is required.");
         var assembly = reader.GetAssemblyDefinition();
         var documentation = ReadDocumentation(documentationPath, cancellationToken);
+        var targetFramework = ReadTargetFramework(reader, assembly, cancellationToken);
         var types = ImmutableArray.CreateBuilder<MetadataType>();
         foreach (var handle in reader.TypeDefinitions)
         {
@@ -130,7 +131,27 @@ public sealed class AssemblyMetadataReader
         var module = reader.GetModuleDefinition();
         return new AssemblyMetadataIndex(reader.GetString(assembly.Name), assembly.Version,
             reader.GetGuid(module.Mvid), types.ToImmutable(), references,
-            documentation, assemblyReferences, forwarders);
+            documentation, assemblyReferences, forwarders, targetFramework);
+    }
+
+    private static TargetFrameworkId ReadTargetFramework(MetadataReader reader,
+        AssemblyDefinition assembly, CancellationToken cancellationToken)
+    {
+        foreach (var handle in assembly.GetCustomAttributes())
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            var attribute = reader.GetCustomAttribute(handle);
+            if (attribute.Constructor.Kind != HandleKind.MemberReference) continue;
+            var member = reader.GetMemberReference((MemberReferenceHandle)attribute.Constructor);
+            if (member.Parent.Kind != HandleKind.TypeReference) continue;
+            var type = reader.GetTypeReference((TypeReferenceHandle)member.Parent);
+            if (reader.GetString(type.Name) != "TargetFrameworkAttribute") continue;
+            var value = reader.GetBlobReader(attribute.Value);
+            if (value.ReadUInt16() != 1) throw new BadImageFormatException("Invalid TargetFrameworkAttribute blob.");
+            var framework = value.ReadSerializedString();
+            if (!string.IsNullOrWhiteSpace(framework)) return new TargetFrameworkId(framework);
+        }
+        return new TargetFrameworkId("");
     }
 
     private static string QualifiedName(string namespaceName, string typeName)
