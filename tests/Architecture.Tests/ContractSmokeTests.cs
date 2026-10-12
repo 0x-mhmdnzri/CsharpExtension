@@ -163,6 +163,21 @@ public static class ContractSmokeTests
         if (!LanguageCapabilities.For(LanguageVersion.CSharp15, true).Supports(LanguageFeature.PreviewCSharp15)) throw new InvalidOperationException("C# 15 preview was not enabled with the flag.");
     }
 
+    public static void ValidateLexer()
+    {
+        var source = "#nullable enable\nclass C { string Name = \"A\\\"B\"; // note\n }";
+        var lexer = new CSharpLexer();
+        var result = lexer.Tokenize(source, LanguageCapabilities.For(LanguageVersion.CSharp10));
+        if (result.Reconstruct() != source || result.Diagnostics.Length != 0 || !result.Tokens.Any(token => token.Kind == TokenKind.Keyword && token.Text == "class"))
+            throw new InvalidOperationException("Lexer did not preserve source or classify tokens correctly.");
+        var changed = lexer.TokenizeIncremental(source, result, source.Replace("Name", "Title", StringComparison.Ordinal), new TextChangeRange(29, 4, 5));
+        if (changed.ReusedPrefixCount == 0 || changed.ReusedSuffixCount == 0)
+            throw new InvalidOperationException("Incremental lexer did not reuse unchanged token ranges.");
+        var broken = lexer.Tokenize("class C { string Name = \"unterminated;", LanguageCapabilities.For(LanguageVersion.CSharp10));
+        if (broken.Diagnostics.Length == 0 || !broken.Tokens.Any(token => token.Kind == TokenKind.String))
+            throw new InvalidOperationException("Lexer did not recover from an unterminated string.");
+    }
+
     private static MethodSymbol Method(string id, string name, Symbol? containing, TypeSymbol parameterType)
         => new(id, name, containing, Accessibility.Public, parameterType, ImmutableArray.Create(new ParameterSymbol($"{id}.parameter", "value", null, parameterType, false, false)), ImmutableArray<TypeParameterSymbol>.Empty, false, false, false);
 
