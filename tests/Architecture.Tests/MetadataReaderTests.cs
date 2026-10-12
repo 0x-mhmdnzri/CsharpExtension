@@ -26,6 +26,8 @@ public static class MetadataReaderTests
             if (!index.AssemblyReferences.Any(reference => reference.Name == "System.Runtime") ||
                 !index.References.Contains("System.Runtime"))
                 throw new InvalidOperationException("Assembly reference identity was not indexed.");
+            if (!index.TargetFramework.Value.StartsWith(".NETCoreApp,Version=v", StringComparison.Ordinal))
+                throw new InvalidOperationException($"Target framework was not indexed: {index.TargetFramework.Value}");
             var type = index.Types.Single(t => t.Name == "CSharpLexer");
             var method = type.Members.Single(m => m.Name == "Tokenize");
             if (method.Signature.IsEmpty || method.Il.IsEmpty || string.IsNullOrWhiteSpace(method.DecodedSignature) ||
