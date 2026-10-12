@@ -8,4 +8,5 @@ ContractSmokeTests.ValidateMemberLookup();
 ContractSmokeTests.ValidateLanguageCapabilities();
 ContractSmokeTests.ValidateLexer();
 ContractSmokeTests.ValidateParser();
+MetadataReaderTests.Run(args.FirstOrDefault());
 Console.WriteLine("Architecture smoke checks passed.");
