@@ -12,9 +12,9 @@
     "semantic_hash": "1f108288c6d180794d30a4c56cd06e5f"
   },
   "docs/workflow/state.json": {
-    "mtime": 1791803366.4944475,
-    "seen": 1791803368.1317103,
-    "ast_hash": "415b88e87b4ef1cfb2b6f5885041fefd",
+    "mtime": 1791803615.91852,
+    "seen": 1791803617.428317,
+    "ast_hash": "65f94d341ed0aa8936c6dc0a6967e116",
     "semantic_hash": ""
   },
   "src/KnowledgeEngine/Class1.cs": {
@@ -42,10 +42,10 @@
     "semantic_hash": "614c2580b8e52901521285f43f97380c"
   },
   "src/LanguageServer/Program.cs": {
-    "mtime": 1791787525.0519373,
-    "seen": 1791788901.3554304,
-    "ast_hash": "e49ab2788a6a19c5fc4e6a7461193eb0",
-    "semantic_hash": "e49ab2788a6a19c5fc4e6a7461193eb0"
+    "mtime": 1791803532.0312698,
+    "seen": 1791803617.4283252,
+    "ast_hash": "3e3e4535d8bb83fc0125e36631b459f3",
+    "semantic_hash": ""
   },
   "src/Protocol/Class1.cs": {
     "mtime": 1791787136.1845846,
@@ -174,9 +174,9 @@
     "semantic_hash": "46b0780bd56312ea2d1bab391f179e89"
   },
   "tests/Architecture.Tests/Architecture.Tests.csproj": {
-    "mtime": 1791790938.736793,
-    "seen": 1791790940.336336,
-    "ast_hash": "be36b77872fad42d6c3ab9eec561b8e6",
+    "mtime": 1791803582.0012653,
+    "seen": 1791803617.428365,
+    "ast_hash": "48f6511aa893b5cff8e6dc54d2270702",
     "semantic_hash": ""
   },
   "tests/Architecture.Tests/ContractSmokeTests.cs": {
@@ -288,9 +288,9 @@
     "semantic_hash": ""
   },
   "docs/workflow/project-tasks.md": {
-    "mtime": 1791803366.1951907,
-    "seen": 1791803368.1318018,
-    "ast_hash": "76381eca9cd1e18d8ef590942f1cab62",
+    "mtime": 1791803615.6177378,
+    "seen": 1791803617.428408,
+    "ast_hash": "f96302d54acffc372477b22fc413d425",
     "semantic_hash": ""
   },
   "docs/design/binder-overload-resolution.md": {
@@ -384,9 +384,9 @@
     "semantic_hash": ""
   },
   "tests/Architecture.Tests/Program.cs": {
-    "mtime": 1791802476.5634665,
-    "seen": 1791802478.4665868,
-    "ast_hash": "9ebbd444c86c909368d82029649de7c1",
+    "mtime": 1791803549.4694057,
+    "seen": 1791803617.4283695,
+    "ast_hash": "8e2bc115086f9ff48107e027b86bc1a3",
     "semantic_hash": ""
   },
   "src/Shared/Binder.cs": {
@@ -465,6 +465,24 @@
     "mtime": 1791803332.5139978,
     "seen": 1791803368.1317635,
     "ast_hash": "44fd55e9ad7764a62b7df4e1e519f3b5",
+    "semantic_hash": ""
+  },
+  "src/LanguageServer/StdioLanguageServer.cs": {
+    "mtime": 1791803531.6042974,
+    "seen": 1791803617.4283268,
+    "ast_hash": "de9391565095cf74cdece6f1ab3259d6",
+    "semantic_hash": ""
+  },
+  "src/Protocol/StdioTransport.cs": {
+    "mtime": 1791803581.425002,
+    "seen": 1791803617.4283323,
+    "ast_hash": "0b1ad883b80877cd138325e8d11d0cfc",
+    "semantic_hash": ""
+  },
+  "tests/Architecture.Tests/StdioTransportTests.cs": {
+    "mtime": 1791803548.9716842,
+    "seen": 1791803617.4283702,
+    "ast_hash": "abf1ab37e83a7a0159d003b311502917",
     "semantic_hash": ""
   }
 }

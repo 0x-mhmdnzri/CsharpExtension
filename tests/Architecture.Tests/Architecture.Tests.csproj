@@ -8,5 +8,6 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../../src/Shared/Shared.csproj" />
+    <ProjectReference Include="../../src/Protocol/Protocol.csproj" />
   </ItemGroup>
 </Project>

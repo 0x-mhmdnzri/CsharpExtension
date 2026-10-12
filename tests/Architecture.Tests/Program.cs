@@ -10,4 +10,5 @@ ContractSmokeTests.ValidateLexer();
 ContractSmokeTests.ValidateParser();
 MetadataReaderTests.Run(args.FirstOrDefault());
 NuGetProjectIndexTests.Run();
+await StdioTransportTests.RunAsync();
 Console.WriteLine("Architecture smoke checks passed.");

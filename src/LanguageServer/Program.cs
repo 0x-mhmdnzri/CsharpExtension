@@ -3,6 +3,13 @@ using RankingEngineService = DotnetExpertAdvisor.RankingEngine.RankingEngine;
 using RoslynHostService = DotnetExpertAdvisor.RoslynHost.RoslynHost;
 using RuleEngineService = DotnetExpertAdvisor.RuleEngine.RuleEngine;
 using SemanticGraphService = DotnetExpertAdvisor.SemanticGraph.SemanticGraph;
+using DotnetExpertAdvisor.LanguageServer;
+
+if (args.Contains("--stdio", StringComparer.Ordinal))
+{
+    await StdioLanguageServer.RunAsync(Console.OpenStandardInput(), Console.OpenStandardOutput());
+    return;
+}
 
 Console.WriteLine("Dotnet Expert Advisor language server bootstrap");
 Console.WriteLine($"Knowledge pack: {new KnowledgeEngineService().GetSnapshot().Version}");
