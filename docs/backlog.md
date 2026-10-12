@@ -16,7 +16,7 @@
 | GOV-001 | معماری و قراردادهای داخلی | P0 | done | - | - |
 | GOV-002 | solution skeleton | P0 | done | GOV-001 | - |
 | GOV-003 | Gitflow و versioning | P0 | done | GOV-002 | - |
-| BIND-001 | Symbol hierarchy و ErrorTypeSymbol | P0 | ready | LANG-003, META-001 | feature/binder/symbols |
+| BIND-001 | Symbol hierarchy و ErrorTypeSymbol | P0 | done | LANG-003, META-001 | feature/binder/symbols |
 | LANG-001 | grammar/token model برای C# 6 تا 15 | P0 | ready | GOV-001 | feature/language/token-model |
 | EF-005 | provenance/confidence و IsComplete | P1 | ready | EF-001 | feature/ef/provenance |
 | KNOW-006 | concept registry برای CLR/C# | P1 | ready | GOV-001 | feature/knowledge/curriculum |
