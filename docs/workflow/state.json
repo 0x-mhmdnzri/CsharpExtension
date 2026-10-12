@@ -36,8 +36,6 @@
     "graphify": "installed project-scoped",
     "ponytail": "installed project-scoped"
   },
-  "remainingInCurrentTask": [
-    "Resolve metadata references and type forwarding",
-    "Bind XML documentation IDs to semantic symbols"
-  ]
+  "remainingInCurrentTask": [\r\n    "Bind XML documentation IDs to semantic symbols"\r\n  ]
 }
+
