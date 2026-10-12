@@ -316,5 +316,65 @@
     "seen": 1791789839.7816117,
     "ast_hash": "42bf6b29353be3802d527e345a34fb2c",
     "semantic_hash": ""
+  },
+  "docs/adr/ADR-001-custom-semantic-engine.md": {
+    "mtime": 1791790363.4480758,
+    "seen": 1791790398.1497157,
+    "ast_hash": "708059ce3ec1648c854c24e83975be3e",
+    "semantic_hash": ""
+  },
+  "docs/adr/ADR-002-separate-language-server.md": {
+    "mtime": 1791790363.928517,
+    "seen": 1791790398.1497173,
+    "ast_hash": "281f6878f80ecd2220709c8d89953455",
+    "semantic_hash": ""
+  },
+  "docs/adr/ADR-003-signed-knowledge-packs.md": {
+    "mtime": 1791790364.3381927,
+    "seen": 1791790398.149718,
+    "ast_hash": "a8989a64cac576d71b0121c02b3d1f43",
+    "semantic_hash": ""
+  },
+  "docs/adr/ADR-004-snapshot-generations.md": {
+    "mtime": 1791790364.693802,
+    "seen": 1791790398.1497188,
+    "ast_hash": "888c8e4af7d35259d5f86a57a90959cd",
+    "semantic_hash": ""
+  },
+  "docs/adr/ADR-005-precision-first.md": {
+    "mtime": 1791790365.1168084,
+    "seen": 1791790398.1497197,
+    "ast_hash": "411f476b737e0a64fd4e6d3e042306b8",
+    "semantic_hash": ""
+  },
+  "docs/adr/ADR-006-no-runtime-dependencies.md": {
+    "mtime": 1791790365.5353973,
+    "seen": 1791790398.1497207,
+    "ast_hash": "b7bfb073d9062d1e74587234354f20ab",
+    "semantic_hash": ""
+  },
+  "docs/adr/ADR-007-csharp-capability-matrix.md": {
+    "mtime": 1791790366.000687,
+    "seen": 1791790398.1497214,
+    "ast_hash": "5390cd408221443c078e0849fb9f6bdf",
+    "semantic_hash": ""
+  },
+  "docs/adr/ADR-008-nuget-ef-context.md": {
+    "mtime": 1791790366.4763083,
+    "seen": 1791790398.1497223,
+    "ast_hash": "e3c56de04d14476906845c132a37d832",
+    "semantic_hash": ""
+  },
+  "docs/adr/README.md": {
+    "mtime": 1791790362.9311974,
+    "seen": 1791790398.149723,
+    "ast_hash": "939309ecca79e8a635c8d15d83baf76c",
+    "semantic_hash": ""
+  },
+  "docs/backlog.md": {
+    "mtime": 1791790360.9854245,
+    "seen": 1791790398.1497252,
+    "ast_hash": "6d194d0294d274d0a1c7738c8efdbcdb",
+    "semantic_hash": ""
   }
 }
