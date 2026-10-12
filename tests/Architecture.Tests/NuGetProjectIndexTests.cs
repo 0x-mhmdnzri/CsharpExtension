@@ -33,6 +33,16 @@ public static class NuGetProjectIndexTests
             File.WriteAllText(assets, "{\"targets\":{\"net8.0\":{}}}");
             if (NuGetProjectIndexReader.Read(project).TargetFrameworks.Single().Name != "net8.0")
                 throw new InvalidOperationException("Target framework changes were not observed.");
+            File.WriteAllText(assets, """
+                {"targets":{"net8.0":{"Example.Core/1.2.3":{"compile":{"ref/net8.0/Example.Core.dll":{}}}}}}
+                """);
+            var packageAssembly = Path.Combine(root, "packages", "example.core", "1.2.3", "ref", "net8.0");
+            Directory.CreateDirectory(packageAssembly);
+            File.Copy(typeof(CSharpLexer).Assembly.Location, Path.Combine(packageAssembly, "Example.Core.dll"));
+            var api = NuGetProjectIndexReader.ReadApiIndex(NuGetProjectIndexReader.Read(project),
+                Path.Combine(root, "packages"), "net8.0");
+            if (api.Packages.Length != 1 || api.Packages[0].Metadata.Types.All(type => type.Name != "CSharpLexer"))
+                throw new InvalidOperationException("Package compile API was not indexed.");
         }
         finally { if (Directory.Exists(root)) Directory.Delete(root, true); }
     }

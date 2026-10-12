@@ -11,6 +11,10 @@ public sealed record NuGetAsset(string PackageId, string PackageVersion, string 
 public sealed record NuGetTargetFramework(string Name, ImmutableArray<NuGetAsset> Assets);
 public sealed record NuGetProjectIndex(string ProjectPath, ImmutableArray<NuGetPackageReference> Packages,
     ImmutableArray<NuGetTargetFramework> TargetFrameworks);
+public sealed record NuGetPackageApi(string PackageId, string PackageVersion, string AssemblyPath,
+    AssemblyMetadataIndex Metadata);
+public sealed record NuGetApiIndex(string TargetFramework,
+    ImmutableArray<NuGetPackageApi> Packages);
 
 public static class NuGetProjectIndexReader
 {
@@ -25,6 +29,28 @@ public static class NuGetProjectIndexReader
             ? ReadAssets(assetsPath, cancellationToken)
             : ImmutableArray<NuGetTargetFramework>.Empty;
         return new NuGetProjectIndex(Path.GetFullPath(projectPath), packages, frameworks);
+    }
+
+    public static NuGetApiIndex ReadApiIndex(NuGetProjectIndex project, string packageRoot,
+        string targetFramework, AssemblyMetadataReader? metadataReader = null,
+        CancellationToken cancellationToken = default)
+    {
+        ArgumentNullException.ThrowIfNull(project);
+        ArgumentException.ThrowIfNullOrWhiteSpace(packageRoot);
+        var target = project.TargetFrameworks.SingleOrDefault(framework => framework.Name == targetFramework)
+            ?? throw new InvalidOperationException($"Target framework is not present: {targetFramework}");
+        metadataReader ??= new AssemblyMetadataReader();
+        var packages = ImmutableArray.CreateBuilder<NuGetPackageApi>();
+        foreach (var asset in target.Assets.Where(asset => asset.Kind == "compile"))
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+            var assemblyPath = Path.Combine(packageRoot, asset.PackageId.ToLowerInvariant(),
+                asset.PackageVersion.ToLowerInvariant(), asset.Path.Replace('/', Path.DirectorySeparatorChar));
+            if (!File.Exists(assemblyPath)) continue;
+            packages.Add(new NuGetPackageApi(asset.PackageId, asset.PackageVersion, assemblyPath,
+                metadataReader.Read(assemblyPath, cancellationToken: cancellationToken)));
+        }
+        return new NuGetApiIndex(target.Name, packages.ToImmutable());
     }
 
     private static ImmutableArray<NuGetPackageReference> ReadPackageReferences(string path,
