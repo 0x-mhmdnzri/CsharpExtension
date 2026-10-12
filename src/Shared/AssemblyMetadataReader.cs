@@ -10,7 +10,8 @@ namespace DotnetExpertAdvisor.Shared;
 
 public sealed record MetadataMember(int Token, string Name, string Kind, int Attributes,
     ImmutableArray<byte> Signature, ImmutableArray<byte> Il, string DecodedSignature,
-    ImmutableArray<MetadataGenericParameter> GenericParameters);
+    ImmutableArray<MetadataGenericParameter> GenericParameters, string DocumentationId,
+    string Documentation);
 public sealed record MetadataGenericParameter(int Index, string Name,
     GenericParameterAttributes Attributes, ImmutableArray<int> ConstraintTokens);
 public sealed record MetadataAssemblyReference(string Name, Version Version, string Culture,
@@ -18,7 +19,8 @@ public sealed record MetadataAssemblyReference(string Name, Version Version, str
 public sealed record MetadataTypeForwarder(string Namespace, string Name, int TargetAssemblyReferenceToken);
 public sealed record MetadataType(int Token, string Namespace, string Name,
     TypeAttributes Attributes, int BaseTypeToken, int GenericArity,
-    ImmutableArray<MetadataMember> Members, ImmutableArray<MetadataGenericParameter> GenericParameters);
+    ImmutableArray<MetadataMember> Members, ImmutableArray<MetadataGenericParameter> GenericParameters,
+    string DocumentationId, string Documentation);
 public sealed record AssemblyMetadataIndex(string Name, Version Version, Guid ModuleId,
     ImmutableArray<MetadataType> Types, ImmutableArray<string> References,
     ImmutableDictionary<string, string> Documentation,
@@ -47,11 +49,15 @@ public sealed class AssemblyMetadataReader
         if (!reader.IsAssembly)
             throw new BadImageFormatException("A managed assembly manifest is required.");
         var assembly = reader.GetAssemblyDefinition();
+        var documentation = ReadDocumentation(documentationPath, cancellationToken);
         var types = ImmutableArray.CreateBuilder<MetadataType>();
         foreach (var handle in reader.TypeDefinitions)
         {
             cancellationToken.ThrowIfCancellationRequested();
             var type = reader.GetTypeDefinition(handle);
+            var namespaceName = reader.GetString(type.Namespace);
+            var typeName = reader.GetString(type.Name);
+            var typeDocumentation = FindDocumentation(documentation, $"T:{QualifiedName(namespaceName, typeName)}");
             var members = ImmutableArray.CreateBuilder<MetadataMember>();
             foreach (var methodHandle in type.GetMethods())
             {
@@ -61,39 +67,48 @@ public sealed class AssemblyMetadataReader
                     (method.ImplAttributes & MethodImplAttributes.CodeTypeMask) == MethodImplAttributes.IL)
                     il = ImmutableArray.CreateRange(pe.GetMethodBody(method.RelativeVirtualAddress).GetILBytes() ?? []);
                 var genericParameters = ReadGenericParameters(reader, method.GetGenericParameters());
+                var memberDocumentation = FindDocumentation(documentation,
+                    $"M:{QualifiedName(namespaceName, typeName)}.{reader.GetString(method.Name)}");
                 members.Add(new MetadataMember(MetadataTokens.GetToken(methodHandle),
                     reader.GetString(method.Name), "method", (int)method.Attributes,
                     ImmutableArray.CreateRange(reader.GetBlobBytes(method.Signature)), il,
                     MetadataSignatureDecoder.DecodeMethod(reader, method.Signature),
-                    genericParameters));
+                    genericParameters, memberDocumentation.Id, memberDocumentation.Text));
             }
             foreach (var fieldHandle in type.GetFields())
             {
                 var field = reader.GetFieldDefinition(fieldHandle);
+                var memberDocumentation = FindDocumentation(documentation,
+                    $"F:{QualifiedName(namespaceName, typeName)}.{reader.GetString(field.Name)}");
                 members.Add(new MetadataMember(MetadataTokens.GetToken(fieldHandle),
                     reader.GetString(field.Name), "field", (int)field.Attributes,
                     ImmutableArray.CreateRange(reader.GetBlobBytes(field.Signature)), [],
-                    MetadataSignatureDecoder.DecodeField(reader, field.Signature), []));
+                    MetadataSignatureDecoder.DecodeField(reader, field.Signature), [], memberDocumentation.Id, memberDocumentation.Text));
             }
             foreach (var propertyHandle in type.GetProperties())
             {
                 var property = reader.GetPropertyDefinition(propertyHandle);
+                var memberDocumentation = FindDocumentation(documentation,
+                    $"P:{QualifiedName(namespaceName, typeName)}.{reader.GetString(property.Name)}");
                 members.Add(new MetadataMember(MetadataTokens.GetToken(propertyHandle),
                     reader.GetString(property.Name), "property", (int)property.Attributes,
                     ImmutableArray.CreateRange(reader.GetBlobBytes(property.Signature)), [],
-                    MetadataSignatureDecoder.DecodeProperty(reader, property.Signature), []));
+                    MetadataSignatureDecoder.DecodeProperty(reader, property.Signature), [], memberDocumentation.Id, memberDocumentation.Text));
             }
             foreach (var eventHandle in type.GetEvents())
             {
                 var definition = reader.GetEventDefinition(eventHandle);
+                var memberDocumentation = FindDocumentation(documentation,
+                    $"E:{QualifiedName(namespaceName, typeName)}.{reader.GetString(definition.Name)}");
                 members.Add(new MetadataMember(MetadataTokens.GetToken(eventHandle),
-                    reader.GetString(definition.Name), "event", (int)definition.Attributes, [], [], "", []));
+                    reader.GetString(definition.Name), "event", (int)definition.Attributes, [], [], "", [], memberDocumentation.Id, memberDocumentation.Text));
             }
             var typeParameters = ReadGenericParameters(reader, type.GetGenericParameters());
-            types.Add(new MetadataType(MetadataTokens.GetToken(handle), reader.GetString(type.Namespace),
-                reader.GetString(type.Name), type.Attributes,
+            types.Add(new MetadataType(MetadataTokens.GetToken(handle), namespaceName,
+                typeName, type.Attributes,
                 type.BaseType.IsNil ? 0 : MetadataTokens.GetToken(type.BaseType),
-                typeParameters.Length, members.ToImmutable(), typeParameters));
+                typeParameters.Length, members.ToImmutable(), typeParameters,
+                typeDocumentation.Id, typeDocumentation.Text));
         }
         var assemblyReferences = reader.AssemblyReferences.Select(handle =>
         {
@@ -115,7 +130,18 @@ public sealed class AssemblyMetadataReader
         var module = reader.GetModuleDefinition();
         return new AssemblyMetadataIndex(reader.GetString(assembly.Name), assembly.Version,
             reader.GetGuid(module.Mvid), types.ToImmutable(), references,
-            ReadDocumentation(documentationPath, cancellationToken), assemblyReferences, forwarders);
+            documentation, assemblyReferences, forwarders);
+    }
+
+    private static string QualifiedName(string namespaceName, string typeName)
+        => string.IsNullOrEmpty(namespaceName) ? typeName : $"{namespaceName}.{typeName}";
+
+    private static (string Id, string Text) FindDocumentation(
+        ImmutableDictionary<string, string> documentation, string prefix)
+    {
+        if (documentation.TryGetValue(prefix, out var exact)) return (prefix, exact);
+        var overload = documentation.FirstOrDefault(pair => pair.Key.StartsWith(prefix + "(", StringComparison.Ordinal));
+        return overload.Equals(default(KeyValuePair<string, string>)) ? ("", "") : (overload.Key, overload.Value);
     }
 
     private static ImmutableArray<MetadataGenericParameter> ReadGenericParameters(
