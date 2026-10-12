@@ -113,6 +113,14 @@
 | BIND-007 | Speculative verification و baseline diagnostics | backlog | BIND-005 | feature/binder/speculative |
 | BIND-008 | Nullable flow پس از bound tree پایدار | backlog | BIND-007 | feature/binder/nullable-flow |
 
+### ماتریس دانش و rule coverage
+
+| ID | عنوان | وضعیت | وابستگی | شاخه پیشنهادی |
+|---|---|---|---|---|
+| KNOW-006 | تبدیل سرفصل‌های CLR/C# به concept registry | ready | GOV-001 | feature/knowledge/curriculum |
+| KNOW-007 | اتصال topic tags به RuleDescriptor و SuggestionCandidate | backlog | KNOW-006، BIND-001 | feature/knowledge/topic-evidence |
+| KNOW-008 | تعریف quality gate برای compile-valid و nullable-safe suggestions | backlog | BIND-007، QA-002 | feature/qa/suggestion-gates |
+
 ## مسیر اجرای بعدی
 
 ```text

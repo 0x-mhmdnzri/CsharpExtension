@@ -288,15 +288,27 @@
     "semantic_hash": ""
   },
   "docs/workflow/project-tasks.md": {
-    "mtime": 1791789493.1237652,
-    "seen": 1791789530.744105,
-    "ast_hash": "861b4cc6d584c7e02df88cafc92852c5",
+    "mtime": 1791789653.3430233,
+    "seen": 1791789687.2202144,
+    "ast_hash": "2eb8307e7c70457dc5de22757c51af1b",
     "semantic_hash": ""
   },
   "docs/design/binder-overload-resolution.md": {
     "mtime": 1791789492.6752717,
     "seen": 1791789530.7440977,
     "ast_hash": "98f8f1f80caec692c2079cf46d903f9c",
+    "semantic_hash": ""
+  },
+  "docs/design/suggestion-accuracy-contract.md": {
+    "mtime": 1791789652.8255336,
+    "seen": 1791789687.2202053,
+    "ast_hash": "dfd976b841fbc1e6ba2da0f8e4d75d90",
+    "semantic_hash": ""
+  },
+  "docs/knowledge/curriculum-checklist.md": {
+    "mtime": 1791789652.366997,
+    "seen": 1791789687.22021,
+    "ast_hash": "243cb8b256bdc79004d0104202d36f79",
     "semantic_hash": ""
   }
 }
