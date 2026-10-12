@@ -30,3 +30,5 @@ Desktop.ini
 # Project-local external workflow tool checkout (not shipped with the extension)
 .tools/
 
+graphify-out/.rebuild.lock
+
