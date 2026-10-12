@@ -3,16 +3,17 @@
     "workflow":  "gitflow",
     "currentBranch":  "develop",
     "version":  "0.1.0-alpha.1",
-    "currentTask":  "BIND-002",
+    "currentTask":  "BIND-003",
     "lastCompleted":  [
                           "GOV-001",
                           "GOV-002",
                           "GOV-003",
                           "GOV-004",
                           "GOV-005",
-                          "BIND-001"
+                          "BIND-001",
+                          "BIND-002"
                       ],
-    "nextTask":  "BIND-002",
+    "nextTask":  "BIND-003",
     "requirements":  {
                          "ownIntellisense":  true,
                          "externalLanguageService":  false,
@@ -36,7 +37,7 @@
                      },
     "validation":  {
                        "build":  "passed",
-                       "tests":  "architecture smoke contract available",
+                       "tests":  "architecture smoke checks passed",
                        "graphify":  "installed project-scoped",
                        "ponytail":  "installed project-scoped"
                    }
