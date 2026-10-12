@@ -107,9 +107,20 @@ public static class ContractSmokeTests
         var tupleSource = new TupleTypeSymbol(ImmutableArray.Create<TypeSymbol>(intType, stringType));
         var tupleTarget = new TupleTypeSymbol(ImmutableArray.Create<TypeSymbol>(longType, objectType));
         AssertConversion(classifier.Classify(tupleSource, tupleTarget, context), ConversionKind.ImplicitTuple, true);
-        var delegateType = Primitive("Func", TypeKind.Delegate);
+        var invoke = new MethodSymbol(
+            "M:Func.Invoke",
+            "Invoke",
+            null,
+            Accessibility.Public,
+            stringType,
+            ImmutableArray.Create(new ParameterSymbol("P:Func.Invoke.value", "value", null, intType, false, false)),
+            ImmutableArray<TypeParameterSymbol>.Empty,
+            false,
+            false,
+            false);
+        var delegateType = new NamedTypeSymbol("T:Func", "Func", TypeKind.Delegate, 0, null, Accessibility.Public, null, ImmutableArray<TypeSymbol>.Empty, ImmutableArray.Create<Symbol>(invoke));
         var lambda = new LambdaTypeSymbol(ImmutableArray.Create<TypeSymbol>(intType), stringType);
-        var methodGroup = new MethodGroupTypeSymbol(ImmutableArray<MethodSymbol>.Empty);
+        var methodGroup = new MethodGroupTypeSymbol(ImmutableArray.Create(new MethodSymbol("M:Factory.Create", "Create", null, Accessibility.Public, stringType, ImmutableArray.Create(new ParameterSymbol("P:Factory.Create.value", "value", null, intType, false, false)), ImmutableArray<TypeParameterSymbol>.Empty, true, false, false)));
         AssertConversion(classifier.Classify(lambda, delegateType, context), ConversionKind.AnonymousFunction, true);
         AssertConversion(classifier.Classify(methodGroup, delegateType, context), ConversionKind.MethodGroup, true);
         if (classifier.CachedConversionCount < 7)

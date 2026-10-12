@@ -22,6 +22,7 @@ public enum SymbolKind
 }
 
 public enum TypeKind { Class, Struct, Interface, Enum, Delegate, Record, Error }
+public enum VarianceKind { Invariant, Covariant, Contravariant }
 public enum Accessibility { NotApplicable, Private, Protected, Internal, ProtectedInternal, PrivateProtected, Public }
 
 public abstract record Symbol(
@@ -57,7 +58,10 @@ public sealed record ConstructedTypeSymbol(
     TypeSymbol Definition,
     ImmutableArray<TypeSymbol> TypeArguments,
     Symbol? ContainingSymbol)
-    : TypeSymbol(Id, Name, SymbolKind.NamedType, ContainingSymbol, Accessibility.Public);
+    : TypeSymbol(Id, Name, SymbolKind.NamedType, ContainingSymbol, Accessibility.Public)
+{
+    public ImmutableArray<VarianceKind> Variances { get; init; } = ImmutableArray<VarianceKind>.Empty;
+}
 
 public sealed record NullableTypeSymbol(TypeSymbol UnderlyingType)
     : TypeSymbol($"nullable:{UnderlyingType.Id}", $"Nullable<{UnderlyingType.Name}>", SymbolKind.NamedType, null, Accessibility.Public);
@@ -82,6 +86,17 @@ public sealed record MethodGroupTypeSymbol(ImmutableArray<MethodSymbol> Methods)
     : TypeSymbol(
         $"method-group:{string.Join(',', Methods.Select(method => method.Id))}",
         "method-group",
+        SymbolKind.DynamicType,
+        null,
+        Accessibility.NotApplicable);
+
+public sealed record InterpolatedStringTypeSymbol()
+    : TypeSymbol("interpolated-string", "interpolated-string", SymbolKind.DynamicType, null, Accessibility.NotApplicable);
+
+public sealed record CollectionExpressionTypeSymbol(ImmutableArray<TypeSymbol> ElementTypes)
+    : TypeSymbol(
+        $"collection-expression:{string.Join(',', ElementTypes.Select(element => element.Id))}",
+        "collection-expression",
         SymbolKind.DynamicType,
         null,
         Accessibility.NotApplicable);

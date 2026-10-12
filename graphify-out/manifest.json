@@ -12,9 +12,9 @@
     "semantic_hash": "1f108288c6d180794d30a4c56cd06e5f"
   },
   "docs/workflow/state.json": {
-    "mtime": 1791792515.8272314,
-    "seen": 1791795041.0672367,
-    "ast_hash": "0bc76a00ca2c1fffe20252cf7d380a32",
+    "mtime": 1791795698.0207398,
+    "seen": 1791795735.221216,
+    "ast_hash": "ebaa98135f92d1936cf678ac4c199949",
     "semantic_hash": ""
   },
   "src/KnowledgeEngine/Class1.cs": {
@@ -180,9 +180,9 @@
     "semantic_hash": ""
   },
   "tests/Architecture.Tests/ContractSmokeTests.cs": {
-    "mtime": 1791794960.6053941,
-    "seen": 1791795041.067269,
-    "ast_hash": "68740fc0a697dd1b8df7db94f05e6e28",
+    "mtime": 1791795660.460322,
+    "seen": 1791795735.2212486,
+    "ast_hash": "5b8632fece7b90a60c65f1f3a2e66e99",
     "semantic_hash": ""
   },
   ".codex/skills/ponytail-audit/SKILL.md": {
@@ -288,9 +288,9 @@
     "semantic_hash": ""
   },
   "docs/workflow/project-tasks.md": {
-    "mtime": 1791792515.8262386,
-    "seen": 1791795041.0673044,
-    "ast_hash": "90aa54fcb38bf1abf62da3ddd25aacb9",
+    "mtime": 1791795697.9293084,
+    "seen": 1791795735.2212837,
+    "ast_hash": "df83f83048cbf0da83878a218841068a",
     "semantic_hash": ""
   },
   "docs/design/binder-overload-resolution.md": {
@@ -378,9 +378,9 @@
     "semantic_hash": ""
   },
   "src/Shared/Symbols.cs": {
-    "mtime": 1791794959.7635243,
-    "seen": 1791795041.0672672,
-    "ast_hash": "a4a879250f6008226f7326e5a1111497",
+    "mtime": 1791795550.0582187,
+    "seen": 1791795735.2212465,
+    "ast_hash": "9245ad1d050601a9ee5f0b1cdbb691cc",
     "semantic_hash": ""
   },
   "tests/Architecture.Tests/Program.cs": {
@@ -396,9 +396,9 @@
     "semantic_hash": ""
   },
   "src/Shared/Conversions.cs": {
-    "mtime": 1791794960.1999705,
-    "seen": 1791795041.067265,
-    "ast_hash": "5ed65573136265c88a54df9b75328d5b",
+    "mtime": 1791795598.4881718,
+    "seen": 1791795735.2212446,
+    "ast_hash": "fba0b4a2e53af064ce42f2f8876afbe9",
     "semantic_hash": ""
   },
   "vscode-extension/extension.js": {
