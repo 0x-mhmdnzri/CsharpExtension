@@ -36,6 +36,22 @@ META-001 → BIND-001 → BIND-002 → BIND-003 → BIND-005
 
 MVP باید ابتدا subset مشخص C# 10+ و .NET 8 را با compile-valid rate بالا پوشش دهد؛ سپس capability matrix به C# 6 تا 15 گسترش می‌یابد.
 
+## ترتیب اجرایی باقی‌مانده
+
+این صف ترتیب رسمی اجراست؛ هر تسک بعد از validation و merge تسک قبلی شروع می‌شود.
+
+```text
+LANG-001 → LANG-002 → LANG-003 → LANG-004
+→ META-001 → META-002 → BIND-005 → BIND-006 → BIND-007 → BIND-008
+→ NUGET-001 → NUGET-002 → NUGET-003
+→ IDE-001 → IDE-002 → IDE-003 → IDE-004 → IDE-005 → IDE-006
+→ EF-005 → EF-006 → EF-007 → EF-008 → EF-009 → EF-010
+→ KNOW-006 → KNOW-002 → KNOW-003 → KNOW-004 → KNOW-005
+→ QA-001 → QA-002 → QA-003 → QA-004 → REL-001 → REL-002
+```
+
+شرط‌های خروج هر مرحله در جدول backlog و Definition of Done ثبت شده‌اند؛ task بعدی فقط پس از موفقیت build، smoke/regression test، Graphify update و merge محلی فعال می‌شود.
+
 ## Backlog تفصیلی
 
 ### Compiler core
