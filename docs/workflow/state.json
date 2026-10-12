@@ -37,7 +37,7 @@
                      },
     "validation":  {
                        "build":  "passed",
-                       "tests":  "architecture smoke checks passed",
+                       "tests":  "conversion smoke checks passed; advanced conversions pending",
                        "graphify":  "installed project-scoped",
                        "ponytail":  "installed project-scoped"
                    }

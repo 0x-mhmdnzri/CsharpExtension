@@ -1,12 +1,12 @@
 {
   "0": "Contracts.cs",
   "1": "Shared.csproj",
-  "2": "Symbols.cs",
+  "2": "Symbol",
   "3": "README.md",
   "4": "معماری سامانه هوشمندی C# و .NET برای VS Code",
-  "5": "DotnetExpertAdvisor.Shared",
+  "5": "اجزای سامانه",
   "6": "تصمیم‌های معماری",
-  "7": "Binder",
+  "7": "BinderScopeKind",
   "8": "طراحی دقت‌محور Binder و Overload Resolution",
   "9": "backlog اصلی",
   "10": "قرارداد LSP و مدل پاسخ پیشنهادها",
@@ -28,7 +28,7 @@
   "26": "ponytail-review/SKILL.md",
   "27": "Ponytail",
   "28": "سیاست نسخه‌گذاری",
-  "29": "SuggestionCategory",
+  "29": "RuntimeModel.cs",
   "30": "ponytail-debt/SKILL.md",
   "31": "SemanticGraph/Class1.cs",
   "32": "Protocol/Class1.cs",
@@ -37,5 +37,6 @@
   "35": "RuleEngine/Class1.cs",
   "36": "RuntimeModel/Class1.cs",
   "37": "KnowledgeEngine/Class1.cs",
-  "38": "RoslynHost/Class1.cs"
+  "38": "RoslynHost/Class1.cs",
+  "39": "LookupStatus"
 }

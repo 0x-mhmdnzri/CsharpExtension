@@ -59,6 +59,9 @@ public sealed record ConstructedTypeSymbol(
     Symbol? ContainingSymbol)
     : TypeSymbol(Id, Name, SymbolKind.NamedType, ContainingSymbol, Accessibility.Public);
 
+public sealed record NullableTypeSymbol(TypeSymbol UnderlyingType)
+    : TypeSymbol($"nullable:{UnderlyingType.Id}", $"Nullable<{UnderlyingType.Name}>", SymbolKind.NamedType, null, Accessibility.Public);
+
 public sealed record ErrorTypeSymbol(
     string Id,
     string Name,
