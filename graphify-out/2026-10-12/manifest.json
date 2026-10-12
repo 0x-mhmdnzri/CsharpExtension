@@ -12,9 +12,9 @@
     "semantic_hash": "1f108288c6d180794d30a4c56cd06e5f"
   },
   "docs/workflow/state.json": {
-    "mtime": 1791789493.5680447,
-    "seen": 1791789530.7440557,
-    "ast_hash": "3fe38019c8af5035cdfbab73cda49513",
+    "mtime": 1791790810.5668144,
+    "seen": 1791790842.5904877,
+    "ast_hash": "bbbdc1c09d36fefc7b80f36dcd7c9843",
     "semantic_hash": ""
   },
   "src/KnowledgeEngine/Class1.cs": {
@@ -174,16 +174,16 @@
     "semantic_hash": "46b0780bd56312ea2d1bab391f179e89"
   },
   "tests/Architecture.Tests/Architecture.Tests.csproj": {
-    "mtime": 1791787575.385429,
-    "seen": 1791788901.355457,
-    "ast_hash": "d609c5177ca132940c249b108343b087",
-    "semantic_hash": "d609c5177ca132940c249b108343b087"
+    "mtime": 1791790662.544587,
+    "seen": 1791790842.5905182,
+    "ast_hash": "1d448c8257eba67527d364418ffea809",
+    "semantic_hash": ""
   },
   "tests/Architecture.Tests/ContractSmokeTests.cs": {
-    "mtime": 1791787575.3874302,
-    "seen": 1791788901.3554578,
-    "ast_hash": "9e3116426c69a6177a8044325c08efc2",
-    "semantic_hash": "9e3116426c69a6177a8044325c08efc2"
+    "mtime": 1791790738.463439,
+    "seen": 1791790842.5905192,
+    "ast_hash": "0a6500e6860d5a37b812e54a270c507c",
+    "semantic_hash": ""
   },
   ".codex/skills/ponytail-audit/SKILL.md": {
     "mtime": 1791788425.7948642,
@@ -288,9 +288,9 @@
     "semantic_hash": ""
   },
   "docs/workflow/project-tasks.md": {
-    "mtime": 1791789808.9977615,
-    "seen": 1791789839.781622,
-    "ast_hash": "f7a373ea5a5e88b899a6855c932c66dc",
+    "mtime": 1791790798.2566435,
+    "seen": 1791790842.5905528,
+    "ast_hash": "4fb43ae5a53f275323b1069bdb9d008b",
     "semantic_hash": ""
   },
   "docs/design/binder-overload-resolution.md": {
@@ -318,63 +318,75 @@
     "semantic_hash": ""
   },
   "docs/adr/ADR-001-custom-semantic-engine.md": {
-    "mtime": 1791790363.4480758,
-    "seen": 1791790398.1497157,
+    "mtime": 1791790489.765406,
+    "seen": 1791790491.3064878,
     "ast_hash": "708059ce3ec1648c854c24e83975be3e",
     "semantic_hash": ""
   },
   "docs/adr/ADR-002-separate-language-server.md": {
-    "mtime": 1791790363.928517,
-    "seen": 1791790398.1497173,
+    "mtime": 1791790489.7664053,
+    "seen": 1791790491.306489,
     "ast_hash": "281f6878f80ecd2220709c8d89953455",
     "semantic_hash": ""
   },
   "docs/adr/ADR-003-signed-knowledge-packs.md": {
-    "mtime": 1791790364.3381927,
-    "seen": 1791790398.149718,
+    "mtime": 1791790489.7664053,
+    "seen": 1791790491.3064902,
     "ast_hash": "a8989a64cac576d71b0121c02b3d1f43",
     "semantic_hash": ""
   },
   "docs/adr/ADR-004-snapshot-generations.md": {
-    "mtime": 1791790364.693802,
-    "seen": 1791790398.1497188,
+    "mtime": 1791790489.7674043,
+    "seen": 1791790491.306491,
     "ast_hash": "888c8e4af7d35259d5f86a57a90959cd",
     "semantic_hash": ""
   },
   "docs/adr/ADR-005-precision-first.md": {
-    "mtime": 1791790365.1168084,
-    "seen": 1791790398.1497197,
+    "mtime": 1791790489.7674043,
+    "seen": 1791790491.3064919,
     "ast_hash": "411f476b737e0a64fd4e6d3e042306b8",
     "semantic_hash": ""
   },
   "docs/adr/ADR-006-no-runtime-dependencies.md": {
-    "mtime": 1791790365.5353973,
-    "seen": 1791790398.1497207,
+    "mtime": 1791790489.768404,
+    "seen": 1791790491.3064926,
     "ast_hash": "b7bfb073d9062d1e74587234354f20ab",
     "semantic_hash": ""
   },
   "docs/adr/ADR-007-csharp-capability-matrix.md": {
-    "mtime": 1791790366.000687,
-    "seen": 1791790398.1497214,
+    "mtime": 1791790489.768404,
+    "seen": 1791790491.3064938,
     "ast_hash": "5390cd408221443c078e0849fb9f6bdf",
     "semantic_hash": ""
   },
   "docs/adr/ADR-008-nuget-ef-context.md": {
-    "mtime": 1791790366.4763083,
-    "seen": 1791790398.1497223,
+    "mtime": 1791790489.768404,
+    "seen": 1791790491.3064947,
     "ast_hash": "e3c56de04d14476906845c132a37d832",
     "semantic_hash": ""
   },
   "docs/adr/README.md": {
-    "mtime": 1791790362.9311974,
-    "seen": 1791790398.149723,
+    "mtime": 1791790489.7694063,
+    "seen": 1791790491.3064954,
     "ast_hash": "939309ecca79e8a635c8d15d83baf76c",
     "semantic_hash": ""
   },
   "docs/backlog.md": {
-    "mtime": 1791790360.9854245,
-    "seen": 1791790398.1497252,
-    "ast_hash": "6d194d0294d274d0a1c7738c8efdbcdb",
+    "mtime": 1791790797.8530076,
+    "seen": 1791790842.5905397,
+    "ast_hash": "f4cacbe750b106389ab9e75cf2446905",
+    "semantic_hash": ""
+  },
+  "src/Shared/Symbols.cs": {
+    "mtime": 1791790662.1336224,
+    "seen": 1791790842.590517,
+    "ast_hash": "2568eca37a68627edd9258d50aba1448",
+    "semantic_hash": ""
+  },
+  "tests/Architecture.Tests/Program.cs": {
+    "mtime": 1791790663.2555995,
+    "seen": 1791790842.5905201,
+    "ast_hash": "8387b44576ec1143050011fe407ba7a1",
     "semantic_hash": ""
   }
 }
