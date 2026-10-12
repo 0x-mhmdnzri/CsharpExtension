@@ -1,0 +1,16 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/KnowledgeEngine/KnowledgeEngine.csproj" />
+    <Project Path="src/LanguageServer/LanguageServer.csproj" />
+    <Project Path="src/Protocol/Protocol.csproj" />
+    <Project Path="src/RankingEngine/RankingEngine.csproj" />
+    <Project Path="src/RoslynHost/RoslynHost.csproj" />
+    <Project Path="src/RuleEngine/RuleEngine.csproj" />
+    <Project Path="src/RuntimeModel/RuntimeModel.csproj" />
+    <Project Path="src/SemanticGraph/SemanticGraph.csproj" />
+    <Project Path="src/Shared/Shared.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Architecture.Tests/Architecture.Tests.csproj" />
+  </Folder>
+</Solution>

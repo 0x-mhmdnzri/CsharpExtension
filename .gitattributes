@@ -1,0 +1,8 @@
+* text=auto eol=lf
+*.cs text diff=csharp
+*.md text
+*.json text
+*.slnx text
+*.dll binary
+*.pdb binary
+

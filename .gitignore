@@ -1,0 +1,28 @@
+# .NET build output
+**/bin/
+**/obj/
+TestResults/
+
+# Local SDK/NuGet caches used by the restricted workspace
+.dotnet/
+.appdata/
+.nuget/
+
+# IDE/editor files
+.vs/
+.idea/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# OS files
+Thumbs.db
+Desktop.ini
+
+# Local logs and secrets
+*.log
+*.env
+.env.*
+!.env.example
+
