@@ -402,21 +402,21 @@
     "semantic_hash": ""
   },
   "vscode-extension/extension.js": {
-    "mtime": 1791795960.8555334,
-    "seen": 1791796303.0300455,
+    "mtime": 1791796365.3544555,
+    "seen": 1791796367.1995862,
     "ast_hash": "a2daa2cf729678aed3f9c2b1960c87f5",
     "semantic_hash": ""
   },
   "vscode-extension/package.json": {
-    "mtime": 1791796242.718223,
-    "seen": 1791796303.0300462,
-    "ast_hash": "3cd807b6b110a7e02154f84c579be5e6",
+    "mtime": 1791796365.3544555,
+    "seen": 1791796367.1995876,
+    "ast_hash": "c1365b376da3c78134eb041b678c795a",
     "semantic_hash": ""
   },
   "vscode-extension/README.md": {
-    "mtime": 1791796242.720232,
-    "seen": 1791796303.030079,
-    "ast_hash": "d8fc49e5ec34446bc0fa53fc796d9e99",
+    "mtime": 1791796365.3534567,
+    "seen": 1791796367.1996212,
+    "ast_hash": "4f77d348ed36461392842e5e62759c8c",
     "semantic_hash": ""
   }
 }

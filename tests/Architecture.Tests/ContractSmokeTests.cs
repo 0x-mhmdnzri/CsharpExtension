@@ -127,6 +127,36 @@ public static class ContractSmokeTests
             throw new InvalidOperationException("Conversion results were not cached.");
     }
 
+    public static void ValidateMemberLookup()
+    {
+        var objectType = Primitive("object", TypeKind.Class);
+        var intType = Primitive("int", TypeKind.Struct);
+        var baseType = new NamedTypeSymbol("T:Base", "Base", TypeKind.Class, 0, null, Accessibility.Public, objectType, ImmutableArray<TypeSymbol>.Empty, ImmutableArray<Symbol>.Empty);
+        var baseRun = Method("M:Base.Run", "Run", baseType, intType);
+        var baseOther = Method("M:Base.Run.string", "Run", baseType, Primitive("string", TypeKind.Class));
+        baseType = baseType with { Members = ImmutableArray.Create<Symbol>(baseRun, baseOther) };
+        var derivedType = new NamedTypeSymbol("T:Derived", "Derived", TypeKind.Class, 0, null, Accessibility.Public, baseType, ImmutableArray<TypeSymbol>.Empty, ImmutableArray<Symbol>.Empty);
+        var derivedRun = Method("M:Derived.Run", "Run", derivedType, intType);
+        derivedType = derivedType with { Members = ImmutableArray.Create<Symbol>(derivedRun) };
+
+        var lookup = new MemberLookup(new ConversionClassifier());
+        var run = lookup.Lookup(derivedType, "Run");
+        if (run.Status != LookupStatus.Ambiguous || run.Candidates.Length != 2 || run.HiddenMembers.Length != 1)
+            throw new InvalidOperationException("Member lookup did not preserve overloads and hidden members.");
+
+        var inaccessible = lookup.Lookup(derivedType, "Run", new MemberLookupOptions(IsAccessible: symbol => symbol.Accessibility == Accessibility.Private));
+        if (inaccessible.Status != LookupStatus.Inaccessible)
+            throw new InvalidOperationException("Member lookup did not report inaccessible members.");
+
+        var extension = Method("M:Extensions.Run", "Run", null, intType) with { IsExtension = true };
+        var extensionResult = lookup.LookupExtensions(intType, "Run", new[] { extension }, new ConversionContext(13));
+        if (extensionResult.Length != 1)
+            throw new InvalidOperationException("Extension lookup rejected an identity receiver unexpectedly.");
+    }
+
+    private static MethodSymbol Method(string id, string name, Symbol? containing, TypeSymbol parameterType)
+        => new(id, name, containing, Accessibility.Public, parameterType, ImmutableArray.Create(new ParameterSymbol($"{id}.parameter", "value", null, parameterType, false, false)), ImmutableArray<TypeParameterSymbol>.Empty, false, false, false);
+
     private static NamedTypeSymbol Primitive(string name, TypeKind kind)
         => new($"T:System.{name}", name, kind, 0, null, Accessibility.Public, null, ImmutableArray<TypeSymbol>.Empty, ImmutableArray<Symbol>.Empty);
 

@@ -12,9 +12,9 @@
     "semantic_hash": "1f108288c6d180794d30a4c56cd06e5f"
   },
   "docs/workflow/state.json": {
-    "mtime": 1791795751.4512992,
-    "seen": 1791796303.0300105,
-    "ast_hash": "7d573e62791635f114efeaa64ac227be",
+    "mtime": 1791798105.8801236,
+    "seen": 1791798147.6628754,
+    "ast_hash": "2bfc34b6681c2f123098c2d124c56cc8",
     "semantic_hash": ""
   },
   "src/KnowledgeEngine/Class1.cs": {
@@ -156,8 +156,8 @@
     "semantic_hash": "50ec9693182375e22619a99071065148"
   },
   "src/Shared/Class1.cs": {
-    "mtime": 1791787135.2745733,
-    "seen": 1791788901.355453,
+    "mtime": 1791798023.5625355,
+    "seen": 1791798147.6629846,
     "ast_hash": "db43ddef308d1544e3f0935f474e98aa",
     "semantic_hash": "db43ddef308d1544e3f0935f474e98aa"
   },
@@ -180,9 +180,9 @@
     "semantic_hash": ""
   },
   "tests/Architecture.Tests/ContractSmokeTests.cs": {
-    "mtime": 1791795751.4573097,
-    "seen": 1791796303.0300434,
-    "ast_hash": "5b8632fece7b90a60c65f1f3a2e66e99",
+    "mtime": 1791798032.3182356,
+    "seen": 1791798147.6630156,
+    "ast_hash": "d6e6ad074d5e39edeb2ac1881a2d22c2",
     "semantic_hash": ""
   },
   ".codex/skills/ponytail-audit/SKILL.md": {
@@ -288,9 +288,9 @@
     "semantic_hash": ""
   },
   "docs/workflow/project-tasks.md": {
-    "mtime": 1791795751.4512992,
-    "seen": 1791796303.0300777,
-    "ast_hash": "df83f83048cbf0da83878a218841068a",
+    "mtime": 1791798105.7865627,
+    "seen": 1791798147.663159,
+    "ast_hash": "f70fc45e7a66520ebd171982a8a540c5",
     "semantic_hash": ""
   },
   "docs/design/binder-overload-resolution.md": {
@@ -372,8 +372,8 @@
     "semantic_hash": ""
   },
   "docs/backlog.md": {
-    "mtime": 1791791477.7547438,
-    "seen": 1791791479.2188406,
+    "mtime": 1791798105.7865627,
+    "seen": 1791798147.663106,
     "ast_hash": "ef34cfb43ddad20406c3999847cd7ad7",
     "semantic_hash": ""
   },
@@ -384,9 +384,9 @@
     "semantic_hash": ""
   },
   "tests/Architecture.Tests/Program.cs": {
-    "mtime": 1791792515.8342333,
-    "seen": 1791795041.06727,
-    "ast_hash": "2d6a4f8c937822a097ac7724338ac7d6",
+    "mtime": 1791798032.7698586,
+    "seen": 1791798147.6630194,
+    "ast_hash": "365b9a29083787ca591553e5d4b0d309",
     "semantic_hash": ""
   },
   "src/Shared/Binder.cs": {
@@ -408,15 +408,21 @@
     "semantic_hash": ""
   },
   "vscode-extension/package.json": {
-    "mtime": 1791796365.3544555,
-    "seen": 1791796367.1995876,
-    "ast_hash": "c1365b376da3c78134eb041b678c795a",
+    "mtime": 1791796526.4747279,
+    "seen": 1791798147.6630273,
+    "ast_hash": "a2ea3da8e95592243d2915af319b5f49",
     "semantic_hash": ""
   },
   "vscode-extension/README.md": {
     "mtime": 1791796365.3534567,
     "seen": 1791796367.1996212,
     "ast_hash": "4f77d348ed36461392842e5e62759c8c",
+    "semantic_hash": ""
+  },
+  "src/Shared/MemberLookup.cs": {
+    "mtime": 1791798031.7754483,
+    "seen": 1791798147.6629982,
+    "ast_hash": "f2f6e54c3d9d06f1e70e809fef6bd13b",
     "semantic_hash": ""
   }
 }
