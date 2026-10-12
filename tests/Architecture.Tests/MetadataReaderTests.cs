@@ -23,6 +23,9 @@ public static class MetadataReaderTests
             var index = reader.Read(stream, xmlPath);
             if (!stream.CanRead || index.Name != "Shared" || index.ModuleId == Guid.Empty)
                 throw new InvalidOperationException("Assembly identity or stream ownership is incorrect.");
+            if (!index.AssemblyReferences.Any(reference => reference.Name == "System.Runtime") ||
+                !index.References.Contains("System.Runtime"))
+                throw new InvalidOperationException("Assembly reference identity was not indexed.");
             var type = index.Types.Single(t => t.Name == "CSharpLexer");
             var method = type.Members.Single(m => m.Name == "Tokenize");
             if (method.Signature.IsEmpty || method.Il.IsEmpty || string.IsNullOrWhiteSpace(method.DecodedSignature) ||

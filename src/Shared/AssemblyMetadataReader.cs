@@ -13,12 +13,17 @@ public sealed record MetadataMember(int Token, string Name, string Kind, int Att
     ImmutableArray<MetadataGenericParameter> GenericParameters);
 public sealed record MetadataGenericParameter(int Index, string Name,
     GenericParameterAttributes Attributes, ImmutableArray<int> ConstraintTokens);
+public sealed record MetadataAssemblyReference(string Name, Version Version, string Culture,
+    AssemblyFlags Flags, ImmutableArray<byte> PublicKeyOrToken);
+public sealed record MetadataTypeForwarder(string Namespace, string Name, int TargetAssemblyReferenceToken);
 public sealed record MetadataType(int Token, string Namespace, string Name,
     TypeAttributes Attributes, int BaseTypeToken, int GenericArity,
     ImmutableArray<MetadataMember> Members, ImmutableArray<MetadataGenericParameter> GenericParameters);
 public sealed record AssemblyMetadataIndex(string Name, Version Version, Guid ModuleId,
     ImmutableArray<MetadataType> Types, ImmutableArray<string> References,
-    ImmutableDictionary<string, string> Documentation);
+    ImmutableDictionary<string, string> Documentation,
+    ImmutableArray<MetadataAssemblyReference> AssemblyReferences,
+    ImmutableArray<MetadataTypeForwarder> TypeForwarders);
 
 public sealed class AssemblyMetadataReader
 {
@@ -90,12 +95,27 @@ public sealed class AssemblyMetadataReader
                 type.BaseType.IsNil ? 0 : MetadataTokens.GetToken(type.BaseType),
                 typeParameters.Length, members.ToImmutable(), typeParameters));
         }
-        var references = reader.AssemblyReferences.Select(handle =>
-            reader.GetString(reader.GetAssemblyReference(handle).Name)).ToImmutableArray();
+        var assemblyReferences = reader.AssemblyReferences.Select(handle =>
+        {
+            var reference = reader.GetAssemblyReference(handle);
+            return new MetadataAssemblyReference(reader.GetString(reference.Name), reference.Version,
+                reference.Culture.IsNil ? "" : reader.GetString(reference.Culture), reference.Flags,
+                reference.PublicKeyOrToken.IsNil ? [] : ImmutableArray.CreateRange(reader.GetBlobBytes(reference.PublicKeyOrToken)));
+        }).ToImmutableArray();
+        var references = assemblyReferences.Select(reference => reference.Name).ToImmutableArray();
+        var forwarders = reader.ExportedTypes.Where(handle => reader.GetExportedType(handle).IsForwarder)
+            .Select(handle =>
+            {
+                var exported = reader.GetExportedType(handle);
+                var target = exported.Implementation.Kind == HandleKind.AssemblyReference
+                    ? MetadataTokens.GetToken((AssemblyReferenceHandle)exported.Implementation) : 0;
+                return new MetadataTypeForwarder(exported.Namespace.IsNil ? "" : reader.GetString(exported.Namespace),
+                    exported.Name.IsNil ? "" : reader.GetString(exported.Name), target);
+            }).ToImmutableArray();
         var module = reader.GetModuleDefinition();
         return new AssemblyMetadataIndex(reader.GetString(assembly.Name), assembly.Version,
             reader.GetGuid(module.Mvid), types.ToImmutable(), references,
-            ReadDocumentation(documentationPath, cancellationToken));
+            ReadDocumentation(documentationPath, cancellationToken), assemblyReferences, forwarders);
     }
 
     private static ImmutableArray<MetadataGenericParameter> ReadGenericParameters(

@@ -32,12 +32,11 @@
   },
   "validation": {
     "build": "passed",
-    "tests": "metadata reader: assembly, reference assembly/XML docs, invalid PE, cancellation and DTD checks passed",
+    "tests": "metadata reader: assembly, signatures, generic constraints, references, invalid PE, cancellation and DTD checks passed",
     "graphify": "installed project-scoped",
     "ponytail": "installed project-scoped"
   },
   "remainingInCurrentTask": [
-    "Decode signatures and generic constraints",
     "Resolve metadata references and type forwarding",
     "Bind XML documentation IDs to semantic symbols"
   ]
