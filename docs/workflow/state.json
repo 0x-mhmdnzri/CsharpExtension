@@ -3,7 +3,7 @@
     "workflow":  "gitflow",
     "currentBranch":  "develop",
     "version":  "0.1.0-alpha.1",
-    "currentTask":  "BIND-004",
+    "currentTask":  "BIND-005",
     "lastCompleted":  [
                           "GOV-001",
                           "GOV-002",
@@ -12,9 +12,10 @@
                           "GOV-005",
                           "BIND-001",
                           "BIND-002",
-                          "BIND-003"
+                          "BIND-003",
+                          "BIND-004"
                       ],
-    "nextTask":  "BIND-004",
+    "nextTask":  "BIND-005",
     "requirements":  {
                          "ownIntellisense":  true,
                          "externalLanguageService":  false,
@@ -38,7 +39,7 @@
                      },
     "validation":  {
                        "build":  "passed",
-                       "tests":  "conversion smoke checks passed",
+                       "tests":  "member lookup and extension lookup smoke checks passed",
                        "graphify":  "installed project-scoped",
                        "ponytail":  "installed project-scoped"
                    }
