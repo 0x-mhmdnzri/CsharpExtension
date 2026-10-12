@@ -1,4 +1,4 @@
-﻿{
+{
     "name":  "dotnet-expert-advisor",
     "displayName":  ".NET Expert Advisor (Preview)",
     "description":  "Developer preview for the custom C# semantic engine and binder.",
