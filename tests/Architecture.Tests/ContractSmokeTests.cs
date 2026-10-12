@@ -79,5 +79,42 @@ public static class ContractSmokeTests
         if (root.Lookup("Missing").Status != LookupStatus.NotFound)
             throw new InvalidOperationException("Binder did not report missing symbols.");
     }
+
+    public static void ValidateConversionClassifier()
+    {
+        var classifier = new ConversionClassifier();
+        var intType = Primitive("int", TypeKind.Struct);
+        var longType = Primitive("long", TypeKind.Struct);
+        var stringType = Primitive("string", TypeKind.Class);
+        var objectType = Primitive("object", TypeKind.Class);
+        var nullableInt = new NullableTypeSymbol(intType);
+        var context = new ConversionContext(13);
+
+        AssertConversion(classifier.Classify(intType, intType, context), ConversionKind.Identity, true);
+        AssertConversion(classifier.Classify(intType, longType, context), ConversionKind.ImplicitNumeric, true);
+        AssertConversion(classifier.Classify(longType, intType, context), ConversionKind.ExplicitNumeric, false);
+        AssertConversion(classifier.Classify(intType, nullableInt, context), ConversionKind.ImplicitNullable, true);
+        AssertConversion(classifier.Classify(intType, objectType, context), ConversionKind.Boxing, true);
+        AssertConversion(classifier.Classify(stringType, objectType, context), ConversionKind.ImplicitReference, true);
+        AssertConversion(classifier.Classify(stringType, intType, context), ConversionKind.NoConversion, false, false);
+        AssertConversion(classifier.Classify(Primitive("int", TypeKind.Struct), Primitive("uint", TypeKind.Struct), context), ConversionKind.ExplicitNumeric, false);
+        AssertConversion(classifier.Classify(Primitive("char", TypeKind.Struct), Primitive("ushort", TypeKind.Struct), context), ConversionKind.ImplicitNumeric, true);
+        AssertConversion(classifier.Classify(Primitive("ushort", TypeKind.Struct), Primitive("char", TypeKind.Struct), context), ConversionKind.ExplicitNumeric, false);
+        AssertConversion(classifier.Classify(Primitive("decimal", TypeKind.Struct), Primitive("double", TypeKind.Struct), context), ConversionKind.ExplicitNumeric, false);
+        AssertConversion(classifier.Classify(longType, nullableInt, context), ConversionKind.NoConversion, false, false);
+        var unrelatedInterface = Primitive("Unrelated", TypeKind.Interface);
+        AssertConversion(classifier.Classify(intType, unrelatedInterface, context), ConversionKind.NoConversion, false, false);
+        if (classifier.CachedConversionCount < 7)
+            throw new InvalidOperationException("Conversion results were not cached.");
+    }
+
+    private static NamedTypeSymbol Primitive(string name, TypeKind kind)
+        => new($"T:System.{name}", name, kind, 0, null, Accessibility.Public, null, ImmutableArray<TypeSymbol>.Empty, ImmutableArray<Symbol>.Empty);
+
+    private static void AssertConversion(ConversionResult result, ConversionKind expectedKind, bool expectedImplicit, bool expectedExists = true)
+    {
+        if (result.Kind != expectedKind || result.IsImplicit != expectedImplicit || result.Exists != expectedExists)
+            throw new InvalidOperationException($"Expected {expectedKind}, got {result.Kind}.");
+    }
 }
 
