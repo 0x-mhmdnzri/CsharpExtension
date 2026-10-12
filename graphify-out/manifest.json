@@ -12,9 +12,9 @@
     "semantic_hash": "1f108288c6d180794d30a4c56cd06e5f"
   },
   "docs/workflow/state.json": {
-    "mtime": 1791799707.9060388,
-    "seen": 1791799710.112512,
-    "ast_hash": "cea4a99930e186685d05de2330da72f5",
+    "mtime": 1791800066.611662,
+    "seen": 1791800067.9561603,
+    "ast_hash": "d0474cfd0f1dfa9ada668af6755409fa",
     "semantic_hash": ""
   },
   "src/KnowledgeEngine/Class1.cs": {
@@ -180,8 +180,8 @@
     "semantic_hash": ""
   },
   "tests/Architecture.Tests/ContractSmokeTests.cs": {
-    "mtime": 1791799668.7710056,
-    "seen": 1791799710.1126122,
+    "mtime": 1791799710.8874364,
+    "seen": 1791800067.956202,
     "ast_hash": "102deead5db7a5f0b30bd81a077c7bec",
     "semantic_hash": ""
   },
@@ -288,9 +288,9 @@
     "semantic_hash": ""
   },
   "docs/workflow/project-tasks.md": {
-    "mtime": 1791799707.7685504,
-    "seen": 1791799710.1127083,
-    "ast_hash": "8bd6645b54117d359128ab4e2d1b6342",
+    "mtime": 1791800066.51217,
+    "seen": 1791800067.956241,
+    "ast_hash": "56586334efb4789cd0b5952a40bb7a1e",
     "semantic_hash": ""
   },
   "docs/design/binder-overload-resolution.md": {
@@ -384,9 +384,9 @@
     "semantic_hash": ""
   },
   "tests/Architecture.Tests/Program.cs": {
-    "mtime": 1791799398.9351132,
-    "seen": 1791799710.1126149,
-    "ast_hash": "fd7be9a1797d58f048556a37685e6c63",
+    "mtime": 1791800045.734008,
+    "seen": 1791800067.956204,
+    "ast_hash": "edace5a70994bb4845efb5f306ba9e55",
     "semantic_hash": ""
   },
   "src/Shared/Binder.cs": {
@@ -438,9 +438,21 @@
     "semantic_hash": ""
   },
   "src/Shared/Parser.cs": {
-    "mtime": 1791799635.4917958,
-    "seen": 1791799710.1126008,
+    "mtime": 1791799710.8859317,
+    "seen": 1791800067.956198,
     "ast_hash": "8c33978c31d309a57f08f343bf9d463a",
+    "semantic_hash": ""
+  },
+  "src/Shared/AssemblyMetadataReader.cs": {
+    "mtime": 1791800010.1501274,
+    "seen": 1791800067.956188,
+    "ast_hash": "88996765084d1e83b0b7e79e9597d7f2",
+    "semantic_hash": ""
+  },
+  "tests/Architecture.Tests/MetadataReaderTests.cs": {
+    "mtime": 1791800045.2470527,
+    "seen": 1791800067.956203,
+    "ast_hash": "bac0eabaab70cba5e1043b4ef6597af6",
     "semantic_hash": ""
   }
 }
