@@ -1,0 +1,10 @@
+node_modules
+*.vsix
+src
+tests
+docs
+../**
+!server/**
+!extension.js
+!package.json
+!README.md
