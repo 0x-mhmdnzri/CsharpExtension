@@ -106,7 +106,7 @@
 |---|---|---|---|---|
 | BIND-001 | تعریف Symbol hierarchy و ErrorTypeSymbol | done | LANG-003، META-001 | feature/binder/symbols |
 | BIND-002 | Binder chain و LookupResult با دلیل شکست | done | BIND-001 | feature/binder/lookup |
-| BIND-003 | ConversionClassifier ساختاریافته و cache | in-progress | BIND-001 | feature/binder/conversions |
+| BIND-003 | ConversionClassifier ساختاریافته و cache | done | BIND-001 | feature/binder/conversions |
 | BIND-004 | Member lookup و extension method lookup | backlog | BIND-002، BIND-003 | feature/binder/member-lookup |
 | BIND-005 | Overload resolution کامل با candidate rejection | backlog | BIND-003، BIND-004 | feature/binder/overload |
 | BIND-006 | Generic inference دو فازه و LINQ binding | backlog | BIND-005 | feature/binder/inference |

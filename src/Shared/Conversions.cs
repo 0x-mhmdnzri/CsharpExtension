@@ -11,8 +11,11 @@ public enum ConversionKind
     Boxing,
     ImplicitNullable,
     ImplicitTuple,
+    ImplicitVariance,
     AnonymousFunction,
     MethodGroup,
+    InterpolatedStringHandler,
+    CollectionExpression,
     NullLiteral,
     UserDefined,
     Unknown,
@@ -81,11 +84,50 @@ public sealed class ConversionClassifier : IConversionClassifier
                 : NoConversion("at least one tuple element has no implicit conversion");
         }
 
-        if (target is NamedTypeSymbol { TypeKind: TypeKind.Delegate } && source is LambdaTypeSymbol)
-            return new(ConversionKind.AnonymousFunction, ConversionQuality.Good, true, true, "lambda is converted to a delegate target");
+        if (source is ConstructedTypeSymbol sourceConstructed && target is ConstructedTypeSymbol targetConstructed &&
+            sourceConstructed.Definition.Id == targetConstructed.Definition.Id)
+        {
+            if (sourceConstructed.TypeArguments.Length != targetConstructed.TypeArguments.Length)
+                return NoConversion("constructed type arity differs");
+            var variances = sourceConstructed.Variances.Length == sourceConstructed.TypeArguments.Length
+                ? sourceConstructed.Variances
+                : targetConstructed.Variances;
+            if (variances.Length == sourceConstructed.TypeArguments.Length)
+            {
+                var valid = true;
+                for (var i = 0; i < variances.Length; i++)
+                {
+                    var from = sourceConstructed.TypeArguments[i];
+                    var to = targetConstructed.TypeArguments[i];
+                    var element = variances[i] switch
+                    {
+                        VarianceKind.Covariant => ClassifyCore(from, to, context),
+                        VarianceKind.Contravariant => ClassifyCore(to, from, context),
+                        _ => from.Id == to.Id ? ConversionResult.Identity : NoConversion("invariant type argument differs")
+                    };
+                    valid &= element.Exists && element.IsImplicit;
+                }
+                if (valid)
+                    return new(ConversionKind.ImplicitVariance, ConversionQuality.Good, true, true, "all variance positions are compatible");
+            }
+        }
 
-        if (target is NamedTypeSymbol { TypeKind: TypeKind.Delegate } && source is MethodGroupTypeSymbol)
-            return new(ConversionKind.MethodGroup, ConversionQuality.Good, true, true, "method group is converted to a delegate target");
+        if (target is NamedTypeSymbol delegateTarget && delegateTarget.TypeKind == TypeKind.Delegate && source is LambdaTypeSymbol lambda)
+            return ClassifyLambda(lambda, delegateTarget, context);
+
+        if (target is NamedTypeSymbol delegateTargetForMethodGroup && delegateTargetForMethodGroup.TypeKind == TypeKind.Delegate && source is MethodGroupTypeSymbol methodGroup)
+            return ClassifyMethodGroup(methodGroup, delegateTargetForMethodGroup, context);
+
+        if (source is InterpolatedStringTypeSymbol && target is NamedTypeSymbol { TypeKind: TypeKind.Struct } handler && handler.Name.Contains("handler", StringComparison.OrdinalIgnoreCase))
+            return new(ConversionKind.InterpolatedStringHandler, ConversionQuality.Good, true, true, "interpolated string handler target");
+
+        if (source is CollectionExpressionTypeSymbol collection && TryGetCollectionElementType(target, out var elementType))
+        {
+            var elementsValid = collection.ElementTypes.All(element => ClassifyCore(element, elementType, context).IsImplicit);
+            return elementsValid
+                ? new(ConversionKind.CollectionExpression, ConversionQuality.Good, true, true, "all collection elements convert to the target element type")
+                : NoConversion("a collection element cannot convert to the target element type");
+        }
 
         if (TryClassifyNumeric(source, target, out var numeric))
             return numeric;
@@ -111,9 +153,10 @@ public sealed class ConversionClassifier : IConversionClassifier
         if (IsTypeParameter(source) || IsTypeParameter(target) || IsDynamic(source) || IsDynamic(target))
             return new(ConversionKind.Unknown, ConversionQuality.Uncertain, false, false, "type parameter or dynamic dispatch requires binding context");
 
-        // shortcut: custom conversion operators are not bound; complete during overload-resolution work.
-        if (source is NamedTypeSymbol { Members.Length: > 0 } || target is NamedTypeSymbol { Members.Length: > 0 })
-            return new(ConversionKind.Unknown, ConversionQuality.Uncertain, false, false, "custom operators require member binding");
+        if (TryFindUserDefinedOperator(source, target, "op_Implicit", out _))
+            return new(ConversionKind.UserDefined, ConversionQuality.Uncertain, true, true, "implicit conversion operator selected");
+        if (TryFindUserDefinedOperator(source, target, "op_Explicit", out _))
+            return new(ConversionKind.UserDefined, ConversionQuality.RequiresRuntimeCheck, true, false, "explicit conversion operator selected");
         return NoConversion($"no implicit conversion from {source.Name} to {target.Name} was found");
     }
 
@@ -219,6 +262,67 @@ public sealed class ConversionClassifier : IConversionClassifier
     };
 
     private static IReadOnlySet<string> Set(params string[] values) => values.ToHashSet(StringComparer.Ordinal);
+
+    private static ConversionResult ClassifyLambda(LambdaTypeSymbol lambda, NamedTypeSymbol target, ConversionContext context)
+    {
+        var invoke = GetDelegateInvoke(target);
+        if (invoke is null || invoke.Parameters.Length != lambda.ParameterTypes.Length)
+            return NoConversion("delegate Invoke signature is unavailable or has a different arity");
+        for (var i = 0; i < invoke.Parameters.Length; i++)
+        {
+            var parameter = ClassifyCore(lambda.ParameterTypes[i], invoke.Parameters[i].Type, context);
+            if (!parameter.Exists || !parameter.IsImplicit)
+                return NoConversion("lambda parameter is incompatible with the delegate");
+        }
+        var result = ClassifyCore(lambda.ReturnType, invoke.ReturnType, context);
+        return result.Exists && result.IsImplicit
+            ? new(ConversionKind.AnonymousFunction, ConversionQuality.Good, true, true, "lambda matches delegate Invoke")
+            : NoConversion("lambda return type is incompatible with the delegate");
+    }
+
+    private static ConversionResult ClassifyMethodGroup(MethodGroupTypeSymbol methodGroup, NamedTypeSymbol target, ConversionContext context)
+    {
+        var invoke = GetDelegateInvoke(target);
+        if (invoke is null)
+            return NoConversion("delegate Invoke signature is unavailable");
+        foreach (var method in methodGroup.Methods)
+        {
+            if (method.Parameters.Length != invoke.Parameters.Length)
+                continue;
+            var parametersMatch = method.Parameters.Zip(invoke.Parameters, (methodParameter, delegateParameter) =>
+                ClassifyCore(delegateParameter.Type, methodParameter.Type, context).IsImplicit).All(match => match);
+            var returnMatch = ClassifyCore(method.ReturnType, invoke.ReturnType, context);
+            if (parametersMatch && returnMatch.Exists && returnMatch.IsImplicit)
+                return new(ConversionKind.MethodGroup, ConversionQuality.Good, true, true, "method group has a compatible overload");
+        }
+        return NoConversion("no method-group overload matches the delegate");
+    }
+
+    private static MethodSymbol? GetDelegateInvoke(NamedTypeSymbol target)
+        => target.Members.OfType<MethodSymbol>().FirstOrDefault(method => method.Name == "Invoke");
+
+    private static bool TryGetCollectionElementType(TypeSymbol target, out TypeSymbol elementType)
+    {
+        if (target is ConstructedTypeSymbol constructed && constructed.TypeArguments.Length == 1 &&
+            (constructed.Name.StartsWith("IEnumerable<", StringComparison.Ordinal) || constructed.Name.StartsWith("List<", StringComparison.Ordinal) || constructed.Name.StartsWith("Span<", StringComparison.Ordinal)))
+        {
+            elementType = constructed.TypeArguments[0];
+            return true;
+        }
+        elementType = null!;
+        return false;
+    }
+
+    private static bool TryFindUserDefinedOperator(TypeSymbol source, TypeSymbol target, string name, out MethodSymbol? result)
+    {
+        var symbols = new List<Symbol>();
+        if (source is NamedTypeSymbol sourceNamed) symbols.AddRange(sourceNamed.Members);
+        if (target is NamedTypeSymbol targetNamed) symbols.AddRange(targetNamed.Members);
+        result = symbols.OfType<MethodSymbol>().FirstOrDefault(method =>
+            method.Name == name && method.Parameters.Length == 1 &&
+            method.Parameters[0].Type.Id == source.Id && method.ReturnType.Id == target.Id);
+        return result is not null;
+    }
 
     private readonly record struct ConversionCacheKey(TypeSymbol Source, TypeSymbol Target, ConversionContext Context);
 }
