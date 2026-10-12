@@ -37,3 +37,7 @@ graphify-out/cache/stat-index.json
 graphify-out/cache/ast/
 graphify-out/cache/last_query_stamp
 
+# Local VSIX packaging output
+vscode-extension/server/
+*.vsix
+
