@@ -12,9 +12,9 @@
     "semantic_hash": "1f108288c6d180794d30a4c56cd06e5f"
   },
   "docs/workflow/state.json": {
-    "mtime": 1791798678.9679625,
-    "seen": 1791798750.018778,
-    "ast_hash": "7094c29f0ffe1331af6a4cae989d1231",
+    "mtime": 1791799071.9561942,
+    "seen": 1791799110.6199667,
+    "ast_hash": "c9eb8399e4647df859b4894dcaae9ca2",
     "semantic_hash": ""
   },
   "src/KnowledgeEngine/Class1.cs": {
@@ -180,9 +180,9 @@
     "semantic_hash": ""
   },
   "tests/Architecture.Tests/ContractSmokeTests.cs": {
-    "mtime": 1791798626.4426382,
-    "seen": 1791798750.0188165,
-    "ast_hash": "9b0c9799b8789a15e4b07b6a9cdc8c79",
+    "mtime": 1791798994.1593487,
+    "seen": 1791799110.620003,
+    "ast_hash": "09a763c85e016d8f93d49a881b495edf",
     "semantic_hash": ""
   },
   ".codex/skills/ponytail-audit/SKILL.md": {
@@ -288,9 +288,9 @@
     "semantic_hash": ""
   },
   "docs/workflow/project-tasks.md": {
-    "mtime": 1791798696.6402214,
-    "seen": 1791798750.018852,
-    "ast_hash": "dfd5e254f820d4091837bba6a0b60282",
+    "mtime": 1791799071.8513436,
+    "seen": 1791799110.620038,
+    "ast_hash": "8bd6645b54117d359128ab4e2d1b6342",
     "semantic_hash": ""
   },
   "docs/design/binder-overload-resolution.md": {
@@ -372,8 +372,8 @@
     "semantic_hash": ""
   },
   "docs/backlog.md": {
-    "mtime": 1791798645.174116,
-    "seen": 1791798750.018839,
+    "mtime": 1791798750.8838797,
+    "seen": 1791799110.6200254,
     "ast_hash": "e033df5da9c5c9441ab2e998161b8c7f",
     "semantic_hash": ""
   },
@@ -384,9 +384,9 @@
     "semantic_hash": ""
   },
   "tests/Architecture.Tests/Program.cs": {
-    "mtime": 1791798626.9447403,
-    "seen": 1791798750.0188172,
-    "ast_hash": "4577507eb3e160b00daeacdf28515cba",
+    "mtime": 1791798994.6291325,
+    "seen": 1791799110.620004,
+    "ast_hash": "de2a378fddbc744a73537742d9d53d29",
     "semantic_hash": ""
   },
   "src/Shared/Binder.cs": {
@@ -426,9 +426,15 @@
     "semantic_hash": ""
   },
   "src/Shared/LanguageCapabilities.cs": {
-    "mtime": 1791798626.0451913,
-    "seen": 1791798750.018811,
+    "mtime": 1791798750.891405,
+    "seen": 1791799110.6199963,
     "ast_hash": "88074d828092b4ea6c0853ae0c56104e",
+    "semantic_hash": ""
+  },
+  "src/Shared/Lexer.cs": {
+    "mtime": 1791799035.2125802,
+    "seen": 1791799110.619998,
+    "ast_hash": "f82d33cd304e938631af7df8e0eb8a83",
     "semantic_hash": ""
   }
 }
