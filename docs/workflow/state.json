@@ -3,7 +3,7 @@
     "workflow":  "gitflow",
     "currentBranch":  "develop",
     "version":  "0.1.0-alpha.1",
-    "currentTask":  "BIND-005",
+    "currentTask":  "LANG-001",
     "lastCompleted":  [
                           "GOV-001",
                           "GOV-002",
@@ -15,7 +15,7 @@
                           "BIND-003",
                           "BIND-004"
                       ],
-    "nextTask":  "BIND-005",
+    "nextTask":  "LANG-001",
     "requirements":  {
                          "ownIntellisense":  true,
                          "externalLanguageService":  false,

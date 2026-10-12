@@ -154,6 +154,15 @@ public static class ContractSmokeTests
             throw new InvalidOperationException("Extension lookup rejected an identity receiver unexpectedly.");
     }
 
+    public static void ValidateLanguageCapabilities()
+    {
+        var csharp8 = LanguageCapabilities.For(LanguageVersion.CSharp8);
+        if (!csharp8.Supports(LanguageFeature.NullableReferenceTypes) || csharp8.Supports(LanguageFeature.Records)) throw new InvalidOperationException("C# 8 capability gates are incorrect.");
+        if (!LanguageCapabilities.For(LanguageVersion.CSharp14).Supports(LanguageFeature.ExtensionMembers)) throw new InvalidOperationException("C# 14 capability gates are incorrect.");
+        if (LanguageCapabilities.For(LanguageVersion.CSharp15).Supports(LanguageFeature.PreviewCSharp15)) throw new InvalidOperationException("C# 15 preview was enabled without the flag.");
+        if (!LanguageCapabilities.For(LanguageVersion.CSharp15, true).Supports(LanguageFeature.PreviewCSharp15)) throw new InvalidOperationException("C# 15 preview was not enabled with the flag.");
+    }
+
     private static MethodSymbol Method(string id, string name, Symbol? containing, TypeSymbol parameterType)
         => new(id, name, containing, Accessibility.Public, parameterType, ImmutableArray.Create(new ParameterSymbol($"{id}.parameter", "value", null, parameterType, false, false)), ImmutableArray<TypeParameterSymbol>.Empty, false, false, false);
 
