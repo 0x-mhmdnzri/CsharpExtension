@@ -12,9 +12,9 @@
     "semantic_hash": "1f108288c6d180794d30a4c56cd06e5f"
   },
   "docs/workflow/state.json": {
-    "mtime": 1791795698.0207398,
-    "seen": 1791795735.221216,
-    "ast_hash": "ebaa98135f92d1936cf678ac4c199949",
+    "mtime": 1791795751.4512992,
+    "seen": 1791796303.0300105,
+    "ast_hash": "7d573e62791635f114efeaa64ac227be",
     "semantic_hash": ""
   },
   "src/KnowledgeEngine/Class1.cs": {
@@ -180,8 +180,8 @@
     "semantic_hash": ""
   },
   "tests/Architecture.Tests/ContractSmokeTests.cs": {
-    "mtime": 1791795660.460322,
-    "seen": 1791795735.2212486,
+    "mtime": 1791795751.4573097,
+    "seen": 1791796303.0300434,
     "ast_hash": "5b8632fece7b90a60c65f1f3a2e66e99",
     "semantic_hash": ""
   },
@@ -288,8 +288,8 @@
     "semantic_hash": ""
   },
   "docs/workflow/project-tasks.md": {
-    "mtime": 1791795697.9293084,
-    "seen": 1791795735.2212837,
+    "mtime": 1791795751.4512992,
+    "seen": 1791796303.0300777,
     "ast_hash": "df83f83048cbf0da83878a218841068a",
     "semantic_hash": ""
   },
@@ -378,8 +378,8 @@
     "semantic_hash": ""
   },
   "src/Shared/Symbols.cs": {
-    "mtime": 1791795550.0582187,
-    "seen": 1791795735.2212465,
+    "mtime": 1791795751.4573097,
+    "seen": 1791796303.0300417,
     "ast_hash": "9245ad1d050601a9ee5f0b1cdbb691cc",
     "semantic_hash": ""
   },
@@ -396,27 +396,27 @@
     "semantic_hash": ""
   },
   "src/Shared/Conversions.cs": {
-    "mtime": 1791795598.4881718,
-    "seen": 1791795735.2212446,
+    "mtime": 1791795751.455806,
+    "seen": 1791796303.0300395,
     "ast_hash": "fba0b4a2e53af064ce42f2f8876afbe9",
     "semantic_hash": ""
   },
   "vscode-extension/extension.js": {
-    "mtime": 1791792704.5622244,
-    "seen": 1791795041.0672712,
-    "ast_hash": "1a7c3e086e85cb0af1515568844ddb66",
+    "mtime": 1791795960.8555334,
+    "seen": 1791796303.0300455,
+    "ast_hash": "a2daa2cf729678aed3f9c2b1960c87f5",
     "semantic_hash": ""
   },
   "vscode-extension/package.json": {
-    "mtime": 1791792733.6594975,
-    "seen": 1791795041.0672722,
-    "ast_hash": "c8316293ac6bc0200db4c60d47200d16",
+    "mtime": 1791796242.718223,
+    "seen": 1791796303.0300462,
+    "ast_hash": "3cd807b6b110a7e02154f84c579be5e6",
     "semantic_hash": ""
   },
   "vscode-extension/README.md": {
-    "mtime": 1791792704.987638,
-    "seen": 1791795041.0673056,
-    "ast_hash": "d0dfde342c0b6d2f9f35e36619377597",
+    "mtime": 1791796242.720232,
+    "seen": 1791796303.030079,
+    "ast_hash": "d8fc49e5ec34446bc0fa53fc796d9e99",
     "semantic_hash": ""
   }
 }
