@@ -444,15 +444,15 @@
     "semantic_hash": ""
   },
   "src/Shared/AssemblyMetadataReader.cs": {
-    "mtime": 1791800498.3086462,
-    "seen": 1791800500.0204155,
-    "ast_hash": "88996765084d1e83b0b7e79e9597d7f2",
+    "mtime": 1791800983.7517405,
+    "seen": 1791801040.1942475,
+    "ast_hash": "52c425747ea86beeee566f894fcb8927",
     "semantic_hash": ""
   },
   "tests/Architecture.Tests/MetadataReaderTests.cs": {
-    "mtime": 1791800498.3096483,
-    "seen": 1791800500.020433,
-    "ast_hash": "bac0eabaab70cba5e1043b4ef6597af6",
+    "mtime": 1791801001.7601938,
+    "seen": 1791801040.194262,
+    "ast_hash": "2f1e4be2c8ce6d627863f748ee3fb72f",
     "semantic_hash": ""
   }
 }
