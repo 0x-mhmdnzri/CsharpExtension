@@ -100,10 +100,23 @@
 | REL-001 | packaging افزونه و language server | backlog | IDE-006 | feature/release/packaging |
 | REL-002 | release `0.1.0-alpha.2` | backlog | REL-001، QA-003 | release/0.1.0-alpha.2 |
 
+### milestone دقت‌محور Binder
+
+| ID | عنوان | وضعیت | وابستگی | شاخه پیشنهادی |
+|---|---|---|---|---|
+| BIND-001 | تعریف Symbol hierarchy و ErrorTypeSymbol | ready | LANG-003، META-001 | feature/binder/symbols |
+| BIND-002 | Binder chain و LookupResult با دلیل شکست | backlog | BIND-001 | feature/binder/lookup |
+| BIND-003 | ConversionClassifier ساختاریافته و cache | backlog | BIND-001 | feature/binder/conversions |
+| BIND-004 | Member lookup و extension method lookup | backlog | BIND-002، BIND-003 | feature/binder/member-lookup |
+| BIND-005 | Overload resolution کامل با candidate rejection | backlog | BIND-003، BIND-004 | feature/binder/overload |
+| BIND-006 | Generic inference دو فازه و LINQ binding | backlog | BIND-005 | feature/binder/inference |
+| BIND-007 | Speculative verification و baseline diagnostics | backlog | BIND-005 | feature/binder/speculative |
+| BIND-008 | Nullable flow پس از bound tree پایدار | backlog | BIND-007 | feature/binder/nullable-flow |
+
 ## مسیر اجرای بعدی
 
 ```text
-LANG-001 → LANG-002 → LANG-003 → SEM-001 → IDE-001 → IDE-002
+LANG-001 → LANG-002 → LANG-003 → BIND-001 → BIND-002 → BIND-003 → BIND-005
 ```
 
 مسیر موازی پس از ایجاد schema:

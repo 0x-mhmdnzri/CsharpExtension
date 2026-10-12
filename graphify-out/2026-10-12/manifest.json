@@ -1,0 +1,296 @@
+{
+  ".codex/hooks.json": {
+    "mtime": 1791788370.3097925,
+    "seen": 1791788901.3554146,
+    "ast_hash": "5ebef3dd159986e465ab65e4014107ec",
+    "semantic_hash": "5ebef3dd159986e465ab65e4014107ec"
+  },
+  "DotnetExpertAdvisor.slnx": {
+    "mtime": 1791787380.5853095,
+    "seen": 1791788901.355421,
+    "ast_hash": "1f108288c6d180794d30a4c56cd06e5f",
+    "semantic_hash": "1f108288c6d180794d30a4c56cd06e5f"
+  },
+  "docs/workflow/state.json": {
+    "mtime": 1791788663.2238102,
+    "seen": 1791788901.355424,
+    "ast_hash": "32b4dddf3e7c8bd7abb8742e5c1efdcd",
+    "semantic_hash": "32b4dddf3e7c8bd7abb8742e5c1efdcd"
+  },
+  "src/KnowledgeEngine/Class1.cs": {
+    "mtime": 1791787141.2802749,
+    "seen": 1791788901.3554254,
+    "ast_hash": "4ca49092fd2358c143f00108f46e9f13",
+    "semantic_hash": "4ca49092fd2358c143f00108f46e9f13"
+  },
+  "src/KnowledgeEngine/KnowledgeEngine.cs": {
+    "mtime": 1791787360.9323082,
+    "seen": 1791788901.3554268,
+    "ast_hash": "8a15a0587b30e379e6dfe641719b7a56",
+    "semantic_hash": "8a15a0587b30e379e6dfe641719b7a56"
+  },
+  "src/KnowledgeEngine/KnowledgeEngine.csproj": {
+    "mtime": 1791787175.1430933,
+    "seen": 1791788901.3554277,
+    "ast_hash": "50ec9693182375e22619a99071065148",
+    "semantic_hash": "50ec9693182375e22619a99071065148"
+  },
+  "src/LanguageServer/LanguageServer.csproj": {
+    "mtime": 1791787178.563352,
+    "seen": 1791788901.3554292,
+    "ast_hash": "614c2580b8e52901521285f43f97380c",
+    "semantic_hash": "614c2580b8e52901521285f43f97380c"
+  },
+  "src/LanguageServer/Program.cs": {
+    "mtime": 1791787525.0519373,
+    "seen": 1791788901.3554304,
+    "ast_hash": "e49ab2788a6a19c5fc4e6a7461193eb0",
+    "semantic_hash": "e49ab2788a6a19c5fc4e6a7461193eb0"
+  },
+  "src/Protocol/Class1.cs": {
+    "mtime": 1791787136.1845846,
+    "seen": 1791788901.3554318,
+    "ast_hash": "b97171145c402d6639e44f15582008c1",
+    "semantic_hash": "b97171145c402d6639e44f15582008c1"
+  },
+  "src/Protocol/Protocol.csproj": {
+    "mtime": 1791787171.7022216,
+    "seen": 1791788901.355433,
+    "ast_hash": "50ec9693182375e22619a99071065148",
+    "semantic_hash": "50ec9693182375e22619a99071065148"
+  },
+  "src/Protocol/ProtocolModels.cs": {
+    "mtime": 1791787358.775591,
+    "seen": 1791788901.3554342,
+    "ast_hash": "a04f472d9506bb74f43be550a90e7857",
+    "semantic_hash": "a04f472d9506bb74f43be550a90e7857"
+  },
+  "src/RankingEngine/Class1.cs": {
+    "mtime": 1791787140.4580297,
+    "seen": 1791788901.3554356,
+    "ast_hash": "a4b7575f4c79d1a04959f3ee2ce3be0c",
+    "semantic_hash": "a4b7575f4c79d1a04959f3ee2ce3be0c"
+  },
+  "src/RankingEngine/RankingEngine.cs": {
+    "mtime": 1791787360.5741072,
+    "seen": 1791788901.3554366,
+    "ast_hash": "eba14fccc4bd6858fcec2aa825094f29",
+    "semantic_hash": "eba14fccc4bd6858fcec2aa825094f29"
+  },
+  "src/RankingEngine/RankingEngine.csproj": {
+    "mtime": 1791787174.592284,
+    "seen": 1791788901.3554378,
+    "ast_hash": "50ec9693182375e22619a99071065148",
+    "semantic_hash": "50ec9693182375e22619a99071065148"
+  },
+  "src/RoslynHost/Class1.cs": {
+    "mtime": 1791787137.0239925,
+    "seen": 1791788901.3554392,
+    "ast_hash": "31042381d88d9b300393f6c9db9fe81a",
+    "semantic_hash": "31042381d88d9b300393f6c9db9fe81a"
+  },
+  "src/RoslynHost/RoslynHost.cs": {
+    "mtime": 1791787359.232901,
+    "seen": 1791788901.3554401,
+    "ast_hash": "e3f75be5d4e4ff69bfedc81c9762d353",
+    "semantic_hash": "e3f75be5d4e4ff69bfedc81c9762d353"
+  },
+  "src/RoslynHost/RoslynHost.csproj": {
+    "mtime": 1791787172.1989884,
+    "seen": 1791788901.3554413,
+    "ast_hash": "50ec9693182375e22619a99071065148",
+    "semantic_hash": "50ec9693182375e22619a99071065148"
+  },
+  "src/RuleEngine/Class1.cs": {
+    "mtime": 1791787139.5074894,
+    "seen": 1791788901.3554425,
+    "ast_hash": "0b737b7199986d7f4aeb691ee60b54ee",
+    "semantic_hash": "0b737b7199986d7f4aeb691ee60b54ee"
+  },
+  "src/RuleEngine/RuleEngine.cs": {
+    "mtime": 1791787360.1342986,
+    "seen": 1791788901.3554437,
+    "ast_hash": "88c122de24b1b6b806e4587da13b27e9",
+    "semantic_hash": "88c122de24b1b6b806e4587da13b27e9"
+  },
+  "src/RuleEngine/RuleEngine.csproj": {
+    "mtime": 1791787174.1043854,
+    "seen": 1791788901.355445,
+    "ast_hash": "96464a952818ff17f525f659820eb7c0",
+    "semantic_hash": "96464a952818ff17f525f659820eb7c0"
+  },
+  "src/RuntimeModel/Class1.cs": {
+    "mtime": 1791787138.6902626,
+    "seen": 1791788901.355446,
+    "ast_hash": "cee656ebf6244216aa813490631fa266",
+    "semantic_hash": "cee656ebf6244216aa813490631fa266"
+  },
+  "src/RuntimeModel/RuntimeModel.cs": {
+    "mtime": 1791787361.3528104,
+    "seen": 1791788901.355447,
+    "ast_hash": "06681435d768083dc1e677b088b91fdc",
+    "semantic_hash": "06681435d768083dc1e677b088b91fdc"
+  },
+  "src/RuntimeModel/RuntimeModel.csproj": {
+    "mtime": 1791787173.1572537,
+    "seen": 1791788901.3554482,
+    "ast_hash": "50ec9693182375e22619a99071065148",
+    "semantic_hash": "50ec9693182375e22619a99071065148"
+  },
+  "src/SemanticGraph/Class1.cs": {
+    "mtime": 1791787137.8339174,
+    "seen": 1791788901.3554497,
+    "ast_hash": "e3bc57378dd9f4229430d6cdbe089f2c",
+    "semantic_hash": "e3bc57378dd9f4229430d6cdbe089f2c"
+  },
+  "src/SemanticGraph/SemanticGraph.cs": {
+    "mtime": 1791787359.7262068,
+    "seen": 1791788901.3554509,
+    "ast_hash": "a3ac09710080fa8bfb74420cc3ce4601",
+    "semantic_hash": "a3ac09710080fa8bfb74420cc3ce4601"
+  },
+  "src/SemanticGraph/SemanticGraph.csproj": {
+    "mtime": 1791787172.6820886,
+    "seen": 1791788901.3554518,
+    "ast_hash": "50ec9693182375e22619a99071065148",
+    "semantic_hash": "50ec9693182375e22619a99071065148"
+  },
+  "src/Shared/Class1.cs": {
+    "mtime": 1791787135.2745733,
+    "seen": 1791788901.355453,
+    "ast_hash": "db43ddef308d1544e3f0935f474e98aa",
+    "semantic_hash": "db43ddef308d1544e3f0935f474e98aa"
+  },
+  "src/Shared/Contracts.cs": {
+    "mtime": 1791787358.2222688,
+    "seen": 1791788901.3554542,
+    "ast_hash": "dfcb20e8e24a19ca6bdae368c619de4f",
+    "semantic_hash": "dfcb20e8e24a19ca6bdae368c619de4f"
+  },
+  "src/Shared/Shared.csproj": {
+    "mtime": 1791787135.284609,
+    "seen": 1791788901.3554554,
+    "ast_hash": "46b0780bd56312ea2d1bab391f179e89",
+    "semantic_hash": "46b0780bd56312ea2d1bab391f179e89"
+  },
+  "tests/Architecture.Tests/Architecture.Tests.csproj": {
+    "mtime": 1791787575.385429,
+    "seen": 1791788901.355457,
+    "ast_hash": "d609c5177ca132940c249b108343b087",
+    "semantic_hash": "d609c5177ca132940c249b108343b087"
+  },
+  "tests/Architecture.Tests/ContractSmokeTests.cs": {
+    "mtime": 1791787575.3874302,
+    "seen": 1791788901.3554578,
+    "ast_hash": "9e3116426c69a6177a8044325c08efc2",
+    "semantic_hash": "9e3116426c69a6177a8044325c08efc2"
+  },
+  ".codex/skills/ponytail-audit/SKILL.md": {
+    "mtime": 1791788425.7948642,
+    "seen": 1791789256.3246644,
+    "ast_hash": "3c74cf12a43402931cf527ba67ea352f",
+    "semantic_hash": ""
+  },
+  ".codex/skills/ponytail-debt/SKILL.md": {
+    "mtime": 1791788425.7948642,
+    "seen": 1791789256.324666,
+    "ast_hash": "57287ca71af948d8afb81a58e3aa4ca6",
+    "semantic_hash": ""
+  },
+  ".codex/skills/ponytail-gain/SKILL.md": {
+    "mtime": 1791788425.796368,
+    "seen": 1791789256.3246675,
+    "ast_hash": "2b50dc83251cc60c1d0f066805b8ca3f",
+    "semantic_hash": ""
+  },
+  ".codex/skills/ponytail-help/SKILL.md": {
+    "mtime": 1791788425.7973733,
+    "seen": 1791789256.3246684,
+    "ast_hash": "1b654c8cea452eddeed657707f6a3a7d",
+    "semantic_hash": ""
+  },
+  ".codex/skills/ponytail-review/SKILL.md": {
+    "mtime": 1791788425.7973733,
+    "seen": 1791789256.3246694,
+    "ast_hash": "599ba68a9bd0134e902b4158a4efd271",
+    "semantic_hash": ""
+  },
+  ".codex/skills/ponytail/SKILL.md": {
+    "mtime": 1791788425.7983744,
+    "seen": 1791789256.3246708,
+    "ast_hash": "0de2574920505e8f423705421e60742e",
+    "semantic_hash": ""
+  },
+  "AGENTS.md": {
+    "mtime": 1791788583.3670583,
+    "seen": 1791789256.3246717,
+    "ast_hash": "76401624eb9d0ce6532c76170bc1e410",
+    "semantic_hash": ""
+  },
+  "CONTRIBUTING.md": {
+    "mtime": 1791787794.8742015,
+    "seen": 1791789256.3246727,
+    "ast_hash": "d491cddb1674edaaf59672bad955af46",
+    "semantic_hash": ""
+  },
+  "docs/architecture.md": {
+    "mtime": 1791788774.0374472,
+    "seen": 1791789256.324674,
+    "ast_hash": "0b71c6150ae381b55f879293fbc93c3f",
+    "semantic_hash": ""
+  },
+  "docs/data-schemas.md": {
+    "mtime": 1791787000.8401852,
+    "seen": 1791789256.3246748,
+    "ast_hash": "1e98ecf5aa87f07d1aeb211faba21bc8",
+    "semantic_hash": ""
+  },
+  "docs/decisions.md": {
+    "mtime": 1791788795.160124,
+    "seen": 1791789256.3246758,
+    "ast_hash": "2ddff533333b6e27ecfa1e845cadca76",
+    "semantic_hash": ""
+  },
+  "docs/evaluation.md": {
+    "mtime": 1791786754.2119875,
+    "seen": 1791789256.3246765,
+    "ast_hash": "291d3a64f8b67a4b2090a4204c848925",
+    "semantic_hash": ""
+  },
+  "docs/internal-contracts.md": {
+    "mtime": 1791787000.40398,
+    "seen": 1791789256.3246784,
+    "ast_hash": "3c12b19cd826df4a9ac666d5eddc1f47",
+    "semantic_hash": ""
+  },
+  "docs/knowledge-pipeline.md": {
+    "mtime": 1791786753.7439106,
+    "seen": 1791789256.3246794,
+    "ast_hash": "c91b600e37217596456b1a722b3f705f",
+    "semantic_hash": ""
+  },
+  "docs/lsp-contract.md": {
+    "mtime": 1791786752.6918466,
+    "seen": 1791789256.3246806,
+    "ast_hash": "4baeb54e269f2753341f876c0e826820",
+    "semantic_hash": ""
+  },
+  "docs/rule-authoring.md": {
+    "mtime": 1791786753.2149532,
+    "seen": 1791789256.3246815,
+    "ast_hash": "433a03bfc7f5590b0ede9b57a78a8a52",
+    "semantic_hash": ""
+  },
+  "docs/versioning.md": {
+    "mtime": 1791787795.3912787,
+    "seen": 1791789256.3246825,
+    "ast_hash": "f0c5ed28fc47985681ac7eeefc21c779",
+    "semantic_hash": ""
+  },
+  "docs/workflow/project-tasks.md": {
+    "mtime": 1791788662.8701954,
+    "seen": 1791789256.3246834,
+    "ast_hash": "e80023da94ea67f7d4b0a2a35de7810b",
+    "semantic_hash": ""
+  }
+}
