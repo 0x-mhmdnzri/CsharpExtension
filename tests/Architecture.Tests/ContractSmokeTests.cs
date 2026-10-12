@@ -178,6 +178,21 @@ public static class ContractSmokeTests
             throw new InvalidOperationException("Lexer did not recover from an unterminated string.");
     }
 
+    public static void ValidateParser()
+    {
+        var source = "namespace Demo { public class C { } }";
+        var lexer = new CSharpLexer();
+        var parsed = new CSharpParser().Parse(lexer.Tokenize(source), LanguageCapabilities.For(LanguageVersion.CSharp10));
+        if (parsed.Reconstruct() != source || parsed.Diagnostics.Length != 0 || !parsed.Root.Children.Any(child => child.Kind == SyntaxKind.NamespaceDeclaration))
+            throw new InvalidOperationException("Parser did not preserve the source or create a namespace node.");
+        var broken = new CSharpParser().Parse(lexer.Tokenize("class C {"), LanguageCapabilities.For(LanguageVersion.CSharp10));
+        if (broken.Diagnostics.Length == 0)
+            throw new InvalidOperationException("Parser did not recover from an unclosed declaration.");
+        var old = new CSharpParser().Parse(lexer.Tokenize("record C {}"), LanguageCapabilities.For(LanguageVersion.CSharp8));
+        if (!old.Diagnostics.Any(diagnostic => diagnostic.Message.Contains("Records", StringComparison.Ordinal)))
+            throw new InvalidOperationException("Parser did not enforce the language version gate.");
+    }
+
     private static MethodSymbol Method(string id, string name, Symbol? containing, TypeSymbol parameterType)
         => new(id, name, containing, Accessibility.Public, parameterType, ImmutableArray.Create(new ParameterSymbol($"{id}.parameter", "value", null, parameterType, false, false)), ImmutableArray<TypeParameterSymbol>.Empty, false, false, false);
 
