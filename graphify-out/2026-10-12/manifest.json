@@ -12,9 +12,9 @@
     "semantic_hash": "1f108288c6d180794d30a4c56cd06e5f"
   },
   "docs/workflow/state.json": {
-    "mtime": 1791798105.8801236,
-    "seen": 1791798147.6628754,
-    "ast_hash": "2bfc34b6681c2f123098c2d124c56cc8",
+    "mtime": 1791798678.9679625,
+    "seen": 1791798750.018778,
+    "ast_hash": "7094c29f0ffe1331af6a4cae989d1231",
     "semantic_hash": ""
   },
   "src/KnowledgeEngine/Class1.cs": {
@@ -156,8 +156,8 @@
     "semantic_hash": "50ec9693182375e22619a99071065148"
   },
   "src/Shared/Class1.cs": {
-    "mtime": 1791798023.5625355,
-    "seen": 1791798147.6629846,
+    "mtime": 1791798295.8381946,
+    "seen": 1791798750.0188076,
     "ast_hash": "db43ddef308d1544e3f0935f474e98aa",
     "semantic_hash": "db43ddef308d1544e3f0935f474e98aa"
   },
@@ -180,9 +180,9 @@
     "semantic_hash": ""
   },
   "tests/Architecture.Tests/ContractSmokeTests.cs": {
-    "mtime": 1791798032.3182356,
-    "seen": 1791798147.6630156,
-    "ast_hash": "d6e6ad074d5e39edeb2ac1881a2d22c2",
+    "mtime": 1791798626.4426382,
+    "seen": 1791798750.0188165,
+    "ast_hash": "9b0c9799b8789a15e4b07b6a9cdc8c79",
     "semantic_hash": ""
   },
   ".codex/skills/ponytail-audit/SKILL.md": {
@@ -288,9 +288,9 @@
     "semantic_hash": ""
   },
   "docs/workflow/project-tasks.md": {
-    "mtime": 1791798105.7865627,
-    "seen": 1791798147.663159,
-    "ast_hash": "f70fc45e7a66520ebd171982a8a540c5",
+    "mtime": 1791798696.6402214,
+    "seen": 1791798750.018852,
+    "ast_hash": "dfd5e254f820d4091837bba6a0b60282",
     "semantic_hash": ""
   },
   "docs/design/binder-overload-resolution.md": {
@@ -372,9 +372,9 @@
     "semantic_hash": ""
   },
   "docs/backlog.md": {
-    "mtime": 1791798105.7865627,
-    "seen": 1791798147.663106,
-    "ast_hash": "ef34cfb43ddad20406c3999847cd7ad7",
+    "mtime": 1791798645.174116,
+    "seen": 1791798750.018839,
+    "ast_hash": "e033df5da9c5c9441ab2e998161b8c7f",
     "semantic_hash": ""
   },
   "src/Shared/Symbols.cs": {
@@ -384,9 +384,9 @@
     "semantic_hash": ""
   },
   "tests/Architecture.Tests/Program.cs": {
-    "mtime": 1791798032.7698586,
-    "seen": 1791798147.6630194,
-    "ast_hash": "365b9a29083787ca591553e5d4b0d309",
+    "mtime": 1791798626.9447403,
+    "seen": 1791798750.0188172,
+    "ast_hash": "4577507eb3e160b00daeacdf28515cba",
     "semantic_hash": ""
   },
   "src/Shared/Binder.cs": {
@@ -420,9 +420,15 @@
     "semantic_hash": ""
   },
   "src/Shared/MemberLookup.cs": {
-    "mtime": 1791798031.7754483,
-    "seen": 1791798147.6629982,
+    "mtime": 1791798182.5098493,
+    "seen": 1791798750.0188122,
     "ast_hash": "f2f6e54c3d9d06f1e70e809fef6bd13b",
+    "semantic_hash": ""
+  },
+  "src/Shared/LanguageCapabilities.cs": {
+    "mtime": 1791798626.0451913,
+    "seen": 1791798750.018811,
+    "ast_hash": "88074d828092b4ea6c0853ae0c56104e",
     "semantic_hash": ""
   }
 }

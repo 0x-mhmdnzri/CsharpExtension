@@ -6,4 +6,5 @@ ContractSmokeTests.ValidateBinderStatuses();
 ContractSmokeTests.ValidateConversionClassifier();
 ContractSmokeTests.ValidateMemberLookup();
 ContractSmokeTests.ValidateLanguageCapabilities();
+ContractSmokeTests.ValidateLexer();
 Console.WriteLine("Architecture smoke checks passed.");

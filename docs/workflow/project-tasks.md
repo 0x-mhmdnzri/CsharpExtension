@@ -33,7 +33,7 @@
 | ID | عنوان | وضعیت | وابستگی | شاخه پیشنهادی |
 |---|---|---|---|---|
 | LANG-001 | تعیین grammar و token model برای C# 6 تا 15 | done | GOV-001 | feature/language/token-model |
-| LANG-002 | lexer اختصاصی با خطاپذیری و incremental ranges | backlog | LANG-001 | feature/language/lexer |
+| LANG-002 | lexer اختصاصی با خطاپذیری و incremental ranges | done | LANG-001 | feature/language/lexer |
 | LANG-003 | parser اختصاصی و syntax tree پایدار | backlog | LANG-002 | feature/language/parser |
 | LANG-004 | syntax recovery برای کد ناقص هنگام تایپ | backlog | LANG-003 | feature/language/recovery |
 | LANG-005 | capability matrix نسخه‌های C# 6 تا 15 | backlog | LANG-001 | feature/language/version-matrix |
