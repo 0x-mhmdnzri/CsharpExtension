@@ -104,6 +104,14 @@ public static class ContractSmokeTests
         AssertConversion(classifier.Classify(longType, nullableInt, context), ConversionKind.NoConversion, false, false);
         var unrelatedInterface = Primitive("Unrelated", TypeKind.Interface);
         AssertConversion(classifier.Classify(intType, unrelatedInterface, context), ConversionKind.NoConversion, false, false);
+        var tupleSource = new TupleTypeSymbol(ImmutableArray.Create<TypeSymbol>(intType, stringType));
+        var tupleTarget = new TupleTypeSymbol(ImmutableArray.Create<TypeSymbol>(longType, objectType));
+        AssertConversion(classifier.Classify(tupleSource, tupleTarget, context), ConversionKind.ImplicitTuple, true);
+        var delegateType = Primitive("Func", TypeKind.Delegate);
+        var lambda = new LambdaTypeSymbol(ImmutableArray.Create<TypeSymbol>(intType), stringType);
+        var methodGroup = new MethodGroupTypeSymbol(ImmutableArray<MethodSymbol>.Empty);
+        AssertConversion(classifier.Classify(lambda, delegateType, context), ConversionKind.AnonymousFunction, true);
+        AssertConversion(classifier.Classify(methodGroup, delegateType, context), ConversionKind.MethodGroup, true);
         if (classifier.CachedConversionCount < 7)
             throw new InvalidOperationException("Conversion results were not cached.");
     }

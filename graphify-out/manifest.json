@@ -12,9 +12,9 @@
     "semantic_hash": "1f108288c6d180794d30a4c56cd06e5f"
   },
   "docs/workflow/state.json": {
-    "mtime": 1791792483.4347847,
-    "seen": 1791792515.1569397,
-    "ast_hash": "691f3f82ecbd1e681aef7047b8fe6afa",
+    "mtime": 1791792515.8272314,
+    "seen": 1791795041.0672367,
+    "ast_hash": "0bc76a00ca2c1fffe20252cf7d380a32",
     "semantic_hash": ""
   },
   "src/KnowledgeEngine/Class1.cs": {
@@ -180,9 +180,9 @@
     "semantic_hash": ""
   },
   "tests/Architecture.Tests/ContractSmokeTests.cs": {
-    "mtime": 1791792451.2224736,
-    "seen": 1791792515.1569734,
-    "ast_hash": "70ed07b9383f63c8d05a3f7a70188d95",
+    "mtime": 1791794960.6053941,
+    "seen": 1791795041.067269,
+    "ast_hash": "68740fc0a697dd1b8df7db94f05e6e28",
     "semantic_hash": ""
   },
   ".codex/skills/ponytail-audit/SKILL.md": {
@@ -288,8 +288,8 @@
     "semantic_hash": ""
   },
   "docs/workflow/project-tasks.md": {
-    "mtime": 1791792483.4357767,
-    "seen": 1791792515.1570065,
+    "mtime": 1791792515.8262386,
+    "seen": 1791795041.0673044,
     "ast_hash": "90aa54fcb38bf1abf62da3ddd25aacb9",
     "semantic_hash": ""
   },
@@ -378,14 +378,14 @@
     "semantic_hash": ""
   },
   "src/Shared/Symbols.cs": {
-    "mtime": 1791792450.8297174,
-    "seen": 1791792515.1569712,
-    "ast_hash": "aa274935391db1c82d8918a2e0ad9688",
+    "mtime": 1791794959.7635243,
+    "seen": 1791795041.0672672,
+    "ast_hash": "a4a879250f6008226f7326e5a1111497",
     "semantic_hash": ""
   },
   "tests/Architecture.Tests/Program.cs": {
-    "mtime": 1791792206.0440984,
-    "seen": 1791792515.156974,
+    "mtime": 1791792515.8342333,
+    "seen": 1791795041.06727,
     "ast_hash": "2d6a4f8c937822a097ac7724338ac7d6",
     "semantic_hash": ""
   },
@@ -396,9 +396,27 @@
     "semantic_hash": ""
   },
   "src/Shared/Conversions.cs": {
-    "mtime": 1791792483.307551,
-    "seen": 1791792515.1569686,
-    "ast_hash": "def9b1312a134692b89e7b31abf7f2ed",
+    "mtime": 1791794960.1999705,
+    "seen": 1791795041.067265,
+    "ast_hash": "5ed65573136265c88a54df9b75328d5b",
+    "semantic_hash": ""
+  },
+  "vscode-extension/extension.js": {
+    "mtime": 1791792704.5622244,
+    "seen": 1791795041.0672712,
+    "ast_hash": "1a7c3e086e85cb0af1515568844ddb66",
+    "semantic_hash": ""
+  },
+  "vscode-extension/package.json": {
+    "mtime": 1791792733.6594975,
+    "seen": 1791795041.0672722,
+    "ast_hash": "c8316293ac6bc0200db4c60d47200d16",
+    "semantic_hash": ""
+  },
+  "vscode-extension/README.md": {
+    "mtime": 1791792704.987638,
+    "seen": 1791795041.0673056,
+    "ast_hash": "d0dfde342c0b6d2f9f35e36619377597",
     "semantic_hash": ""
   }
 }
