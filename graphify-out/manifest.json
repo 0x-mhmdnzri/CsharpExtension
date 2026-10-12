@@ -12,9 +12,9 @@
     "semantic_hash": "1f108288c6d180794d30a4c56cd06e5f"
   },
   "docs/workflow/state.json": {
-    "mtime": 1791800498.2989705,
-    "seen": 1791800500.0203824,
-    "ast_hash": "88c29bae8e3c2a94bca36a6742f1a861",
+    "mtime": 1791801301.9900959,
+    "seen": 1791801314.1221266,
+    "ast_hash": "9672bf595714b3202cbeb3f2418ca2fe",
     "semantic_hash": ""
   },
   "src/KnowledgeEngine/Class1.cs": {
@@ -444,15 +444,15 @@
     "semantic_hash": ""
   },
   "src/Shared/AssemblyMetadataReader.cs": {
-    "mtime": 1791800983.7517405,
-    "seen": 1791801040.1942475,
-    "ast_hash": "52c425747ea86beeee566f894fcb8927",
+    "mtime": 1791801250.9979525,
+    "seen": 1791801314.1221533,
+    "ast_hash": "c02edccab99076285a1337a92aa4b498",
     "semantic_hash": ""
   },
   "tests/Architecture.Tests/MetadataReaderTests.cs": {
-    "mtime": 1791801001.7601938,
-    "seen": 1791801040.194262,
-    "ast_hash": "2f1e4be2c8ce6d627863f748ee3fb72f",
+    "mtime": 1791801277.0735812,
+    "seen": 1791801314.122167,
+    "ast_hash": "d284b4ec29dcb3cd3de723c1e51c6216",
     "semantic_hash": ""
   }
 }
