@@ -3,7 +3,7 @@
   "workflow": "gitflow",
   "currentBranch": "develop",
   "version": "0.1.0-alpha.1",
-  "currentTask": "LANG-004",
+  "currentTask": "META-001",
   "lastCompleted": [
     "GOV-001",
     "GOV-002",
@@ -16,9 +16,10 @@
     "BIND-004",
     "LANG-001",
     "LANG-002",
-    "LANG-003"
+    "LANG-003",
+    "LANG-004"
   ],
-  "nextTask": "LANG-004",
+  "nextTask": "META-001",
   "requirements": {
     "ownIntellisense": true,
     "externalLanguageService": false,
@@ -42,7 +43,7 @@
   },
   "validation": {
     "build": "passed",
-    "tests": "lexer and parser smoke checks passed",
+    "tests": "lexer parser and recovery smoke checks passed",
     "graphify": "installed project-scoped",
     "ponytail": "installed project-scoped"
   }
