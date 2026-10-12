@@ -55,7 +55,7 @@
 |---|---|---|---|---|
 | META-001 | خواندن metadata و IL بدون کتابخانه تحلیل خارجی | done | SEM-002 | feature/metadata/reader |
 | META-002 | assembly reference و target framework index | done | META-001 | feature/metadata/framework-index |
-| NUGET-001 | خواندن PackageReference و assets file | backlog | META-002 | feature/nuget/project-index |
+| NUGET-001 | خواندن PackageReference و assets file | done | META-002 | feature/nuget/project-index |
 | NUGET-002 | ایندکس package/type/member و API usage | backlog | NUGET-001 | feature/nuget/api-index |
 | NUGET-003 | به‌روزرسانی index هنگام اضافه‌شدن package جدید | backlog | NUGET-002 | feature/nuget/incremental-update |
 

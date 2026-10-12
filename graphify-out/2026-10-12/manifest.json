@@ -12,9 +12,9 @@
     "semantic_hash": "1f108288c6d180794d30a4c56cd06e5f"
   },
   "docs/workflow/state.json": {
-    "mtime": 1791802061.6811044,
-    "seen": 1791802083.754791,
-    "ast_hash": "d0db43504f75c9e701f027ec525a4220",
+    "mtime": 1791802413.8426938,
+    "seen": 1791802426.203442,
+    "ast_hash": "25f58d3bbd105c53135c4ba0f2494b12",
     "semantic_hash": ""
   },
   "src/KnowledgeEngine/Class1.cs": {
@@ -288,9 +288,9 @@
     "semantic_hash": ""
   },
   "docs/workflow/project-tasks.md": {
-    "mtime": 1791802061.4419184,
-    "seen": 1791802083.7548687,
-    "ast_hash": "cba9fd55cb959983ca71e3b3b7c89685",
+    "mtime": 1791802413.566794,
+    "seen": 1791802426.203523,
+    "ast_hash": "caebe27958535e27ca619ddb8fd029dc",
     "semantic_hash": ""
   },
   "docs/design/binder-overload-resolution.md": {
@@ -384,9 +384,9 @@
     "semantic_hash": ""
   },
   "tests/Architecture.Tests/Program.cs": {
-    "mtime": 1791800498.3096483,
-    "seen": 1791800500.0204341,
-    "ast_hash": "edace5a70994bb4845efb5f306ba9e55",
+    "mtime": 1791802293.0123787,
+    "seen": 1791802426.2034867,
+    "ast_hash": "9ebbd444c86c909368d82029649de7c1",
     "semantic_hash": ""
   },
   "src/Shared/Binder.cs": {
@@ -444,15 +444,27 @@
     "semantic_hash": ""
   },
   "src/Shared/AssemblyMetadataReader.cs": {
-    "mtime": 1791801989.4453506,
-    "seen": 1791802083.7548177,
+    "mtime": 1791802109.301942,
+    "seen": 1791802111.006942,
     "ast_hash": "781bdf84beb7e2c808f57039f0c45c6a",
     "semantic_hash": ""
   },
   "tests/Architecture.Tests/MetadataReaderTests.cs": {
-    "mtime": 1791802013.1641707,
-    "seen": 1791802083.7548323,
+    "mtime": 1791802109.302942,
+    "seen": 1791802111.0069566,
     "ast_hash": "6b2c5962360e1a45192f2ebe1705ea50",
+    "semantic_hash": ""
+  },
+  "src/Shared/NuGetProjectIndex.cs": {
+    "mtime": 1791802358.2332146,
+    "seen": 1791802426.2034783,
+    "ast_hash": "4fa754fc095d30781844dc669f3b7356",
+    "semantic_hash": ""
+  },
+  "tests/Architecture.Tests/NuGetProjectIndexTests.cs": {
+    "mtime": 1791802292.6434846,
+    "seen": 1791802426.203486,
+    "ast_hash": "e0c225ee73b224a1621dca30b14e7521",
     "semantic_hash": ""
   }
 }

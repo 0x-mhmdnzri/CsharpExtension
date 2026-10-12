@@ -1,29 +1,53 @@
 {
-  "project": "DotnetExpertAdvisor",
-  "workflow": "gitflow",
-  "currentBranch": "develop",
-  "version": "0.1.0-alpha.1",
-  "currentTask": "NUGET-001",
-  "lastCompleted": [
-    "GOV-001", "GOV-002", "GOV-003", "GOV-004", "GOV-005",
-    "BIND-001", "BIND-002", "BIND-003", "BIND-004",
-    "LANG-001", "LANG-002", "LANG-003", "LANG-004", "META-001", "META-002"
-  ],
-  "nextTask": "NUGET-001",
-  "requirements": {
-    "ownIntellisense": true,
-    "externalLanguageService": false,
-    "externalRuntimeService": false,
-    "csharpVersions": [6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-    "entityFramework": true,
-    "microsoftBlogKnowledgeUpdates": true,
-    "nugetPackageIndexing": true,
-    "contextAwareRanking": true
-  },
-  "validation": {
-    "build": "passed",
-    "tests": "metadata reader: assembly, signatures, generic constraints, references, type forwarding, target framework, XML docs, invalid PE, cancellation and DTD checks passed",
-    "graphify": "installed project-scoped",
-    "ponytail": "installed project-scoped"
-  }
+    "project":  "DotnetExpertAdvisor",
+    "workflow":  "gitflow",
+    "currentBranch":  "develop",
+    "version":  "0.1.0-alpha.1",
+    "currentTask":  "NUGET-002",
+    "lastCompleted":  [
+                          "GOV-001",
+                          "GOV-002",
+                          "GOV-003",
+                          "GOV-004",
+                          "GOV-005",
+                          "BIND-001",
+                          "BIND-002",
+                          "BIND-003",
+                          "BIND-004",
+                          "LANG-001",
+                          "LANG-002",
+                          "LANG-003",
+                          "LANG-004",
+                          "META-001",
+                          "META-002",
+                          "NUGET-001"
+                      ],
+    "nextTask":  "NUGET-002",
+    "requirements":  {
+                         "ownIntellisense":  true,
+                         "externalLanguageService":  false,
+                         "externalRuntimeService":  false,
+                         "csharpVersions":  [
+                                                6,
+                                                7,
+                                                8,
+                                                9,
+                                                10,
+                                                11,
+                                                12,
+                                                13,
+                                                14,
+                                                15
+                                            ],
+                         "entityFramework":  true,
+                         "microsoftBlogKnowledgeUpdates":  true,
+                         "nugetPackageIndexing":  true,
+                         "contextAwareRanking":  true
+                     },
+    "validation":  {
+                       "build":  "passed",
+                       "tests":  "metadata reader and NuGet project/assets index: build and smoke checks passed",
+                       "graphify":  "installed project-scoped",
+                       "ponytail":  "installed project-scoped"
+                   }
 }
