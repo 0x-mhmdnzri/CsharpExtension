@@ -12,9 +12,9 @@
     "semantic_hash": "1f108288c6d180794d30a4c56cd06e5f"
   },
   "docs/workflow/state.json": {
-    "mtime": 1791867445.6358857,
-    "seen": 1791867447.0878615,
-    "ast_hash": "911d7bae6bc94fc577f1ad7a050d1682",
+    "mtime": 1791870640.958275,
+    "seen": 1791870645.4515743,
+    "ast_hash": "dfa0fa582f88a4e84d4eda7ccbfc5b61",
     "semantic_hash": ""
   },
   "src/KnowledgeEngine/Class1.cs": {
@@ -288,9 +288,9 @@
     "semantic_hash": ""
   },
   "docs/workflow/project-tasks.md": {
-    "mtime": 1791867445.359598,
-    "seen": 1791867447.087947,
-    "ast_hash": "c5bd70ca2c9318babd2f35f6af587f94",
+    "mtime": 1791870640.6459675,
+    "seen": 1791870645.4516687,
+    "ast_hash": "b1751a1a5625371edc6e78b60e3e39c6",
     "semantic_hash": ""
   },
   "docs/design/binder-overload-resolution.md": {
@@ -384,9 +384,9 @@
     "semantic_hash": ""
   },
   "tests/Architecture.Tests/Program.cs": {
-    "mtime": 1791866701.891783,
-    "seen": 1791866917.9156556,
-    "ast_hash": "bb3551f923037a73e979c597f4a9bcb8",
+    "mtime": 1791870468.6436212,
+    "seen": 1791870645.4516304,
+    "ast_hash": "c54e241456d86bc02b690312e6c3e407",
     "semantic_hash": ""
   },
   "src/Shared/Binder.cs": {
@@ -519,6 +519,18 @@
     "mtime": 1791866901.0713108,
     "seen": 1791866917.915657,
     "ast_hash": "5510856f9e35cbced4eb6f8c5da027e1",
+    "semantic_hash": ""
+  },
+  "src/Shared/EfModelAnalyzer.cs": {
+    "mtime": 1791870605.6844475,
+    "seen": 1791870645.451613,
+    "ast_hash": "76c13dfe2b687f41f288adeccd4acab6",
+    "semantic_hash": ""
+  },
+  "tests/Architecture.Tests/EfModelAnalyzerTests.cs": {
+    "mtime": 1791870620.3170295,
+    "seen": 1791870645.4516273,
+    "ast_hash": "2f932e5f654ad1aea6c2c08bb2c457b3",
     "semantic_hash": ""
   }
 }

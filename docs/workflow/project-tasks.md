@@ -57,7 +57,7 @@
 
 | ID | عنوان | وضعیت | وابستگی | شاخه پیشنهادی |
 |---|---|---|---|---|
-| EF-001 | تشخیص DbContext، DbSet و entity model | backlog | SEM-002، NUGET-002 | feature/ef/model-analysis |
+| EF-001 | تشخیص DbContext، DbSet و entity model | done | SEM-002، NUGET-002 | feature/ef/model-analysis |
 | EF-002 | تحلیل LINQ و ترجمه احتمالی به SQL | backlog | SEM-005، EF-001 | feature/ef/linq-analysis |
 | EF-003 | پیشنهادهای migration، tracking و query performance | backlog | EF-002 | feature/ef/rules |
 | EF-004 | پشتیبانی providerهای رایج با metadata قابل به‌روزرسانی | backlog | NUGET-003، EF-001 | feature/ef/providers |
