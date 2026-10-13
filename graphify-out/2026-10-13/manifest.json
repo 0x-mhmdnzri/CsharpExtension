@@ -288,9 +288,9 @@
     "semantic_hash": ""
   },
   "docs/workflow/project-tasks.md": {
-    "mtime": 1791872548.0249388,
-    "seen": 1791872549.7479632,
-    "ast_hash": "086da109125ae121bd7f3034b8a31a08",
+    "mtime": 1791872798.6490946,
+    "seen": 1791872800.3932014,
+    "ast_hash": "e41c69b721798c40c5e096b4cacaf8c4",
     "semantic_hash": ""
   },
   "docs/design/binder-overload-resolution.md": {
@@ -372,9 +372,9 @@
     "semantic_hash": ""
   },
   "docs/backlog.md": {
-    "mtime": 1791872548.0249388,
-    "seen": 1791872549.7479503,
-    "ast_hash": "a2dfe049f2fc67347a3242edfa1d1239",
+    "mtime": 1791872768.806733,
+    "seen": 1791872800.3931878,
+    "ast_hash": "83eac0983c2b909e53a81dd7a3d175b9",
     "semantic_hash": ""
   },
   "src/Shared/Symbols.cs": {
