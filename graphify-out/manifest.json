@@ -12,9 +12,9 @@
     "semantic_hash": "1f108288c6d180794d30a4c56cd06e5f"
   },
   "docs/workflow/state.json": {
-    "mtime": 1791873262.0960815,
-    "seen": 1791873263.9661834,
-    "ast_hash": "b37bb0766dec3b8f6bbd4b9901216dab",
+    "mtime": 1791873366.0824752,
+    "seen": 1791873368.4987118,
+    "ast_hash": "8404dfde4db6398a23ce691864a57b34",
     "semantic_hash": ""
   },
   "src/KnowledgeEngine/Class1.cs": {
@@ -288,9 +288,9 @@
     "semantic_hash": ""
   },
   "docs/workflow/project-tasks.md": {
-    "mtime": 1791873262.0016847,
-    "seen": 1791873263.9664876,
-    "ast_hash": "d5989488669948929f5cfec1c6233b13",
+    "mtime": 1791873366.0814722,
+    "seen": 1791873368.498822,
+    "ast_hash": "2d289867e3ca165448234ad10ee8fba8",
     "semantic_hash": ""
   },
   "docs/design/binder-overload-resolution.md": {
@@ -372,9 +372,9 @@
     "semantic_hash": ""
   },
   "docs/backlog.md": {
-    "mtime": 1791873262.0068748,
-    "seen": 1791873263.9664593,
-    "ast_hash": "ee9692bcdead1394a5ef6cff7db9f4b3",
+    "mtime": 1791873366.077527,
+    "seen": 1791873368.4988089,
+    "ast_hash": "39b16e67ccce345fd7cde52d1bd59c4b",
     "semantic_hash": ""
   },
   "src/Shared/Symbols.cs": {
@@ -384,9 +384,9 @@
     "semantic_hash": ""
   },
   "tests/Architecture.Tests/Program.cs": {
-    "mtime": 1791873213.3070886,
-    "seen": 1791873263.9664078,
-    "ast_hash": "20cbe04879469b48ba3685ccbc94b47c",
+    "mtime": 1791873366.1086884,
+    "seen": 1791873368.4987845,
+    "ast_hash": "c8fb372ae072c35f01e362e1e9105491",
     "semantic_hash": ""
   },
   "src/Shared/Binder.cs": {
@@ -606,8 +606,8 @@
     "semantic_hash": ""
   },
   "src/Shared/KnowledgePackSecurity.cs": {
-    "mtime": 1791873185.0917869,
-    "seen": 1791873263.9663475,
+    "mtime": 1791873366.1071734,
+    "seen": 1791873368.4987576,
     "ast_hash": "aa0f45734ae08c0bc9e990af85b17704",
     "semantic_hash": ""
   },
@@ -618,14 +618,14 @@
     "semantic_hash": ""
   },
   "src/Shared/KnowledgeUpdateClient.cs": {
-    "mtime": 1791873185.602064,
-    "seen": 1791873263.9663537,
+    "mtime": 1791873366.1076791,
+    "seen": 1791873368.4987597,
     "ast_hash": "616198b8e8380a0e5cfed37bd76d0b16",
     "semantic_hash": ""
   },
   "tests/Architecture.Tests/KnowledgeUpdateTests.cs": {
-    "mtime": 1791873212.814256,
-    "seen": 1791873263.9664013,
+    "mtime": 1791873366.1086884,
+    "seen": 1791873368.4987814,
     "ast_hash": "dcd58bb567c7d2288498f49eb0d3f825",
     "semantic_hash": ""
   }
