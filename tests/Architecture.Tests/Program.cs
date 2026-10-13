@@ -21,4 +21,5 @@ EfLinqAnalyzerTests.Run();
 EfPerformanceAnalyzerTests.Run();
 EfProviderRegistryTests.Run();
 KnowledgeRegistryTests.Run();
+KnowledgeCrawlerTests.Run();
 
