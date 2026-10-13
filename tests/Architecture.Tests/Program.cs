@@ -20,4 +20,5 @@ EfModelAnalyzerTests.Run();
 EfLinqAnalyzerTests.Run();
 EfPerformanceAnalyzerTests.Run();
 EfProviderRegistryTests.Run();
+KnowledgeRegistryTests.Run();
 
