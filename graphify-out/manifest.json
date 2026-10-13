@@ -12,9 +12,9 @@
     "semantic_hash": "1f108288c6d180794d30a4c56cd06e5f"
   },
   "docs/workflow/state.json": {
-    "mtime": 1791866286.7606635,
-    "seen": 1791866294.5531638,
-    "ast_hash": "85e1e3ad27359d12144432ab5e412f56",
+    "mtime": 1791866916.52538,
+    "seen": 1791866917.9156036,
+    "ast_hash": "3542392ac3650479fb9fd21c911c9c7f",
     "semantic_hash": ""
   },
   "src/KnowledgeEngine/Class1.cs": {
@@ -72,10 +72,10 @@
     "semantic_hash": "a4b7575f4c79d1a04959f3ee2ce3be0c"
   },
   "src/RankingEngine/RankingEngine.cs": {
-    "mtime": 1791787360.5741072,
-    "seen": 1791788901.3554366,
-    "ast_hash": "eba14fccc4bd6858fcec2aa825094f29",
-    "semantic_hash": "eba14fccc4bd6858fcec2aa825094f29"
+    "mtime": 1791866870.021017,
+    "seen": 1791866917.9156191,
+    "ast_hash": "57d8e03324159fb023fb3cf4f80420ab",
+    "semantic_hash": ""
   },
   "src/RankingEngine/RankingEngine.csproj": {
     "mtime": 1791787174.592284,
@@ -174,9 +174,9 @@
     "semantic_hash": "46b0780bd56312ea2d1bab391f179e89"
   },
   "tests/Architecture.Tests/Architecture.Tests.csproj": {
-    "mtime": 1791803582.0012653,
-    "seen": 1791803617.428365,
-    "ast_hash": "48f6511aa893b5cff8e6dc54d2270702",
+    "mtime": 1791866713.4076388,
+    "seen": 1791866917.9156485,
+    "ast_hash": "9ca9737bb0f78a798eef5d6e750ef1bf",
     "semantic_hash": ""
   },
   "tests/Architecture.Tests/ContractSmokeTests.cs": {
@@ -288,9 +288,9 @@
     "semantic_hash": ""
   },
   "docs/workflow/project-tasks.md": {
-    "mtime": 1791866286.3022652,
-    "seen": 1791866294.553917,
-    "ast_hash": "c7a2c3f08979eab6953fec5562cbfcd5",
+    "mtime": 1791866916.1619744,
+    "seen": 1791866917.915692,
+    "ast_hash": "a93a433cee73d3bf332a50982cd682b9",
     "semantic_hash": ""
   },
   "docs/design/binder-overload-resolution.md": {
@@ -384,9 +384,9 @@
     "semantic_hash": ""
   },
   "tests/Architecture.Tests/Program.cs": {
-    "mtime": 1791866251.9131112,
-    "seen": 1791866294.5535774,
-    "ast_hash": "f0fbe1bddca72f6fd7024030e4991656",
+    "mtime": 1791866701.891783,
+    "seen": 1791866917.9156556,
+    "ast_hash": "bb3551f923037a73e979c597f4a9bcb8",
     "semantic_hash": ""
   },
   "src/Shared/Binder.cs": {
@@ -513,6 +513,12 @@
     "mtime": 1791866251.4770684,
     "seen": 1791866294.5535371,
     "ast_hash": "51aafdeeb3da88c8d249c4cc030690a6",
+    "semantic_hash": ""
+  },
+  "tests/Architecture.Tests/RankingTests.cs": {
+    "mtime": 1791866901.0713108,
+    "seen": 1791866917.915657,
+    "ast_hash": "5510856f9e35cbced4eb6f8c5da027e1",
     "semantic_hash": ""
   }
 }
