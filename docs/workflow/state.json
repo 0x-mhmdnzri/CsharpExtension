@@ -3,7 +3,7 @@
     "workflow":  "gitflow",
     "currentBranch":  "develop",
     "version":  "0.1.0-alpha.1",
-    "currentTask":  "EF-002",
+    "currentTask":  "EF-003",
     "lastCompleted":  [
                           "GOV-001",
                           "GOV-002",
@@ -29,9 +29,10 @@
                           "IDE-004",
                           "IDE-005",
                           "IDE-006",
-                          "EF-001"
+                          "EF-001",
+                          "EF-002"
                       ],
-    "nextTask":  "EF-002",
+    "nextTask":  "EF-003",
     "requirements":  {
                          "ownIntellisense":  true,
                          "externalLanguageService":  false,
@@ -55,7 +56,7 @@
                      },
     "validation":  {
                        "build":  "passed",
-                       "tests":  "EF DbContext, DbSet and entity model analyzer: build and smoke checks passed",
+                       "tests":  "EF model and LINQ translation analyzer: build and smoke checks passed",
                        "graphify":  "installed project-scoped",
                        "ponytail":  "installed project-scoped"
                    }

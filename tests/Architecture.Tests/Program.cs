@@ -17,4 +17,5 @@ DiagnosticsTests.Run();
 Console.WriteLine("Architecture smoke checks passed.");
 RankingTests.Run();
 EfModelAnalyzerTests.Run();
+EfLinqAnalyzerTests.Run();
 

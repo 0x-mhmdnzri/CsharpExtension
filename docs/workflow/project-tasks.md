@@ -51,13 +51,11 @@
 
 | ID | عنوان | وضعیت | وابستگی | شاخه پیشنهادی |
 |---|---|---|---|---|
-| IDE-006 | VS Code client بدون language-service خارجی | done | IDE-001 | feature/vscode/client |
 
 ### فاز 5: EF و اکوسیستم .NET
 
 | ID | عنوان | وضعیت | وابستگی | شاخه پیشنهادی |
 |---|---|---|---|---|
-| EF-001 | تشخیص DbContext، DbSet و entity model | done | SEM-002، NUGET-002 | feature/ef/model-analysis |
 | EF-002 | تحلیل LINQ و ترجمه احتمالی به SQL | backlog | SEM-005، EF-001 | feature/ef/linq-analysis |
 | EF-003 | پیشنهادهای migration، tracking و query performance | backlog | EF-002 | feature/ef/rules |
 | EF-004 | پشتیبانی providerهای رایج با metadata قابل به‌روزرسانی | backlog | NUGET-003، EF-001 | feature/ef/providers |

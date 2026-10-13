@@ -12,9 +12,9 @@
     "semantic_hash": "1f108288c6d180794d30a4c56cd06e5f"
   },
   "docs/workflow/state.json": {
-    "mtime": 1791870640.958275,
-    "seen": 1791870645.4515743,
-    "ast_hash": "dfa0fa582f88a4e84d4eda7ccbfc5b61",
+    "mtime": 1791870992.5615647,
+    "seen": 1791870993.7783947,
+    "ast_hash": "100e5fc27b5e8ed5443b9008f02a4193",
     "semantic_hash": ""
   },
   "src/KnowledgeEngine/Class1.cs": {
@@ -384,9 +384,9 @@
     "semantic_hash": ""
   },
   "tests/Architecture.Tests/Program.cs": {
-    "mtime": 1791870468.6436212,
-    "seen": 1791870645.4516304,
-    "ast_hash": "c54e241456d86bc02b690312e6c3e407",
+    "mtime": 1791870952.1096964,
+    "seen": 1791870993.7784514,
+    "ast_hash": "0760aab4a606604889232cee452ba18a",
     "semantic_hash": ""
   },
   "src/Shared/Binder.cs": {
@@ -531,6 +531,18 @@
     "mtime": 1791870620.3170295,
     "seen": 1791870645.4516273,
     "ast_hash": "2f932e5f654ad1aea6c2c08bb2c457b3",
+    "semantic_hash": ""
+  },
+  "src/Shared/EfLinqAnalyzer.cs": {
+    "mtime": 1791870963.2238057,
+    "seen": 1791870993.778432,
+    "ast_hash": "76f57699bd0848bc71c5d429ad221c38",
+    "semantic_hash": ""
+  },
+  "tests/Architecture.Tests/EfLinqAnalyzerTests.cs": {
+    "mtime": 1791870951.678848,
+    "seen": 1791870993.7784476,
+    "ast_hash": "c7a953fb0f44aca7d1e62fb9f041131d",
     "semantic_hash": ""
   }
 }
