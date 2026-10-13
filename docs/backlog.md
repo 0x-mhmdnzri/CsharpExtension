@@ -1,82 +1,82 @@
 # Product Backlog
 
-## Ø±ÙˆØ´ Ø§ÙˆÙ„ÙˆÛŒØªâ€ŒØ¨Ù†Ø¯ÛŒ
+## Ã˜Â±Ã™Ë†Ã˜Â´ Ã˜Â§Ã™Ë†Ã™â€žÃ™Ë†Ã›Å’Ã˜ÂªÃ¢â‚¬Å’Ã˜Â¨Ã™â€ Ã˜Â¯Ã›Å’
 
-- `P0`: Ù¾ÛŒØ´â€ŒÙ†ÛŒØ§Ø² architecture ÛŒØ§ correctnessØ› Ø¨Ø¯ÙˆÙ† Ø¢Ù† feature Ø¨Ø¹Ø¯ÛŒ Ù…Ø¹ØªØ¨Ø± Ù†ÛŒØ³Øª.
-- `P1`: Ù‚Ø§Ø¨Ù„ÛŒØª Ù„Ø§Ø²Ù… Ø¨Ø±Ø§ÛŒ MVP Ø¯Ù‚ÛŒÙ‚.
-- `P2`: Ù‚Ø§Ø¨Ù„ÛŒØª Ù…Ù‡Ù… Ø¨Ø¹Ø¯ Ø§Ø² MVP.
-- `P3`: Ø¨Ù‡Ø¨ÙˆØ¯ ÛŒØ§ Ù‚Ø§Ø¨Ù„ÛŒØª Ø§Ø®ØªÛŒØ§Ø±ÛŒ.
+- `P0`: Ã™Â¾Ã›Å’Ã˜Â´Ã¢â‚¬Å’Ã™â€ Ã›Å’Ã˜Â§Ã˜Â² architecture Ã›Å’Ã˜Â§ correctnessÃ˜â€º Ã˜Â¨Ã˜Â¯Ã™Ë†Ã™â€  Ã˜Â¢Ã™â€  feature Ã˜Â¨Ã˜Â¹Ã˜Â¯Ã›Å’ Ã™â€¦Ã˜Â¹Ã˜ÂªÃ˜Â¨Ã˜Â± Ã™â€ Ã›Å’Ã˜Â³Ã˜Âª.
+- `P1`: Ã™â€šÃ˜Â§Ã˜Â¨Ã™â€žÃ›Å’Ã˜Âª Ã™â€žÃ˜Â§Ã˜Â²Ã™â€¦ Ã˜Â¨Ã˜Â±Ã˜Â§Ã›Å’ MVP Ã˜Â¯Ã™â€šÃ›Å’Ã™â€š.
+- `P2`: Ã™â€šÃ˜Â§Ã˜Â¨Ã™â€žÃ›Å’Ã˜Âª Ã™â€¦Ã™â€¡Ã™â€¦ Ã˜Â¨Ã˜Â¹Ã˜Â¯ Ã˜Â§Ã˜Â² MVP.
+- `P3`: Ã˜Â¨Ã™â€¡Ã˜Â¨Ã™Ë†Ã˜Â¯ Ã›Å’Ã˜Â§ Ã™â€šÃ˜Â§Ã˜Â¨Ã™â€žÃ›Å’Ã˜Âª Ã˜Â§Ã˜Â®Ã˜ÂªÃ›Å’Ã˜Â§Ã˜Â±Ã›Å’.
 
-Ù‡Ø± item Ø¨Ø§ÛŒØ¯ ÛŒÚ© branchØŒ acceptance criteria Ùˆ validation Ø¯Ø§Ø´ØªÙ‡ Ø¨Ø§Ø´Ø¯. itemÙ‡Ø§ÛŒ P0 Ùˆ P1 Ø¨Ø§ ÛŒÚ© commit Ø¨Ø²Ø±Ú¯ Ù¾ÛŒØ§Ø¯Ù‡â€ŒØ³Ø§Ø²ÛŒ Ù†Ù…ÛŒâ€ŒØ´ÙˆÙ†Ø¯Ø› Ù‡Ø± Ø¨Ø®Ø´ Ø¨Ø§ÛŒØ¯ Ú©ÙˆÚ†Ú© Ùˆ Ù‚Ø§Ø¨Ù„ bisect Ø¨Ø§Ø´Ø¯.
+Ã™â€¡Ã˜Â± item Ã˜Â¨Ã˜Â§Ã›Å’Ã˜Â¯ Ã›Å’ÃšÂ© branchÃ˜Å’ acceptance criteria Ã™Ë† validation Ã˜Â¯Ã˜Â§Ã˜Â´Ã˜ÂªÃ™â€¡ Ã˜Â¨Ã˜Â§Ã˜Â´Ã˜Â¯. itemÃ™â€¡Ã˜Â§Ã›Å’ P0 Ã™Ë† P1 Ã˜Â¨Ã˜Â§ Ã›Å’ÃšÂ© commit Ã˜Â¨Ã˜Â²Ã˜Â±ÃšÂ¯ Ã™Â¾Ã›Å’Ã˜Â§Ã˜Â¯Ã™â€¡Ã¢â‚¬Å’Ã˜Â³Ã˜Â§Ã˜Â²Ã›Å’ Ã™â€ Ã™â€¦Ã›Å’Ã¢â‚¬Å’Ã˜Â´Ã™Ë†Ã™â€ Ã˜Â¯Ã˜â€º Ã™â€¡Ã˜Â± Ã˜Â¨Ã˜Â®Ã˜Â´ Ã˜Â¨Ã˜Â§Ã›Å’Ã˜Â¯ ÃšÂ©Ã™Ë†Ãšâ€ ÃšÂ© Ã™Ë† Ã™â€šÃ˜Â§Ã˜Â¨Ã™â€ž bisect Ã˜Â¨Ã˜Â§Ã˜Â´Ã˜Â¯.
 
-## ÙˆØ¶Ø¹ÛŒØª ÙØ¹Ù„ÛŒ
+## Ã™Ë†Ã˜Â¶Ã˜Â¹Ã›Å’Ã˜Âª Ã™ÂÃ˜Â¹Ã™â€žÃ›Å’
 
-| ID | Ø¹Ù†ÙˆØ§Ù† | Priority | Status | Dependency | Branch |
+| ID | Ã˜Â¹Ã™â€ Ã™Ë†Ã˜Â§Ã™â€  | Priority | Status | Dependency | Branch |
 |---|---|---:|---|---|---|
-| EF-005 | provenance/confidence Ùˆ IsComplete | P1 | ready | EF-001 | feature/ef/provenance |
-| KNOW-006 | concept registry Ø¨Ø±Ø§ÛŒ CLR/C# | P1 | ready | GOV-001 | feature/knowledge/curriculum |
+| EF-005 | provenance/confidence Ã™Ë† IsComplete | P1 | ready | EF-001 | feature/ef/provenance |
+| KNOW-006 | concept registry Ã˜Â¨Ã˜Â±Ã˜Â§Ã›Å’ CLR/C# | P1 | ready | GOV-001 | feature/knowledge/curriculum |
 
-## Ù…Ø³ÛŒØ± MVP Ø¯Ù‚Øªâ€ŒÙ…Ø­ÙˆØ±
+## Ã™â€¦Ã˜Â³Ã›Å’Ã˜Â± MVP Ã˜Â¯Ã™â€šÃ˜ÂªÃ¢â‚¬Å’Ã™â€¦Ã˜Â­Ã™Ë†Ã˜Â±
 
 ```text
-LANG-001 â†’ LANG-002 â†’ LANG-003
-                         â†“
-META-001 â†’ BIND-001 â†’ BIND-002 â†’ BIND-003 â†’ BIND-005
-                                      â†“
+LANG-001 Ã¢â€ â€™ LANG-002 Ã¢â€ â€™ LANG-003
+                         Ã¢â€ â€œ
+META-001 Ã¢â€ â€™ BIND-001 Ã¢â€ â€™ BIND-002 Ã¢â€ â€™ BIND-003 Ã¢â€ â€™ BIND-005
+                                      Ã¢â€ â€œ
                                IDE-002 + QA-001
-                                      â†“
+                                      Ã¢â€ â€œ
                                   EF-005
 ```
 
-MVP Ø¨Ø§ÛŒØ¯ Ø§Ø¨ØªØ¯Ø§ subset Ù…Ø´Ø®Øµ C# 10+ Ùˆ .NET 8 Ø±Ø§ Ø¨Ø§ compile-valid rate Ø¨Ø§Ù„Ø§ Ù¾ÙˆØ´Ø´ Ø¯Ù‡Ø¯Ø› Ø³Ù¾Ø³ capability matrix Ø¨Ù‡ C# 6 ØªØ§ 15 Ú¯Ø³ØªØ±Ø´ Ù…ÛŒâ€ŒÛŒØ§Ø¨Ø¯.
+MVP Ã˜Â¨Ã˜Â§Ã›Å’Ã˜Â¯ Ã˜Â§Ã˜Â¨Ã˜ÂªÃ˜Â¯Ã˜Â§ subset Ã™â€¦Ã˜Â´Ã˜Â®Ã˜Âµ C# 10+ Ã™Ë† .NET 8 Ã˜Â±Ã˜Â§ Ã˜Â¨Ã˜Â§ compile-valid rate Ã˜Â¨Ã˜Â§Ã™â€žÃ˜Â§ Ã™Â¾Ã™Ë†Ã˜Â´Ã˜Â´ Ã˜Â¯Ã™â€¡Ã˜Â¯Ã˜â€º Ã˜Â³Ã™Â¾Ã˜Â³ capability matrix Ã˜Â¨Ã™â€¡ C# 6 Ã˜ÂªÃ˜Â§ 15 ÃšÂ¯Ã˜Â³Ã˜ÂªÃ˜Â±Ã˜Â´ Ã™â€¦Ã›Å’Ã¢â‚¬Å’Ã›Å’Ã˜Â§Ã˜Â¨Ã˜Â¯.
 
-## Backlog ØªÙØµÛŒÙ„ÛŒ
+## Backlog Ã˜ÂªÃ™ÂÃ˜ÂµÃ›Å’Ã™â€žÃ›Å’
 
 ### Compiler core
 
-| ID | Ø®Ø±ÙˆØ¬ÛŒ | Acceptance criteria | Validation |
+| ID | Ã˜Â®Ã˜Â±Ã™Ë†Ã˜Â¬Ã›Å’ | Acceptance criteria | Validation |
 |---|---|---|---|
-| BIND-005 | overload resolution | candidate rejection reason Ùˆ best member Ø¯Ø±Ø³Øª Ø¨Ø§Ø´Ø¯ | spec + differential CI |
-| BIND-006 | generic inference Ùˆ LINQ | Ø²Ù†Ø¬ÛŒØ±Ù‡â€ŒÙ‡Ø§ÛŒ Select/Where Ù†ÙˆØ¹ Ø¯Ø±Ø³Øª Ø¯Ø§Ø´ØªÙ‡ Ø¨Ø§Ø´Ù†Ø¯ | LINQ corpus |
-| BIND-007 | speculative verification | diagnostic Ø¬Ø¯ÛŒØ¯ Ù†Ø³Ø¨Øª Ø¨Ù‡ baseline ØªØ´Ø®ÛŒØµ Ø¯Ø§Ø¯Ù‡ Ø´ÙˆØ¯ | compile-valid benchmark |
+| BIND-005 | overload resolution | candidate rejection reason Ã™Ë† best member Ã˜Â¯Ã˜Â±Ã˜Â³Ã˜Âª Ã˜Â¨Ã˜Â§Ã˜Â´Ã˜Â¯ | spec + differential CI |
+| BIND-006 | generic inference Ã™Ë† LINQ | Ã˜Â²Ã™â€ Ã˜Â¬Ã›Å’Ã˜Â±Ã™â€¡Ã¢â‚¬Å’Ã™â€¡Ã˜Â§Ã›Å’ Select/Where Ã™â€ Ã™Ë†Ã˜Â¹ Ã˜Â¯Ã˜Â±Ã˜Â³Ã˜Âª Ã˜Â¯Ã˜Â§Ã˜Â´Ã˜ÂªÃ™â€¡ Ã˜Â¨Ã˜Â§Ã˜Â´Ã™â€ Ã˜Â¯ | LINQ corpus |
+| BIND-007 | speculative verification | diagnostic Ã˜Â¬Ã˜Â¯Ã›Å’Ã˜Â¯ Ã™â€ Ã˜Â³Ã˜Â¨Ã˜Âª Ã˜Â¨Ã™â€¡ baseline Ã˜ÂªÃ˜Â´Ã˜Â®Ã›Å’Ã˜Âµ Ã˜Â¯Ã˜Â§Ã˜Â¯Ã™â€¡ Ã˜Â´Ã™Ë†Ã˜Â¯ | compile-valid benchmark |
 
-### Metadata Ùˆ project index
+### Metadata Ã™Ë† project index
 
-| ID | Ø®Ø±ÙˆØ¬ÛŒ | Acceptance criteria | Validation |
+| ID | Ã˜Â®Ã˜Â±Ã™Ë†Ã˜Â¬Ã›Å’ | Acceptance criteria | Validation |
 |---|---|---|---|
 
-### EF Ùˆ rule knowledge
+### EF Ã™Ë† rule knowledge
 
-| ID | Ø®Ø±ÙˆØ¬ÛŒ | Acceptance criteria | Validation |
+| ID | Ã˜Â®Ã˜Â±Ã™Ë†Ã˜Â¬Ã›Å’ | Acceptance criteria | Validation |
 |---|---|---|---|
-| EF-005 | provenance Ùˆ IsComplete | Ù…Ø¯Ù„ Ù†Ø§Ù‚Øµ Ù‡ÛŒÚ† negative rule Ù‚Ø·Ø¹ÛŒ ØªÙˆÙ„ÛŒØ¯ Ù†Ú©Ù†Ø¯ | model corpus |
-| EF-006 | conventions/annotations | key/FK/navigation Ø¨Ø§ Ù…Ø¯Ù„ ÙˆØ§Ù‚Ø¹ÛŒ Ù…Ù†Ø·Ø¨Ù‚ Ø¨Ø§Ø´Ø¯ | ToDebugString oracle |
-| EF-007 | Fluent interpreter | symbol identity Ùˆ lambda property resolve Ø´ÙˆØ¯ | EF fixture |
-| EF-009 | translation matrix | verdict Ø¨Ø± Ø§Ø³Ø§Ø³ provider/version Ø¨Ø§Ø´Ø¯ | ToQueryString CI |
-| EF-010 | query completion | Include/ThenInclude Ùˆ IQueryable context Ù…Ø¹ØªØ¨Ø± Ø¨Ø§Ø´Ù†Ø¯ | compile-valid rate |
-| KNOW-004 | signed rule pack | hash/signatureØŒ compatibility Ùˆ rollback Ú©Ø§Ø± Ú©Ù†Ø¯ | package tests |
+| EF-005 | provenance Ã™Ë† IsComplete | Ã™â€¦Ã˜Â¯Ã™â€ž Ã™â€ Ã˜Â§Ã™â€šÃ˜Âµ Ã™â€¡Ã›Å’Ãšâ€  negative rule Ã™â€šÃ˜Â·Ã˜Â¹Ã›Å’ Ã˜ÂªÃ™Ë†Ã™â€žÃ›Å’Ã˜Â¯ Ã™â€ ÃšÂ©Ã™â€ Ã˜Â¯ | model corpus |
+| EF-006 | conventions/annotations | key/FK/navigation Ã˜Â¨Ã˜Â§ Ã™â€¦Ã˜Â¯Ã™â€ž Ã™Ë†Ã˜Â§Ã™â€šÃ˜Â¹Ã›Å’ Ã™â€¦Ã™â€ Ã˜Â·Ã˜Â¨Ã™â€š Ã˜Â¨Ã˜Â§Ã˜Â´Ã˜Â¯ | ToDebugString oracle |
+| EF-007 | Fluent interpreter | symbol identity Ã™Ë† lambda property resolve Ã˜Â´Ã™Ë†Ã˜Â¯ | EF fixture |
+| EF-009 | translation matrix | verdict Ã˜Â¨Ã˜Â± Ã˜Â§Ã˜Â³Ã˜Â§Ã˜Â³ provider/version Ã˜Â¨Ã˜Â§Ã˜Â´Ã˜Â¯ | ToQueryString CI |
+| EF-010 | query completion | Include/ThenInclude Ã™Ë† IQueryable context Ã™â€¦Ã˜Â¹Ã˜ÂªÃ˜Â¨Ã˜Â± Ã˜Â¨Ã˜Â§Ã˜Â´Ã™â€ Ã˜Â¯ | compile-valid rate |
+| KNOW-004 | signed rule pack | hash/signatureÃ˜Å’ compatibility Ã™Ë† rollback ÃšÂ©Ã˜Â§Ã˜Â± ÃšÂ©Ã™â€ Ã˜Â¯ | package tests |
 
-### Editor Ùˆ Ú©ÛŒÙÛŒØª
+### Editor Ã™Ë† ÃšÂ©Ã›Å’Ã™ÂÃ›Å’Ã˜Âª
 
-| ID | Ø®Ø±ÙˆØ¬ÛŒ | Acceptance criteria | Validation |
+| ID | Ã˜Â®Ã˜Â±Ã™Ë†Ã˜Â¬Ã›Å’ | Acceptance criteria | Validation |
 |---|---|---|---|
-| QA-001 | corpus ÙˆØ§Ù‚Ø¹ÛŒ | Ù…Ø¬ÙˆØ²ØŒ Ù†Ø³Ø®Ù‡ Ø²Ø¨Ø§Ù† Ùˆ TFM Ø«Ø¨Øª Ø´Ø¯Ù‡ Ø¨Ø§Ø´Ø¯ | corpus manifest |
-| QA-002 | metric harness | Top-kØŒ MRRØŒ compile-valid Ùˆ latency Ø«Ø¨Øª Ø´ÙˆÙ†Ø¯ | benchmark run |
-| REL-002 | alpha release | buildØŒ packØŒ changelog Ùˆ tag immutable Ø¨Ø§Ø´Ù†Ø¯ | release checklist |
+| QA-001 | corpus Ã™Ë†Ã˜Â§Ã™â€šÃ˜Â¹Ã›Å’ | Ã™â€¦Ã˜Â¬Ã™Ë†Ã˜Â²Ã˜Å’ Ã™â€ Ã˜Â³Ã˜Â®Ã™â€¡ Ã˜Â²Ã˜Â¨Ã˜Â§Ã™â€  Ã™Ë† TFM Ã˜Â«Ã˜Â¨Ã˜Âª Ã˜Â´Ã˜Â¯Ã™â€¡ Ã˜Â¨Ã˜Â§Ã˜Â´Ã˜Â¯ | corpus manifest |
+| QA-002 | metric harness | Top-kÃ˜Å’ MRRÃ˜Å’ compile-valid Ã™Ë† latency Ã˜Â«Ã˜Â¨Ã˜Âª Ã˜Â´Ã™Ë†Ã™â€ Ã˜Â¯ | benchmark run |
+| REL-002 | alpha release | buildÃ˜Å’ packÃ˜Å’ changelog Ã™Ë† tag immutable Ã˜Â¨Ã˜Â§Ã˜Â´Ã™â€ Ã˜Â¯ | release checklist |
 
 ## Definition of Ready
 
-- contract Ùˆ dependency Ù…Ø´Ø®Øµ Ø§Ø³Øª.
-- test fixture ÛŒØ§ Ø±ÙˆØ´ Ø³Ø§Ø®Øª fixture Ù…Ø´Ø®Øµ Ø§Ø³Øª.
-- branch name Ùˆ Ù†ÙˆØ¹ commit ØªØ¹ÛŒÛŒÙ† Ø´Ø¯Ù‡ Ø§Ø³Øª.
-- Ù…Ø¹Ù„ÙˆÙ… Ø§Ø³Øª Ú©Ù‡ ØªØºÛŒÛŒØ± external dependency ÙˆØ§Ø±Ø¯ runtime Ù…ÛŒâ€ŒÚ©Ù†Ø¯ ÛŒØ§ Ù†Ù‡.
+- contract Ã™Ë† dependency Ã™â€¦Ã˜Â´Ã˜Â®Ã˜Âµ Ã˜Â§Ã˜Â³Ã˜Âª.
+- test fixture Ã›Å’Ã˜Â§ Ã˜Â±Ã™Ë†Ã˜Â´ Ã˜Â³Ã˜Â§Ã˜Â®Ã˜Âª fixture Ã™â€¦Ã˜Â´Ã˜Â®Ã˜Âµ Ã˜Â§Ã˜Â³Ã˜Âª.
+- branch name Ã™Ë† Ã™â€ Ã™Ë†Ã˜Â¹ commit Ã˜ÂªÃ˜Â¹Ã›Å’Ã›Å’Ã™â€  Ã˜Â´Ã˜Â¯Ã™â€¡ Ã˜Â§Ã˜Â³Ã˜Âª.
+- Ã™â€¦Ã˜Â¹Ã™â€žÃ™Ë†Ã™â€¦ Ã˜Â§Ã˜Â³Ã˜Âª ÃšÂ©Ã™â€¡ Ã˜ÂªÃ˜ÂºÃ›Å’Ã›Å’Ã˜Â± external dependency Ã™Ë†Ã˜Â§Ã˜Â±Ã˜Â¯ runtime Ã™â€¦Ã›Å’Ã¢â‚¬Å’ÃšÂ©Ã™â€ Ã˜Â¯ Ã›Å’Ã˜Â§ Ã™â€ Ã™â€¡.
 
 ## Definition of Done
 
-- acceptance criteria Ú©Ø§Ù…Ù„ Ø§Ø³Øª.
-- build Ùˆ test scope Ø³Ø¨Ø² Ø§Ø³Øª.
-- Graphify update Ø§Ù†Ø¬Ø§Ù… Ø´Ø¯Ù‡ Ø§Ø³Øª.
-- docs/task state Ø¨Ù‡â€ŒØ±ÙˆØ² Ø§Ø³Øª.
-- commit Conventional Ùˆ branch Ù‚Ø§Ø¨Ù„ review Ø§Ø³Øª.
-- risk Ùˆ shortcut Ø§Ø­ØªÙ…Ø§Ù„ÛŒ Ø«Ø¨Øª Ø´Ø¯Ù‡ Ø§Ø³Øª.
+- acceptance criteria ÃšÂ©Ã˜Â§Ã™â€¦Ã™â€ž Ã˜Â§Ã˜Â³Ã˜Âª.
+- build Ã™Ë† test scope Ã˜Â³Ã˜Â¨Ã˜Â² Ã˜Â§Ã˜Â³Ã˜Âª.
+- Graphify update Ã˜Â§Ã™â€ Ã˜Â¬Ã˜Â§Ã™â€¦ Ã˜Â´Ã˜Â¯Ã™â€¡ Ã˜Â§Ã˜Â³Ã˜Âª.
+- docs/task state Ã˜Â¨Ã™â€¡Ã¢â‚¬Å’Ã˜Â±Ã™Ë†Ã˜Â² Ã˜Â§Ã˜Â³Ã˜Âª.
+- commit Conventional Ã™Ë† branch Ã™â€šÃ˜Â§Ã˜Â¨Ã™â€ž review Ã˜Â§Ã˜Â³Ã˜Âª.
+- risk Ã™Ë† shortcut Ã˜Â§Ã˜Â­Ã˜ÂªÃ™â€¦Ã˜Â§Ã™â€žÃ›Å’ Ã˜Â«Ã˜Â¨Ã˜Âª Ã˜Â´Ã˜Â¯Ã™â€¡ Ã˜Â§Ã˜Â³Ã˜Âª.
 
