@@ -12,9 +12,9 @@
     "semantic_hash": "1f108288c6d180794d30a4c56cd06e5f"
   },
   "docs/workflow/state.json": {
-    "mtime": 1791865879.972777,
-    "seen": 1791865881.7505643,
-    "ast_hash": "3299156dabbce0b4c41c6134770b54a5",
+    "mtime": 1791866286.7606635,
+    "seen": 1791866294.5531638,
+    "ast_hash": "85e1e3ad27359d12144432ab5e412f56",
     "semantic_hash": ""
   },
   "src/KnowledgeEngine/Class1.cs": {
@@ -288,9 +288,9 @@
     "semantic_hash": ""
   },
   "docs/workflow/project-tasks.md": {
-    "mtime": 1791865879.972777,
-    "seen": 1791865881.750651,
-    "ast_hash": "d70e9832ebc882fa60b81ad4d8244a49",
+    "mtime": 1791866286.3022652,
+    "seen": 1791866294.553917,
+    "ast_hash": "c7a2c3f08979eab6953fec5562cbfcd5",
     "semantic_hash": ""
   },
   "docs/design/binder-overload-resolution.md": {
@@ -384,9 +384,9 @@
     "semantic_hash": ""
   },
   "tests/Architecture.Tests/Program.cs": {
-    "mtime": 1791865879.9907722,
-    "seen": 1791865881.7506151,
-    "ast_hash": "fe610b7931650dcf9ec8dfe3587e2556",
+    "mtime": 1791866251.9131112,
+    "seen": 1791866294.5535774,
+    "ast_hash": "f0fbe1bddca72f6fd7024030e4991656",
     "semantic_hash": ""
   },
   "src/Shared/Binder.cs": {
@@ -498,15 +498,21 @@
     "semantic_hash": ""
   },
   "src/Shared/EditorFeatures.cs": {
-    "mtime": 1791865879.988773,
-    "seen": 1791865881.7506,
-    "ast_hash": "154e9d0b8c77199fcc6f430562d879d7",
+    "mtime": 1791866251.073557,
+    "seen": 1791866294.5534418,
+    "ast_hash": "a3924d1f93f8862e7917c32ae0191215",
     "semantic_hash": ""
   },
   "tests/Architecture.Tests/EditorFeaturesTests.cs": {
     "mtime": 1791865879.9897726,
     "seen": 1791865881.750612,
     "ast_hash": "e409a7776306caeddf4b8965bf9d28f6",
+    "semantic_hash": ""
+  },
+  "tests/Architecture.Tests/DiagnosticsTests.cs": {
+    "mtime": 1791866251.4770684,
+    "seen": 1791866294.5535371,
+    "ast_hash": "51aafdeeb3da88c8d249c4cc030690a6",
     "semantic_hash": ""
   }
 }
