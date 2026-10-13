@@ -26,4 +26,5 @@ KnowledgeExtractorTests.Run();
 KnowledgePackSecurityTests.Run();
 await KnowledgeUpdateTests.RunAsync();
 CorpusManifestTests.Run();
+QaMetricsTests.Run();
 

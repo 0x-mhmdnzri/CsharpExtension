@@ -12,9 +12,9 @@
     "semantic_hash": "1f108288c6d180794d30a4c56cd06e5f"
   },
   "docs/workflow/state.json": {
-    "mtime": 1791873494.4573314,
-    "seen": 1791873496.2661793,
-    "ast_hash": "c574d989bf141a1990fffadc07df94b0",
+    "mtime": 1791873832.635052,
+    "seen": 1791873834.8529763,
+    "ast_hash": "61100a17148db18ee0dc610c9e36dea2",
     "semantic_hash": ""
   },
   "src/KnowledgeEngine/Class1.cs": {
@@ -288,9 +288,9 @@
     "semantic_hash": ""
   },
   "docs/workflow/project-tasks.md": {
-    "mtime": 1791873494.359913,
-    "seen": 1791873496.2662878,
-    "ast_hash": "62cc989b1f51b5276bc94101b19cbdf5",
+    "mtime": 1791873832.5126953,
+    "seen": 1791873834.8530836,
+    "ast_hash": "e5371a63b59fca4da097b99a1f517f77",
     "semantic_hash": ""
   },
   "docs/design/binder-overload-resolution.md": {
@@ -372,9 +372,9 @@
     "semantic_hash": ""
   },
   "docs/backlog.md": {
-    "mtime": 1791873494.3649857,
-    "seen": 1791873496.266275,
-    "ast_hash": "a49f706070922128fbbb120ab2e13193",
+    "mtime": 1791873832.5156925,
+    "seen": 1791873834.8530712,
+    "ast_hash": "fb461ef32e32b47d352009ec21d62012",
     "semantic_hash": ""
   },
   "src/Shared/Symbols.cs": {
@@ -384,9 +384,9 @@
     "semantic_hash": ""
   },
   "tests/Architecture.Tests/Program.cs": {
-    "mtime": 1791873458.965358,
-    "seen": 1791873496.266251,
-    "ast_hash": "991c0a76ef3f30ed0057cd29ee880444",
+    "mtime": 1791873650.3385236,
+    "seen": 1791873834.8530471,
+    "ast_hash": "d987710d00f390a99ca69e0b51064cfa",
     "semantic_hash": ""
   },
   "src/Shared/Binder.cs": {
@@ -639,6 +639,18 @@
     "mtime": 1791873458.5914772,
     "seen": 1791873496.2662375,
     "ast_hash": "3097e7adf819533db34c38eb618ff31f",
+    "semantic_hash": ""
+  },
+  "src/Shared/QaMetrics.cs": {
+    "mtime": 1791873649.569769,
+    "seen": 1791873834.8530269,
+    "ast_hash": "bd01f9444fb89031d2b682fef0a894dd",
+    "semantic_hash": ""
+  },
+  "tests/Architecture.Tests/QaMetricsTests.cs": {
+    "mtime": 1791873761.749157,
+    "seen": 1791873834.853048,
+    "ast_hash": "b910321e41c4692bcc45c6694495529c",
     "semantic_hash": ""
   }
 }
