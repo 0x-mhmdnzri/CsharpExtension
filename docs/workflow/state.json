@@ -3,7 +3,7 @@
     "workflow":  "gitflow",
     "currentBranch":  "develop",
     "version":  "0.1.0-alpha.1",
-    "currentTask":  "KNOW-003",
+    "currentTask":  "KNOW-004",
     "lastCompleted":  [
                           "GOV-001",
                           "GOV-002",
@@ -34,9 +34,10 @@
                           "EF-003",
                           "EF-004",
                           "KNOW-001",
-                          "KNOW-002"
+                          "KNOW-002",
+                          "KNOW-003"
                       ],
-    "nextTask":  "KNOW-003",
+    "nextTask":  "KNOW-004",
     "requirements":  {
                          "ownIntellisense":  true,
                          "externalLanguageService":  false,
@@ -60,7 +61,7 @@
                      },
     "validation":  {
                        "build":  "passed",
-                       "tests":  "knowledge registry and rate-limited RSS/sitemap crawler: build and smoke checks passed",
+                       "tests":  "knowledge registry, crawler and claim/rule extractor: build and smoke checks passed",
                        "graphify":  "installed project-scoped",
                        "ponytail":  "installed project-scoped"
                    }
