@@ -20,11 +20,6 @@
 
 | ID | عنوان | وضعیت | Commit/مدرک |
 |---|---|---|---|
-| GOV-001 | معماری کلان و قراردادهای داخلی | done | docs/architecture.md و docs/internal-contracts.md |
-| GOV-002 | solution skeleton و قراردادهای C# | done | `baadefd` |
-| GOV-003 | Gitflow محلی و SemVer اولیه | done | main/develop، `0.1.0-alpha.1` |
-| GOV-004 | نصب project-scoped Graphify و hook | done | `.codex/skills/graphify`، `AGENTS.md` |
-| GOV-005 | نصب project-scoped Ponytail | done | `.codex/skills/ponytail*`، `AGENTS.md` |
 
 ## backlog اصلی
 
@@ -32,8 +27,6 @@
 
 | ID | عنوان | وضعیت | وابستگی | شاخه پیشنهادی |
 |---|---|---|---|---|
-| LANG-001 | تعیین grammar و token model برای C# 6 تا 15 | done | GOV-001 | feature/language/token-model |
-| LANG-002 | lexer اختصاصی با خطاپذیری و incremental ranges | done | LANG-001 | feature/language/lexer |
 | LANG-003 | parser اختصاصی و syntax tree پایدار | backlog | LANG-002 | feature/language/parser |
 | LANG-004 | syntax recovery برای کد ناقص هنگام تایپ | backlog | LANG-003 | feature/language/recovery |
 | LANG-005 | capability matrix نسخه‌های C# 6 تا 15 | backlog | LANG-001 | feature/language/version-matrix |
@@ -53,22 +46,12 @@
 
 | ID | عنوان | وضعیت | وابستگی | شاخه پیشنهادی |
 |---|---|---|---|---|
-| META-001 | خواندن metadata و IL بدون کتابخانه تحلیل خارجی | done | SEM-002 | feature/metadata/reader |
-| META-002 | assembly reference و target framework index | done | META-001 | feature/metadata/framework-index |
-| NUGET-001 | خواندن PackageReference و assets file | done | META-002 | feature/nuget/project-index |
-| NUGET-002 | ایندکس package/type/member و API usage | done | NUGET-001 | feature/nuget/api-index |
-| NUGET-003 | به‌روزرسانی index هنگام اضافه‌شدن package جدید | done | NUGET-002 | feature/nuget/incremental-update |
 
 ### فاز 4: IntelliSense و VS Code
 
 | ID | عنوان | وضعیت | وابستگی | شاخه پیشنهادی |
 |---|---|---|---|---|
-| IDE-001 | پیاده‌سازی transport اختصاصی روی stdio | done | SEM-001 | feature/ide/stdio-protocol |
-| IDE-002 | completion context و edit range | done | LANG-003، SEM-001 | feature/ide/completion-context |
-| IDE-003 | signature help، hover و go-to definition | done | SEM-001 | feature/ide/navigation |
-| IDE-004 | diagnostics، code action و rename | done | SEM-003، SEM-004 | feature/ide/actions |
-| IDE-005 | ranking بر اساس context و project graph | done | IDE-002، SEM-006 | feature/ide/context-ranking |
-| IDE-006 | VS Code client بدون language-service خارجی | backlog | IDE-001 | feature/vscode/client |
+| IDE-006 | VS Code client بدون language-service خارجی | done | IDE-001 | feature/vscode/client |
 
 ### فاز 5: EF و اکوسیستم .NET
 
@@ -104,10 +87,6 @@
 
 | ID | عنوان | وضعیت | وابستگی | شاخه پیشنهادی |
 |---|---|---|---|---|
-| BIND-001 | تعریف Symbol hierarchy و ErrorTypeSymbol | done | LANG-003، META-001 | feature/binder/symbols |
-| BIND-002 | Binder chain و LookupResult با دلیل شکست | done | BIND-001 | feature/binder/lookup |
-| BIND-003 | ConversionClassifier ساختاریافته و cache | done | BIND-001 | feature/binder/conversions |
-| BIND-004 | Member lookup و extension method lookup | done | BIND-002، BIND-003 | feature/binder/member-lookup |
 | BIND-005 | Overload resolution کامل با candidate rejection | backlog | BIND-003، BIND-004 | feature/binder/overload |
 | BIND-006 | Generic inference دو فازه و LINQ binding | backlog | BIND-005 | feature/binder/inference |
 | BIND-007 | Speculative verification و baseline diagnostics | backlog | BIND-005 | feature/binder/speculative |

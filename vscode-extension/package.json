@@ -12,6 +12,7 @@
                        "Linters"
                    ],
     "activationEvents":  [
+                             "onLanguage:csharp",
                              "onCommand:dotnetExpertAdvisor.startServer"
                          ],
     "main":  "./extension.js",
