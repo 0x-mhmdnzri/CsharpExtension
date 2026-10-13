@@ -13,4 +13,5 @@ NuGetProjectIndexTests.Run();
 await StdioTransportTests.RunAsync();
 CompletionContextTests.Run();
 EditorFeaturesTests.Run();
+DiagnosticsTests.Run();
 Console.WriteLine("Architecture smoke checks passed.");

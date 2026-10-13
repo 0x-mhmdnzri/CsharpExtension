@@ -3,7 +3,7 @@
     "workflow":  "gitflow",
     "currentBranch":  "develop",
     "version":  "0.1.0-alpha.1",
-    "currentTask":  "IDE-004",
+    "currentTask":  "IDE-005",
     "lastCompleted":  [
                           "GOV-001",
                           "GOV-002",
@@ -25,9 +25,10 @@
                           "NUGET-003",
                           "IDE-001",
                           "IDE-002",
-                          "IDE-003"
+                          "IDE-003",
+                          "IDE-004"
                       ],
-    "nextTask":  "IDE-004",
+    "nextTask":  "IDE-005",
     "requirements":  {
                          "ownIntellisense":  true,
                          "externalLanguageService":  false,
@@ -51,7 +52,7 @@
                      },
     "validation":  {
                        "build":  "passed",
-                       "tests":  "completion context, signature help, hover and definition models: build and smoke checks passed",
+                       "tests":  "stdio, completion, navigation, diagnostics, code action and rename: build and smoke checks passed",
                        "graphify":  "installed project-scoped",
                        "ponytail":  "installed project-scoped"
                    }
