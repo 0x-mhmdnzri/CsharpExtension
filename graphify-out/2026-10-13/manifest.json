@@ -12,9 +12,9 @@
     "semantic_hash": "1f108288c6d180794d30a4c56cd06e5f"
   },
   "docs/workflow/state.json": {
-    "mtime": 1791871958.559291,
-    "seen": 1791871959.9973445,
-    "ast_hash": "0a16bcb053f8245ec81d62730355016f",
+    "mtime": 1791872249.5860076,
+    "seen": 1791872251.3435774,
+    "ast_hash": "8f97f901188d17164269995a691a8790",
     "semantic_hash": ""
   },
   "src/KnowledgeEngine/Class1.cs": {
@@ -288,9 +288,9 @@
     "semantic_hash": ""
   },
   "docs/workflow/project-tasks.md": {
-    "mtime": 1791871958.477074,
-    "seen": 1791871959.9974418,
-    "ast_hash": "dfe0106235667e70e31551db06bffe99",
+    "mtime": 1791872249.507568,
+    "seen": 1791872251.3436778,
+    "ast_hash": "8ef7db6661e0523bb1c7f84965bf9646",
     "semantic_hash": ""
   },
   "docs/design/binder-overload-resolution.md": {
@@ -372,9 +372,9 @@
     "semantic_hash": ""
   },
   "docs/backlog.md": {
-    "mtime": 1791871958.481491,
-    "seen": 1791871959.997429,
-    "ast_hash": "db10f1ec229a6e3870abe57a9c0eb227",
+    "mtime": 1791872249.5118327,
+    "seen": 1791872251.3436646,
+    "ast_hash": "be685528ad51631ea6e230792898bf2c",
     "semantic_hash": ""
   },
   "src/Shared/Symbols.cs": {
@@ -384,9 +384,9 @@
     "semantic_hash": ""
   },
   "tests/Architecture.Tests/Program.cs": {
-    "mtime": 1791871895.1196654,
-    "seen": 1791871959.997406,
-    "ast_hash": "341f8d586fbace5ff097f1c3a1ac8a83",
+    "mtime": 1791872217.1877625,
+    "seen": 1791872251.3436406,
+    "ast_hash": "cabd487ed07421e56c75a0ea4d716eb6",
     "semantic_hash": ""
   },
   "src/Shared/Binder.cs": {
@@ -579,6 +579,18 @@
     "mtime": 1791871894.7204316,
     "seen": 1791871959.9974027,
     "ast_hash": "1929e401e50baa6c97594d16e91186d1",
+    "semantic_hash": ""
+  },
+  "src/Shared/KnowledgeCrawler.cs": {
+    "mtime": 1791872216.2749667,
+    "seen": 1791872251.343617,
+    "ast_hash": "931ec36d1b6ba819c78b75d7f2101593",
+    "semantic_hash": ""
+  },
+  "tests/Architecture.Tests/KnowledgeCrawlerTests.cs": {
+    "mtime": 1791872216.685683,
+    "seen": 1791872251.3436365,
+    "ast_hash": "e796a888c3ad69ffadecce99235885cc",
     "semantic_hash": ""
   }
 }
