@@ -23,4 +23,5 @@ EfProviderRegistryTests.Run();
 KnowledgeRegistryTests.Run();
 KnowledgeCrawlerTests.Run();
 KnowledgeExtractorTests.Run();
+KnowledgePackSecurityTests.Run();
 
