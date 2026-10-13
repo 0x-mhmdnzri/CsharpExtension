@@ -24,4 +24,5 @@ KnowledgeRegistryTests.Run();
 KnowledgeCrawlerTests.Run();
 KnowledgeExtractorTests.Run();
 KnowledgePackSecurityTests.Run();
+await KnowledgeUpdateTests.RunAsync();
 
