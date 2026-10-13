@@ -3,7 +3,7 @@
     "workflow":  "gitflow",
     "currentBranch":  "develop",
     "version":  "0.1.0-alpha.1",
-    "currentTask":  "QA-001",
+    "currentTask":  "QA-002",
     "lastCompleted":  [
                           "GOV-001",
                           "GOV-002",
@@ -37,9 +37,10 @@
                           "KNOW-002",
                           "KNOW-003",
                           "KNOW-004",
-                          "KNOW-005"
+                          "KNOW-005",
+                          "QA-001"
                       ],
-    "nextTask":  "QA-001",
+    "nextTask":  "QA-002",
     "requirements":  {
                          "ownIntellisense":  true,
                          "externalLanguageService":  false,
@@ -63,7 +64,7 @@
                      },
     "validation":  {
                        "build":  "passed",
-                       "tests":  "knowledge pack update, compatibility, rollback and persistence: build and smoke checks passed",
+                       "tests":  "knowledge update client and C# corpus manifest: build and smoke checks passed",
                        "graphify":  "installed project-scoped",
                        "ponytail":  "installed project-scoped"
                    }

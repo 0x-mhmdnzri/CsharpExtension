@@ -25,4 +25,5 @@ KnowledgeCrawlerTests.Run();
 KnowledgeExtractorTests.Run();
 KnowledgePackSecurityTests.Run();
 await KnowledgeUpdateTests.RunAsync();
+CorpusManifestTests.Run();
 
