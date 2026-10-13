@@ -1,5 +1,6 @@
 using System.Text.Json;
 using DotnetExpertAdvisor.Protocol;
+using DotnetExpertAdvisor.Shared;
 
 namespace DotnetExpertAdvisor.LanguageServer;
 
@@ -28,6 +29,19 @@ public static class StdioLanguageServer
                     id = initializeId,
                     result = new { capabilities = new { textDocumentSync = 1, completionProvider = new { triggerCharacters = new[] { "." } } } }
                 }, cancellationToken);
+            }
+            else if (method == "textDocument/signatureHelp" && root.TryGetProperty("id", out var signatureId))
+            {
+                var result = new { signatures = Array.Empty<object>(), activeSignature = -1, activeParameter = 0 };
+                await StdioTransport.WriteAsync(output, new { jsonrpc = "2.0", id = signatureId, result }, cancellationToken);
+            }
+            else if (method == "textDocument/hover" && root.TryGetProperty("id", out var hoverId))
+            {
+                await StdioTransport.WriteAsync(output, new { jsonrpc = "2.0", id = hoverId, result = (object?)null }, cancellationToken);
+            }
+            else if (method == "textDocument/definition" && root.TryGetProperty("id", out var definitionId))
+            {
+                await StdioTransport.WriteAsync(output, new { jsonrpc = "2.0", id = definitionId, result = Array.Empty<object>() }, cancellationToken);
             }
             else if (root.TryGetProperty("id", out var id))
             {

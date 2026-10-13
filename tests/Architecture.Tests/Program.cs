@@ -12,4 +12,5 @@ MetadataReaderTests.Run(args.FirstOrDefault());
 NuGetProjectIndexTests.Run();
 await StdioTransportTests.RunAsync();
 CompletionContextTests.Run();
+EditorFeaturesTests.Run();
 Console.WriteLine("Architecture smoke checks passed.");
