@@ -12,9 +12,9 @@
     "semantic_hash": "1f108288c6d180794d30a4c56cd06e5f"
   },
   "docs/workflow/state.json": {
-    "mtime": 1791866916.52538,
-    "seen": 1791866917.9156036,
-    "ast_hash": "3542392ac3650479fb9fd21c911c9c7f",
+    "mtime": 1791867445.6358857,
+    "seen": 1791867447.0878615,
+    "ast_hash": "911d7bae6bc94fc577f1ad7a050d1682",
     "semantic_hash": ""
   },
   "src/KnowledgeEngine/Class1.cs": {
@@ -288,9 +288,9 @@
     "semantic_hash": ""
   },
   "docs/workflow/project-tasks.md": {
-    "mtime": 1791866916.1619744,
-    "seen": 1791866917.915692,
-    "ast_hash": "a93a433cee73d3bf332a50982cd682b9",
+    "mtime": 1791867445.359598,
+    "seen": 1791867447.087947,
+    "ast_hash": "c5bd70ca2c9318babd2f35f6af587f94",
     "semantic_hash": ""
   },
   "docs/design/binder-overload-resolution.md": {
@@ -372,9 +372,9 @@
     "semantic_hash": ""
   },
   "docs/backlog.md": {
-    "mtime": 1791798750.8838797,
-    "seen": 1791799110.6200254,
-    "ast_hash": "e033df5da9c5c9441ab2e998161b8c7f",
+    "mtime": 1791867400.3567028,
+    "seen": 1791867447.0879343,
+    "ast_hash": "4a76892ee3d3f3f89a941380d8457f16",
     "semantic_hash": ""
   },
   "src/Shared/Symbols.cs": {
@@ -402,15 +402,15 @@
     "semantic_hash": ""
   },
   "vscode-extension/extension.js": {
-    "mtime": 1791796365.3544555,
-    "seen": 1791796367.1995862,
-    "ast_hash": "a2daa2cf729678aed3f9c2b1960c87f5",
+    "mtime": 1791867415.7927697,
+    "seen": 1791867447.0879135,
+    "ast_hash": "fc36ff609a874ff587dce0bc48baa007",
     "semantic_hash": ""
   },
   "vscode-extension/package.json": {
-    "mtime": 1791796526.4747279,
-    "seen": 1791798147.6630273,
-    "ast_hash": "a2ea3da8e95592243d2915af319b5f49",
+    "mtime": 1791867400.426037,
+    "seen": 1791867447.0879145,
+    "ast_hash": "c8279862e42651ad429004b861f24770",
     "semantic_hash": ""
   },
   "vscode-extension/README.md": {
