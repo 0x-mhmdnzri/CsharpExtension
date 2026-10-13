@@ -19,4 +19,5 @@ RankingTests.Run();
 EfModelAnalyzerTests.Run();
 EfLinqAnalyzerTests.Run();
 EfPerformanceAnalyzerTests.Run();
+EfProviderRegistryTests.Run();
 
