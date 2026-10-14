@@ -3,7 +3,7 @@
     "workflow":  "gitflow",
     "currentBranch":  "develop",
     "version":  "0.1.0-alpha.1",
-    "currentTask":  "EF-005",
+    "currentTask":  "EF-006",
     "lastCompleted":  [
                           "GOV-001",
                           "GOV-002",
@@ -42,9 +42,11 @@
                           "QA-002",
                           "QA-003",
                           "QA-004",
-                          "REL-002"
+                          "REL-002",
+                          "EF-005",
+                          "EF-006"
                       ],
-    "nextTask":  "EF-005",
+    "nextTask":  "EF-007",
     "requirements":  {
                          "ownIntellisense":  true,
                          "externalLanguageService":  false,
@@ -67,8 +69,8 @@
                          "contextAwareRanking":  true
                      },
     "validation":  {
-                       "build":  "passed",
-                       "tests":  "REL-002 alpha pack/checklist prepared on release/0.1.0-alpha.1",
+                       "build":  "pending",
+                       "tests":  "EF-005 provenance + EF-006 key/FK/navigation conventions",
                        "graphify":  "installed project-scoped",
                        "ponytail":  "installed project-scoped"
                    }
