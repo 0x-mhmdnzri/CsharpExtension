@@ -12,9 +12,9 @@
     "semantic_hash": "1f108288c6d180794d30a4c56cd06e5f"
   },
   "docs/workflow/state.json": {
-    "mtime": 1791876661.0710244,
-    "seen": 1791876664.2395766,
-    "ast_hash": "49355839d61859cdf932438f7e666d40",
+    "mtime": 1791983590.3408024,
+    "seen": 1791983651.0542846,
+    "ast_hash": "b2b1552639297c53394274b5e11b432a",
     "semantic_hash": ""
   },
   "src/KnowledgeEngine/Class1.cs": {
@@ -384,9 +384,9 @@
     "semantic_hash": ""
   },
   "tests/Architecture.Tests/Program.cs": {
-    "mtime": 1791876618.8670967,
-    "seen": 1791876664.2396567,
-    "ast_hash": "7f18161b3447816131b46fa90c095b0d",
+    "mtime": 1791983425.9256184,
+    "seen": 1791983519.231214,
+    "ast_hash": "010290250208e3a4eb889be46f9497ab",
     "semantic_hash": ""
   },
   "src/Shared/Binder.cs": {
@@ -663,6 +663,30 @@
     "mtime": 1791876618.4532208,
     "seen": 1791876664.2396588,
     "ast_hash": "124e7d7a586ab91f61738d1df9bf86ec",
+    "semantic_hash": ""
+  },
+  "src/Shared/QaBenchmark.cs": {
+    "mtime": 1791983424.7097802,
+    "seen": 1791983519.231171,
+    "ast_hash": "f9c33f2d573b2994921c8bf0f219d93d",
+    "semantic_hash": ""
+  },
+  "src/Shared/QaQualityGate.cs": {
+    "mtime": 1791983425.1154149,
+    "seen": 1791983519.231175,
+    "ast_hash": "477e67c7f12c40134c5b8ab23ea47831",
+    "semantic_hash": ""
+  },
+  "tests/Architecture.Tests/QaBenchmarkTests.cs": {
+    "mtime": 1791983425.5122678,
+    "seen": 1791983519.231216,
+    "ast_hash": "d35e22522d53fd9039cbb46540b39380",
+    "semantic_hash": ""
+  },
+  "tests/Architecture.Tests/QaQualityGateTests.cs": {
+    "mtime": 1791983572.4948175,
+    "seen": 1791983651.0543718,
+    "ast_hash": "0c723719c1170efd607e3a82a19835ca",
     "semantic_hash": ""
   }
 }

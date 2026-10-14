@@ -1,0 +1,668 @@
+{
+  ".codex/hooks.json": {
+    "mtime": 1791788370.3097925,
+    "seen": 1791788901.3554146,
+    "ast_hash": "5ebef3dd159986e465ab65e4014107ec",
+    "semantic_hash": "5ebef3dd159986e465ab65e4014107ec"
+  },
+  "DotnetExpertAdvisor.slnx": {
+    "mtime": 1791787380.5853095,
+    "seen": 1791788901.355421,
+    "ast_hash": "1f108288c6d180794d30a4c56cd06e5f",
+    "semantic_hash": "1f108288c6d180794d30a4c56cd06e5f"
+  },
+  "docs/workflow/state.json": {
+    "mtime": 1791876661.0710244,
+    "seen": 1791876664.2395766,
+    "ast_hash": "49355839d61859cdf932438f7e666d40",
+    "semantic_hash": ""
+  },
+  "src/KnowledgeEngine/Class1.cs": {
+    "mtime": 1791787141.2802749,
+    "seen": 1791788901.3554254,
+    "ast_hash": "4ca49092fd2358c143f00108f46e9f13",
+    "semantic_hash": "4ca49092fd2358c143f00108f46e9f13"
+  },
+  "src/KnowledgeEngine/KnowledgeEngine.cs": {
+    "mtime": 1791787360.9323082,
+    "seen": 1791788901.3554268,
+    "ast_hash": "8a15a0587b30e379e6dfe641719b7a56",
+    "semantic_hash": "8a15a0587b30e379e6dfe641719b7a56"
+  },
+  "src/KnowledgeEngine/KnowledgeEngine.csproj": {
+    "mtime": 1791787175.1430933,
+    "seen": 1791788901.3554277,
+    "ast_hash": "50ec9693182375e22619a99071065148",
+    "semantic_hash": "50ec9693182375e22619a99071065148"
+  },
+  "src/LanguageServer/LanguageServer.csproj": {
+    "mtime": 1791787178.563352,
+    "seen": 1791788901.3554292,
+    "ast_hash": "614c2580b8e52901521285f43f97380c",
+    "semantic_hash": "614c2580b8e52901521285f43f97380c"
+  },
+  "src/LanguageServer/Program.cs": {
+    "mtime": 1791803532.0312698,
+    "seen": 1791803617.4283252,
+    "ast_hash": "3e3e4535d8bb83fc0125e36631b459f3",
+    "semantic_hash": ""
+  },
+  "src/Protocol/Class1.cs": {
+    "mtime": 1791787136.1845846,
+    "seen": 1791788901.3554318,
+    "ast_hash": "b97171145c402d6639e44f15582008c1",
+    "semantic_hash": "b97171145c402d6639e44f15582008c1"
+  },
+  "src/Protocol/Protocol.csproj": {
+    "mtime": 1791787171.7022216,
+    "seen": 1791788901.355433,
+    "ast_hash": "50ec9693182375e22619a99071065148",
+    "semantic_hash": "50ec9693182375e22619a99071065148"
+  },
+  "src/Protocol/ProtocolModels.cs": {
+    "mtime": 1791787358.775591,
+    "seen": 1791788901.3554342,
+    "ast_hash": "a04f472d9506bb74f43be550a90e7857",
+    "semantic_hash": "a04f472d9506bb74f43be550a90e7857"
+  },
+  "src/RankingEngine/Class1.cs": {
+    "mtime": 1791787140.4580297,
+    "seen": 1791788901.3554356,
+    "ast_hash": "a4b7575f4c79d1a04959f3ee2ce3be0c",
+    "semantic_hash": "a4b7575f4c79d1a04959f3ee2ce3be0c"
+  },
+  "src/RankingEngine/RankingEngine.cs": {
+    "mtime": 1791866870.021017,
+    "seen": 1791866917.9156191,
+    "ast_hash": "57d8e03324159fb023fb3cf4f80420ab",
+    "semantic_hash": ""
+  },
+  "src/RankingEngine/RankingEngine.csproj": {
+    "mtime": 1791787174.592284,
+    "seen": 1791788901.3554378,
+    "ast_hash": "50ec9693182375e22619a99071065148",
+    "semantic_hash": "50ec9693182375e22619a99071065148"
+  },
+  "src/RoslynHost/Class1.cs": {
+    "mtime": 1791787137.0239925,
+    "seen": 1791788901.3554392,
+    "ast_hash": "31042381d88d9b300393f6c9db9fe81a",
+    "semantic_hash": "31042381d88d9b300393f6c9db9fe81a"
+  },
+  "src/RoslynHost/RoslynHost.cs": {
+    "mtime": 1791787359.232901,
+    "seen": 1791788901.3554401,
+    "ast_hash": "e3f75be5d4e4ff69bfedc81c9762d353",
+    "semantic_hash": "e3f75be5d4e4ff69bfedc81c9762d353"
+  },
+  "src/RoslynHost/RoslynHost.csproj": {
+    "mtime": 1791787172.1989884,
+    "seen": 1791788901.3554413,
+    "ast_hash": "50ec9693182375e22619a99071065148",
+    "semantic_hash": "50ec9693182375e22619a99071065148"
+  },
+  "src/RuleEngine/Class1.cs": {
+    "mtime": 1791787139.5074894,
+    "seen": 1791788901.3554425,
+    "ast_hash": "0b737b7199986d7f4aeb691ee60b54ee",
+    "semantic_hash": "0b737b7199986d7f4aeb691ee60b54ee"
+  },
+  "src/RuleEngine/RuleEngine.cs": {
+    "mtime": 1791787360.1342986,
+    "seen": 1791788901.3554437,
+    "ast_hash": "88c122de24b1b6b806e4587da13b27e9",
+    "semantic_hash": "88c122de24b1b6b806e4587da13b27e9"
+  },
+  "src/RuleEngine/RuleEngine.csproj": {
+    "mtime": 1791787174.1043854,
+    "seen": 1791788901.355445,
+    "ast_hash": "96464a952818ff17f525f659820eb7c0",
+    "semantic_hash": "96464a952818ff17f525f659820eb7c0"
+  },
+  "src/RuntimeModel/Class1.cs": {
+    "mtime": 1791787138.6902626,
+    "seen": 1791788901.355446,
+    "ast_hash": "cee656ebf6244216aa813490631fa266",
+    "semantic_hash": "cee656ebf6244216aa813490631fa266"
+  },
+  "src/RuntimeModel/RuntimeModel.cs": {
+    "mtime": 1791787361.3528104,
+    "seen": 1791788901.355447,
+    "ast_hash": "06681435d768083dc1e677b088b91fdc",
+    "semantic_hash": "06681435d768083dc1e677b088b91fdc"
+  },
+  "src/RuntimeModel/RuntimeModel.csproj": {
+    "mtime": 1791787173.1572537,
+    "seen": 1791788901.3554482,
+    "ast_hash": "50ec9693182375e22619a99071065148",
+    "semantic_hash": "50ec9693182375e22619a99071065148"
+  },
+  "src/SemanticGraph/Class1.cs": {
+    "mtime": 1791787137.8339174,
+    "seen": 1791788901.3554497,
+    "ast_hash": "e3bc57378dd9f4229430d6cdbe089f2c",
+    "semantic_hash": "e3bc57378dd9f4229430d6cdbe089f2c"
+  },
+  "src/SemanticGraph/SemanticGraph.cs": {
+    "mtime": 1791787359.7262068,
+    "seen": 1791788901.3554509,
+    "ast_hash": "a3ac09710080fa8bfb74420cc3ce4601",
+    "semantic_hash": "a3ac09710080fa8bfb74420cc3ce4601"
+  },
+  "src/SemanticGraph/SemanticGraph.csproj": {
+    "mtime": 1791787172.6820886,
+    "seen": 1791788901.3554518,
+    "ast_hash": "50ec9693182375e22619a99071065148",
+    "semantic_hash": "50ec9693182375e22619a99071065148"
+  },
+  "src/Shared/Class1.cs": {
+    "mtime": 1791798295.8381946,
+    "seen": 1791798750.0188076,
+    "ast_hash": "db43ddef308d1544e3f0935f474e98aa",
+    "semantic_hash": "db43ddef308d1544e3f0935f474e98aa"
+  },
+  "src/Shared/Contracts.cs": {
+    "mtime": 1791787358.2222688,
+    "seen": 1791788901.3554542,
+    "ast_hash": "dfcb20e8e24a19ca6bdae368c619de4f",
+    "semantic_hash": "dfcb20e8e24a19ca6bdae368c619de4f"
+  },
+  "src/Shared/Shared.csproj": {
+    "mtime": 1791787135.284609,
+    "seen": 1791788901.3554554,
+    "ast_hash": "46b0780bd56312ea2d1bab391f179e89",
+    "semantic_hash": "46b0780bd56312ea2d1bab391f179e89"
+  },
+  "tests/Architecture.Tests/Architecture.Tests.csproj": {
+    "mtime": 1791866713.4076388,
+    "seen": 1791866917.9156485,
+    "ast_hash": "9ca9737bb0f78a798eef5d6e750ef1bf",
+    "semantic_hash": ""
+  },
+  "tests/Architecture.Tests/ContractSmokeTests.cs": {
+    "mtime": 1791799710.8874364,
+    "seen": 1791800067.956202,
+    "ast_hash": "102deead5db7a5f0b30bd81a077c7bec",
+    "semantic_hash": ""
+  },
+  ".codex/skills/ponytail-audit/SKILL.md": {
+    "mtime": 1791788425.7948642,
+    "seen": 1791789256.3246644,
+    "ast_hash": "3c74cf12a43402931cf527ba67ea352f",
+    "semantic_hash": ""
+  },
+  ".codex/skills/ponytail-debt/SKILL.md": {
+    "mtime": 1791788425.7948642,
+    "seen": 1791789256.324666,
+    "ast_hash": "57287ca71af948d8afb81a58e3aa4ca6",
+    "semantic_hash": ""
+  },
+  ".codex/skills/ponytail-gain/SKILL.md": {
+    "mtime": 1791788425.796368,
+    "seen": 1791789256.3246675,
+    "ast_hash": "2b50dc83251cc60c1d0f066805b8ca3f",
+    "semantic_hash": ""
+  },
+  ".codex/skills/ponytail-help/SKILL.md": {
+    "mtime": 1791788425.7973733,
+    "seen": 1791789256.3246684,
+    "ast_hash": "1b654c8cea452eddeed657707f6a3a7d",
+    "semantic_hash": ""
+  },
+  ".codex/skills/ponytail-review/SKILL.md": {
+    "mtime": 1791788425.7973733,
+    "seen": 1791789256.3246694,
+    "ast_hash": "599ba68a9bd0134e902b4158a4efd271",
+    "semantic_hash": ""
+  },
+  ".codex/skills/ponytail/SKILL.md": {
+    "mtime": 1791788425.7983744,
+    "seen": 1791789256.3246708,
+    "ast_hash": "0de2574920505e8f423705421e60742e",
+    "semantic_hash": ""
+  },
+  "AGENTS.md": {
+    "mtime": 1791788583.3670583,
+    "seen": 1791789256.3246717,
+    "ast_hash": "76401624eb9d0ce6532c76170bc1e410",
+    "semantic_hash": ""
+  },
+  "CONTRIBUTING.md": {
+    "mtime": 1791787794.8742015,
+    "seen": 1791789256.3246727,
+    "ast_hash": "d491cddb1674edaaf59672bad955af46",
+    "semantic_hash": ""
+  },
+  "docs/architecture.md": {
+    "mtime": 1791788774.0374472,
+    "seen": 1791789256.324674,
+    "ast_hash": "0b71c6150ae381b55f879293fbc93c3f",
+    "semantic_hash": ""
+  },
+  "docs/data-schemas.md": {
+    "mtime": 1791787000.8401852,
+    "seen": 1791789256.3246748,
+    "ast_hash": "1e98ecf5aa87f07d1aeb211faba21bc8",
+    "semantic_hash": ""
+  },
+  "docs/decisions.md": {
+    "mtime": 1791788795.160124,
+    "seen": 1791789256.3246758,
+    "ast_hash": "2ddff533333b6e27ecfa1e845cadca76",
+    "semantic_hash": ""
+  },
+  "docs/evaluation.md": {
+    "mtime": 1791786754.2119875,
+    "seen": 1791789256.3246765,
+    "ast_hash": "291d3a64f8b67a4b2090a4204c848925",
+    "semantic_hash": ""
+  },
+  "docs/internal-contracts.md": {
+    "mtime": 1791787000.40398,
+    "seen": 1791789256.3246784,
+    "ast_hash": "3c12b19cd826df4a9ac666d5eddc1f47",
+    "semantic_hash": ""
+  },
+  "docs/knowledge-pipeline.md": {
+    "mtime": 1791786753.7439106,
+    "seen": 1791789256.3246794,
+    "ast_hash": "c91b600e37217596456b1a722b3f705f",
+    "semantic_hash": ""
+  },
+  "docs/lsp-contract.md": {
+    "mtime": 1791786752.6918466,
+    "seen": 1791789256.3246806,
+    "ast_hash": "4baeb54e269f2753341f876c0e826820",
+    "semantic_hash": ""
+  },
+  "docs/rule-authoring.md": {
+    "mtime": 1791786753.2149532,
+    "seen": 1791789256.3246815,
+    "ast_hash": "433a03bfc7f5590b0ede9b57a78a8a52",
+    "semantic_hash": ""
+  },
+  "docs/versioning.md": {
+    "mtime": 1791787795.3912787,
+    "seen": 1791789256.3246825,
+    "ast_hash": "f0c5ed28fc47985681ac7eeefc21c779",
+    "semantic_hash": ""
+  },
+  "docs/workflow/project-tasks.md": {
+    "mtime": 1791876660.9819486,
+    "seen": 1791876664.239697,
+    "ast_hash": "37d5113242460de1f3fbe46b9749da94",
+    "semantic_hash": ""
+  },
+  "docs/design/binder-overload-resolution.md": {
+    "mtime": 1791789492.6752717,
+    "seen": 1791789530.7440977,
+    "ast_hash": "98f8f1f80caec692c2079cf46d903f9c",
+    "semantic_hash": ""
+  },
+  "docs/design/suggestion-accuracy-contract.md": {
+    "mtime": 1791789652.8255336,
+    "seen": 1791789687.2202053,
+    "ast_hash": "dfd976b841fbc1e6ba2da0f8e4d75d90",
+    "semantic_hash": ""
+  },
+  "docs/knowledge/curriculum-checklist.md": {
+    "mtime": 1791789652.366997,
+    "seen": 1791789687.22021,
+    "ast_hash": "243cb8b256bdc79004d0104202d36f79",
+    "semantic_hash": ""
+  },
+  "docs/design/ef-model-translatability.md": {
+    "mtime": 1791789808.4548614,
+    "seen": 1791789839.7816117,
+    "ast_hash": "42bf6b29353be3802d527e345a34fb2c",
+    "semantic_hash": ""
+  },
+  "docs/adr/ADR-001-custom-semantic-engine.md": {
+    "mtime": 1791790489.765406,
+    "seen": 1791790491.3064878,
+    "ast_hash": "708059ce3ec1648c854c24e83975be3e",
+    "semantic_hash": ""
+  },
+  "docs/adr/ADR-002-separate-language-server.md": {
+    "mtime": 1791790489.7664053,
+    "seen": 1791790491.306489,
+    "ast_hash": "281f6878f80ecd2220709c8d89953455",
+    "semantic_hash": ""
+  },
+  "docs/adr/ADR-003-signed-knowledge-packs.md": {
+    "mtime": 1791790489.7664053,
+    "seen": 1791790491.3064902,
+    "ast_hash": "a8989a64cac576d71b0121c02b3d1f43",
+    "semantic_hash": ""
+  },
+  "docs/adr/ADR-004-snapshot-generations.md": {
+    "mtime": 1791790489.7674043,
+    "seen": 1791790491.306491,
+    "ast_hash": "888c8e4af7d35259d5f86a57a90959cd",
+    "semantic_hash": ""
+  },
+  "docs/adr/ADR-005-precision-first.md": {
+    "mtime": 1791790489.7674043,
+    "seen": 1791790491.3064919,
+    "ast_hash": "411f476b737e0a64fd4e6d3e042306b8",
+    "semantic_hash": ""
+  },
+  "docs/adr/ADR-006-no-runtime-dependencies.md": {
+    "mtime": 1791790489.768404,
+    "seen": 1791790491.3064926,
+    "ast_hash": "b7bfb073d9062d1e74587234354f20ab",
+    "semantic_hash": ""
+  },
+  "docs/adr/ADR-007-csharp-capability-matrix.md": {
+    "mtime": 1791790489.768404,
+    "seen": 1791790491.3064938,
+    "ast_hash": "5390cd408221443c078e0849fb9f6bdf",
+    "semantic_hash": ""
+  },
+  "docs/adr/ADR-008-nuget-ef-context.md": {
+    "mtime": 1791790489.768404,
+    "seen": 1791790491.3064947,
+    "ast_hash": "e3c56de04d14476906845c132a37d832",
+    "semantic_hash": ""
+  },
+  "docs/adr/README.md": {
+    "mtime": 1791790489.7694063,
+    "seen": 1791790491.3064954,
+    "ast_hash": "939309ecca79e8a635c8d15d83baf76c",
+    "semantic_hash": ""
+  },
+  "docs/backlog.md": {
+    "mtime": 1791876660.9859645,
+    "seen": 1791876664.2396836,
+    "ast_hash": "aa944ec658ced2817c43de965041107e",
+    "semantic_hash": ""
+  },
+  "src/Shared/Symbols.cs": {
+    "mtime": 1791795751.4573097,
+    "seen": 1791796303.0300417,
+    "ast_hash": "9245ad1d050601a9ee5f0b1cdbb691cc",
+    "semantic_hash": ""
+  },
+  "tests/Architecture.Tests/Program.cs": {
+    "mtime": 1791876618.8670967,
+    "seen": 1791876664.2396567,
+    "ast_hash": "7f18161b3447816131b46fa90c095b0d",
+    "semantic_hash": ""
+  },
+  "src/Shared/Binder.cs": {
+    "mtime": 1791791477.768749,
+    "seen": 1791791479.2187946,
+    "ast_hash": "5ae78422ab6df8f634cab7b8e4d26de7",
+    "semantic_hash": ""
+  },
+  "src/Shared/Conversions.cs": {
+    "mtime": 1791795751.455806,
+    "seen": 1791796303.0300395,
+    "ast_hash": "fba0b4a2e53af064ce42f2f8876afbe9",
+    "semantic_hash": ""
+  },
+  "vscode-extension/extension.js": {
+    "mtime": 1791867415.7927697,
+    "seen": 1791867447.0879135,
+    "ast_hash": "fc36ff609a874ff587dce0bc48baa007",
+    "semantic_hash": ""
+  },
+  "vscode-extension/package.json": {
+    "mtime": 1791867400.426037,
+    "seen": 1791867447.0879145,
+    "ast_hash": "c8279862e42651ad429004b861f24770",
+    "semantic_hash": ""
+  },
+  "vscode-extension/README.md": {
+    "mtime": 1791796365.3534567,
+    "seen": 1791796367.1996212,
+    "ast_hash": "4f77d348ed36461392842e5e62759c8c",
+    "semantic_hash": ""
+  },
+  "src/Shared/MemberLookup.cs": {
+    "mtime": 1791798182.5098493,
+    "seen": 1791798750.0188122,
+    "ast_hash": "f2f6e54c3d9d06f1e70e809fef6bd13b",
+    "semantic_hash": ""
+  },
+  "src/Shared/LanguageCapabilities.cs": {
+    "mtime": 1791798750.891405,
+    "seen": 1791799110.6199963,
+    "ast_hash": "88074d828092b4ea6c0853ae0c56104e",
+    "semantic_hash": ""
+  },
+  "src/Shared/Lexer.cs": {
+    "mtime": 1791799111.2666361,
+    "seen": 1791799398.319188,
+    "ast_hash": "f82d33cd304e938631af7df8e0eb8a83",
+    "semantic_hash": ""
+  },
+  "src/Shared/Parser.cs": {
+    "mtime": 1791799710.8859317,
+    "seen": 1791800067.956198,
+    "ast_hash": "8c33978c31d309a57f08f343bf9d463a",
+    "semantic_hash": ""
+  },
+  "src/Shared/AssemblyMetadataReader.cs": {
+    "mtime": 1791802109.301942,
+    "seen": 1791802111.006942,
+    "ast_hash": "781bdf84beb7e2c808f57039f0c45c6a",
+    "semantic_hash": ""
+  },
+  "tests/Architecture.Tests/MetadataReaderTests.cs": {
+    "mtime": 1791802109.302942,
+    "seen": 1791802111.0069566,
+    "ast_hash": "6b2c5962360e1a45192f2ebe1705ea50",
+    "semantic_hash": ""
+  },
+  "src/Shared/NuGetProjectIndex.cs": {
+    "mtime": 1791803315.6629074,
+    "seen": 1791803368.1317556,
+    "ast_hash": "a8774c7640a9cad5c0d628f5a8564f80",
+    "semantic_hash": ""
+  },
+  "tests/Architecture.Tests/NuGetProjectIndexTests.cs": {
+    "mtime": 1791803332.5139978,
+    "seen": 1791803368.1317635,
+    "ast_hash": "44fd55e9ad7764a62b7df4e1e519f3b5",
+    "semantic_hash": ""
+  },
+  "src/LanguageServer/StdioLanguageServer.cs": {
+    "mtime": 1791865879.988773,
+    "seen": 1791865881.7505727,
+    "ast_hash": "541f4699409412ec8f277d5e363467ba",
+    "semantic_hash": ""
+  },
+  "src/Protocol/StdioTransport.cs": {
+    "mtime": 1791803581.425002,
+    "seen": 1791803617.4283323,
+    "ast_hash": "0b1ad883b80877cd138325e8d11d0cfc",
+    "semantic_hash": ""
+  },
+  "tests/Architecture.Tests/StdioTransportTests.cs": {
+    "mtime": 1791803548.9716842,
+    "seen": 1791803617.4283702,
+    "ast_hash": "abf1ab37e83a7a0159d003b311502917",
+    "semantic_hash": ""
+  },
+  "src/Shared/CompletionContext.cs": {
+    "mtime": 1791803915.003505,
+    "seen": 1791803948.2875588,
+    "ast_hash": "a91eb8bf41152e5e2815c9fc7a3a222b",
+    "semantic_hash": ""
+  },
+  "tests/Architecture.Tests/CompletionContextTests.cs": {
+    "mtime": 1791803886.2046921,
+    "seen": 1791803948.287571,
+    "ast_hash": "da29f5dc7adf0937d8fc05c5b70a1506",
+    "semantic_hash": ""
+  },
+  "src/Shared/EditorFeatures.cs": {
+    "mtime": 1791866251.073557,
+    "seen": 1791866294.5534418,
+    "ast_hash": "a3924d1f93f8862e7917c32ae0191215",
+    "semantic_hash": ""
+  },
+  "tests/Architecture.Tests/EditorFeaturesTests.cs": {
+    "mtime": 1791865879.9897726,
+    "seen": 1791865881.750612,
+    "ast_hash": "e409a7776306caeddf4b8965bf9d28f6",
+    "semantic_hash": ""
+  },
+  "tests/Architecture.Tests/DiagnosticsTests.cs": {
+    "mtime": 1791866251.4770684,
+    "seen": 1791866294.5535371,
+    "ast_hash": "51aafdeeb3da88c8d249c4cc030690a6",
+    "semantic_hash": ""
+  },
+  "tests/Architecture.Tests/RankingTests.cs": {
+    "mtime": 1791866901.0713108,
+    "seen": 1791866917.915657,
+    "ast_hash": "5510856f9e35cbced4eb6f8c5da027e1",
+    "semantic_hash": ""
+  },
+  "src/Shared/EfModelAnalyzer.cs": {
+    "mtime": 1791870605.6844475,
+    "seen": 1791870645.451613,
+    "ast_hash": "76c13dfe2b687f41f288adeccd4acab6",
+    "semantic_hash": ""
+  },
+  "tests/Architecture.Tests/EfModelAnalyzerTests.cs": {
+    "mtime": 1791870620.3170295,
+    "seen": 1791870645.4516273,
+    "ast_hash": "2f932e5f654ad1aea6c2c08bb2c457b3",
+    "semantic_hash": ""
+  },
+  "src/Shared/EfLinqAnalyzer.cs": {
+    "mtime": 1791870963.2238057,
+    "seen": 1791870993.778432,
+    "ast_hash": "76f57699bd0848bc71c5d429ad221c38",
+    "semantic_hash": ""
+  },
+  "tests/Architecture.Tests/EfLinqAnalyzerTests.cs": {
+    "mtime": 1791870951.678848,
+    "seen": 1791870993.7784476,
+    "ast_hash": "c7a953fb0f44aca7d1e62fb9f041131d",
+    "semantic_hash": ""
+  },
+  "src/Shared/EfPerformanceAnalyzer.cs": {
+    "mtime": 1791871360.450116,
+    "seen": 1791871401.816398,
+    "ast_hash": "af22faa9b811c78ffb69fb97c81dc7c2",
+    "semantic_hash": ""
+  },
+  "tests/Architecture.Tests/EfPerformanceAnalyzerTests.cs": {
+    "mtime": 1791871361.010966,
+    "seen": 1791871401.8164127,
+    "ast_hash": "645cb35bdbb42b9c7bc0d8dc98b458ae",
+    "semantic_hash": ""
+  },
+  "src/Shared/EfProviderRegistry.cs": {
+    "mtime": 1791871627.2465928,
+    "seen": 1791871667.6096547,
+    "ast_hash": "50d224f088ad929679ef205491fa32fb",
+    "semantic_hash": ""
+  },
+  "tests/Architecture.Tests/EfProviderRegistryTests.cs": {
+    "mtime": 1791871627.6904473,
+    "seen": 1791871667.609671,
+    "ast_hash": "88b651af1907c86b6b7408f0b6b15e1d",
+    "semantic_hash": ""
+  },
+  "src/Shared/KnowledgeRegistry.cs": {
+    "mtime": 1791871925.2093167,
+    "seen": 1791871959.997385,
+    "ast_hash": "11d6d07fe41f92e2edb1e34810d531d7",
+    "semantic_hash": ""
+  },
+  "tests/Architecture.Tests/KnowledgeRegistryTests.cs": {
+    "mtime": 1791871894.7204316,
+    "seen": 1791871959.9974027,
+    "ast_hash": "1929e401e50baa6c97594d16e91186d1",
+    "semantic_hash": ""
+  },
+  "src/Shared/KnowledgeCrawler.cs": {
+    "mtime": 1791872216.2749667,
+    "seen": 1791872251.343617,
+    "ast_hash": "931ec36d1b6ba819c78b75d7f2101593",
+    "semantic_hash": ""
+  },
+  "tests/Architecture.Tests/KnowledgeCrawlerTests.cs": {
+    "mtime": 1791872216.685683,
+    "seen": 1791872251.3436365,
+    "ast_hash": "e796a888c3ad69ffadecce99235885cc",
+    "semantic_hash": ""
+  },
+  "src/Shared/KnowledgeExtractor.cs": {
+    "mtime": 1791872517.8433454,
+    "seen": 1791872549.7479043,
+    "ast_hash": "9ef7a0e80b345741d092539c028bcc6d",
+    "semantic_hash": ""
+  },
+  "tests/Architecture.Tests/KnowledgeExtractorTests.cs": {
+    "mtime": 1791872518.3062258,
+    "seen": 1791872549.7479231,
+    "ast_hash": "f0e1230c4cd20aca8272f4d7a3d3f7bb",
+    "semantic_hash": ""
+  },
+  "src/Shared/KnowledgePackSecurity.cs": {
+    "mtime": 1791873366.1071734,
+    "seen": 1791873368.4987576,
+    "ast_hash": "aa0f45734ae08c0bc9e990af85b17704",
+    "semantic_hash": ""
+  },
+  "tests/Architecture.Tests/KnowledgePackSecurityTests.cs": {
+    "mtime": 1791872998.183974,
+    "seen": 1791873036.7003984,
+    "ast_hash": "e13cc8054503855945bc3a07e0da9cea",
+    "semantic_hash": ""
+  },
+  "src/Shared/KnowledgeUpdateClient.cs": {
+    "mtime": 1791873366.1076791,
+    "seen": 1791873368.4987597,
+    "ast_hash": "616198b8e8380a0e5cfed37bd76d0b16",
+    "semantic_hash": ""
+  },
+  "tests/Architecture.Tests/KnowledgeUpdateTests.cs": {
+    "mtime": 1791873366.1086884,
+    "seen": 1791873368.4987814,
+    "ast_hash": "dcd58bb567c7d2288498f49eb0d3f825",
+    "semantic_hash": ""
+  },
+  "src/Shared/CorpusManifest.cs": {
+    "mtime": 1791873458.1802342,
+    "seen": 1791873496.266215,
+    "ast_hash": "1adae2d9a94fc657e2958a36d7c80aa6",
+    "semantic_hash": ""
+  },
+  "tests/Architecture.Tests/CorpusManifestTests.cs": {
+    "mtime": 1791873458.5914772,
+    "seen": 1791873496.2662375,
+    "ast_hash": "3097e7adf819533db34c38eb618ff31f",
+    "semantic_hash": ""
+  },
+  "src/Shared/QaMetrics.cs": {
+    "mtime": 1791873649.569769,
+    "seen": 1791873834.8530269,
+    "ast_hash": "bd01f9444fb89031d2b682fef0a894dd",
+    "semantic_hash": ""
+  },
+  "tests/Architecture.Tests/QaMetricsTests.cs": {
+    "mtime": 1791873761.749157,
+    "seen": 1791873834.853048,
+    "ast_hash": "b910321e41c4692bcc45c6694495529c",
+    "semantic_hash": ""
+  },
+  "src/Shared/QaRegression.cs": {
+    "mtime": 1791876618.070562,
+    "seen": 1791876664.2396355,
+    "ast_hash": "f460cc2499ab98b1a5fd975c0591242b",
+    "semantic_hash": ""
+  },
+  "tests/Architecture.Tests/QaRegressionTests.cs": {
+    "mtime": 1791876618.4532208,
+    "seen": 1791876664.2396588,
+    "ast_hash": "124e7d7a586ab91f61738d1df9bf86ec",
+    "semantic_hash": ""
+  }
+}
