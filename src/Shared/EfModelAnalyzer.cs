@@ -100,7 +100,7 @@ public static partial class EfModelAnalyzer
         HashSet<string> entityTypeNames)
     {
         var isKeyless = KeylessPattern().IsMatch(source)
-            && source.Contains(entityName, StringComparison.Ordinal);
+            && source.Contains($"class {entityName}", StringComparison.Ordinal);
 
         var properties = PropertyPattern().Matches(source)
             .Select(property => property.Groups[1].Value)
@@ -122,19 +122,25 @@ public static partial class EfModelAnalyzer
         var conventionKeys = isKeyless || annotationKeys.Length > 0
             ? ImmutableArray<EfFact<string>>.Empty
             : properties
-                .Where(property => property.Value is "Id" or var n && n.Equals(entityName + "Id", StringComparison.Ordinal))
+                .Where(property =>
+                    property.Value == "Id"
+                    || property.Value.Equals(entityName + "Id", StringComparison.Ordinal))
                 .Select(property => new EfFact<string>(property.Value, EfProvenance.Convention, EfConfidence.High, "by convention"))
                 .ToImmutableArray();
 
-        var keys = annotationKeys.Length > 0 ? annotationKeys : conventionKeys;
+        // Prefer annotation keys that belong to this entity property set when present.
+        var entityAnnotationKeys = annotationKeys
+            .Where(key => properties.Any(property => property.Value == key.Value))
+            .ToImmutableArray();
+        var keys = entityAnnotationKeys.Length > 0 ? entityAnnotationKeys : conventionKeys;
 
         var navigations = NavigationPattern().Matches(source)
             .Select(match =>
             {
-                var isCollection = match.Groups[1].Success;
-                var target = isCollection ? match.Groups[2].Value : match.Groups[3].Value;
-                var name = isCollection ? match.Groups[3].Value : match.Groups[4].Value;
-                if (!entityTypeNames.Contains(target))
+                var isCollection = match.Groups["collType"].Success;
+                var target = isCollection ? match.Groups["collType"].Value : match.Groups["refType"].Value;
+                var name = isCollection ? match.Groups["collName"].Value : match.Groups["refName"].Value;
+                if (string.IsNullOrEmpty(target) || !entityTypeNames.Contains(target))
                     return null;
                 return new EfNavigation(name, target, isCollection, EfProvenance.Convention);
             })
@@ -157,7 +163,8 @@ public static partial class EfModelAnalyzer
 
     private static EfProvenance DetectPropertyProvenance(string source, string propertyName)
     {
-        if (KeyAnnotationPattern().IsMatch(source) && source.Contains(propertyName, StringComparison.Ordinal))
+        if (source.Contains("[Key]", StringComparison.Ordinal)
+            && Regex.IsMatch(source, $"\\[Key\\]\\s*(?:public\\s+)?(?:\\w+\\s+)?{Regex.Escape(propertyName)}\\s*\\{{"))
             return EfProvenance.DataAnnotation;
         if (source.Contains($"Property(x => x.{propertyName})", StringComparison.Ordinal)
             || source.Contains($"Property(e => e.{propertyName})", StringComparison.Ordinal))
@@ -186,8 +193,7 @@ public static partial class EfModelAnalyzer
     [GeneratedRegex(@"\[Keyless\]")]
     private static partial Regex KeylessPattern();
 
-    // ICollection<Order> Orders | Order Order
-    [GeneratedRegex(@"(?:ICollection|List|IEnumerable)\s*<\s*(\w+)\s*>\s+(\w+)\s*\{|(\w+)\s+(\w+)\s*\{\s*get")]
+    [GeneratedRegex(@"(?:ICollection|List|IEnumerable)\s*<\s*(?<collType>\w+)\s*>\s+(?<collName>\w+)\s*\{|(?<refType>\w+)\s+(?<refName>\w+)\s*\{\s*get")]
     private static partial Regex NavigationPattern();
 
     [GeneratedRegex(@"\b(Assembly\.Load|Activator\.CreateInstance|dynamic\b|ModelBuilder\s+\w+\s*=)")]
