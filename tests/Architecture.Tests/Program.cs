@@ -28,4 +28,5 @@ await KnowledgeUpdateTests.RunAsync();
 CorpusManifestTests.Run();
 QaMetricsTests.Run();
 QaRegressionTests.Run();
+QaQualityGateTests.Run();
 

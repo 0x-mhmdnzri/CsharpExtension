@@ -1,7 +1,7 @@
 {
     "project":  "DotnetExpertAdvisor",
     "workflow":  "gitflow",
-    "currentBranch":  "develop",
+    "currentBranch":  "feature/qa/quality-gate",
     "version":  "0.1.0-alpha.1",
     "currentTask":  "QA-004",
     "lastCompleted":  [
@@ -42,7 +42,7 @@
                           "QA-002",
                           "QA-003"
                       ],
-    "nextTask":  "QA-004",
+    "nextTask":  "REL-002",
     "requirements":  {
                          "ownIntellisense":  true,
                          "externalLanguageService":  false,
@@ -65,8 +65,8 @@
                          "contextAwareRanking":  true
                      },
     "validation":  {
-                       "build":  "passed",
-                       "tests":  "QA precision metrics and regression runner: build and smoke checks passed",
+                       "build":  "pending",
+                       "tests":  "QA-004 quality gate evaluator and smoke checks added",
                        "graphify":  "installed project-scoped",
                        "ponytail":  "installed project-scoped"
                    }
