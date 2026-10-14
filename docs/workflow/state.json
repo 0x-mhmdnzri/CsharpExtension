@@ -1,7 +1,7 @@
 {
     "project":  "DotnetExpertAdvisor",
     "workflow":  "gitflow",
-    "currentBranch":  "develop",
+    "currentBranch":  "release/0.1.0-alpha.1",
     "version":  "0.1.0-alpha.1",
     "currentTask":  "REL-002",
     "lastCompleted":  [
@@ -66,8 +66,8 @@
                          "contextAwareRanking":  true
                      },
     "validation":  {
-                       "build":  "passed",
-                       "tests":  "QA-004 quality gate merged to develop",
+                       "build":  "pending local Release pack",
+                       "tests":  "release checklist and pack script added",
                        "graphify":  "installed project-scoped",
                        "ponytail":  "installed project-scoped"
                    }
