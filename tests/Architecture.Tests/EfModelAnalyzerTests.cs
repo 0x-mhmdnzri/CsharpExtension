@@ -46,6 +46,26 @@ public static class EfModelAnalyzerTests
         if (order.Navigations.Single().TargetType != "Customer" || order.Navigations.Single().IsCollection)
             throw new InvalidOperationException("Reference navigation was not detected.");
 
+        var fluent = EfModelAnalyzer.Analyze("""
+            public class AppDbContext : DbContext
+            {
+                public DbSet<Order> Orders { get; set; }
+                protected override void OnModelCreating(ModelBuilder modelBuilder)
+                {
+                    modelBuilder.Entity<Order>().HasKey(x => x.OrderKey);
+                    modelBuilder.Entity<Order>().HasOne(o => o.Customer).WithMany(c => c.Orders).HasForeignKey(o => o.CustomerId);
+                }
+            }
+            public class Customer { public int Id { get; set; } public ICollection<Order> Orders { get; set; } }
+            public class Order { public int OrderKey { get; set; } public int CustomerId { get; set; } public Customer Customer { get; set; } }
+            """);
+
+        var fluentOrder = fluent.Entities.Single(entity => entity.Name == "Order");
+        if (fluentOrder.Keys.Single().Source != EfProvenance.FluentApi || fluentOrder.Keys.Single().Value != "OrderKey")
+            throw new InvalidOperationException("Fluent HasKey was not applied.");
+        if (fluentOrder.ForeignKeys.All(fk => fk.Source != EfProvenance.FluentApi))
+            throw new InvalidOperationException("Fluent HasForeignKey was not applied.");
+
         var incomplete = EfModelAnalyzer.Analyze("""
             public class AppDbContext : DbContext
             {

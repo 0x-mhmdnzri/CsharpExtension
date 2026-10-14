@@ -90,7 +90,8 @@ public static partial class EfModelAnalyzer
             && contexts.Length > 0
             && contexts.All(context => context.IsComplete);
 
-        return new EfModelSnapshot(contexts, entities, complete);
+        var snapshot = new EfModelSnapshot(contexts, entities, complete);
+        return EfFluentInterpreter.Apply(snapshot, source);
     }
 
     private static EfEntityModel BuildEntity(
@@ -128,7 +129,6 @@ public static partial class EfModelAnalyzer
                 .Select(property => new EfFact<string>(property.Value, EfProvenance.Convention, EfConfidence.High, "by convention"))
                 .ToImmutableArray();
 
-        // Prefer annotation keys that belong to this entity property set when present.
         var entityAnnotationKeys = annotationKeys
             .Where(key => properties.Any(property => property.Value == key.Value))
             .ToImmutableArray();

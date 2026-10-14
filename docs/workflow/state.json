@@ -3,7 +3,7 @@
     "workflow":  "gitflow",
     "currentBranch":  "develop",
     "version":  "0.1.0-alpha.1",
-    "currentTask":  "EF-006",
+    "currentTask":  "EF-009",
     "lastCompleted":  [
                           "GOV-001",
                           "GOV-002",
@@ -44,9 +44,10 @@
                           "QA-004",
                           "REL-002",
                           "EF-005",
-                          "EF-006"
+                          "EF-006",
+                          "EF-007"
                       ],
-    "nextTask":  "EF-007",
+    "nextTask":  "EF-009",
     "requirements":  {
                          "ownIntellisense":  true,
                          "externalLanguageService":  false,
@@ -70,7 +71,7 @@
                      },
     "validation":  {
                        "build":  "pending",
-                       "tests":  "EF-005 provenance + EF-006 key/FK/navigation conventions",
+                       "tests":  "EF-005/006/007 provenance conventions fluent HasKey/HasOne",
                        "graphify":  "installed project-scoped",
                        "ponytail":  "installed project-scoped"
                    }
