@@ -3,7 +3,7 @@
     "workflow":  "gitflow",
     "currentBranch":  "develop",
     "version":  "0.1.0-alpha.1",
-    "currentTask":  "COMPLETE",
+    "currentTask":  "SUG-001",
     "lastCompleted":  [
                           "GOV-001",
                           "GOV-002",
@@ -54,7 +54,7 @@
                           "BIND-006",
                           "BIND-007"
                       ],
-    "nextTask":  null,
+    "nextTask":  "SUG-001",
     "requirements":  {
                          "ownIntellisense":  true,
                          "externalLanguageService":  false,
@@ -78,7 +78,7 @@
                      },
     "validation":  {
                        "build":  "passed",
-                       "tests":  "BIND-007 speculative verification baseline filtering passed",
+                       "tests":  "SUG-001 project context snapshot pending",
                        "graphify":  "installed project-scoped",
                        "ponytail":  "installed project-scoped"
                    }
