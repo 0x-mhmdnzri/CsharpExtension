@@ -62,7 +62,7 @@ function activate(context) {
   const provider = vscode.languages.registerCompletionItemProvider({ language: 'csharp' }, {
     async provideCompletionItems(document, position) {
       const result = await request('textDocument/completion', {
-        textDocument: { uri: document.uri.toString() },
+        textDocument: { uri: document.uri.toString(), text: document.getText() },
         position: { line: position.line, character: position.character }
       });
       return result?.items ?? [];

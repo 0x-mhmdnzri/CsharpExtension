@@ -1,0 +1,62 @@
+using System.Collections.Immutable;
+using System.Text.RegularExpressions;
+
+namespace DotnetExpertAdvisor.Shared;
+
+public sealed record CompletionSuggestion(string Label, string Detail, string SortText);
+
+public static partial class CompletionEngine
+{
+    private static readonly ImmutableHashSet<string> Keywords =
+        ["class", "public", "private", "protected", "internal", "static", "void", "int", "string", "bool",
+         "var", "new", "return", "if", "else", "for", "foreach", "while", "using", "namespace", "null",
+         "true", "false", "this", "async", "await", "record", "struct", "interface", "enum"];
+
+    public static ImmutableArray<CompletionSuggestion> Complete(string text, int line, int character)
+    {
+        ArgumentNullException.ThrowIfNull(text);
+        if (line < 0 || character < 0) return ImmutableArray<CompletionSuggestion>.Empty;
+        var offset = OffsetAt(text, line, character);
+        if (offset < 0) return ImmutableArray<CompletionSuggestion>.Empty;
+
+        var context = CompletionContextAnalyzer.Analyze(text, offset);
+        var candidates = new Dictionary<string, string>(StringComparer.Ordinal);
+        foreach (Match match in IdentifierPattern().Matches(text))
+        {
+            var value = match.Value;
+            if (!Keywords.Contains(value) && value.StartsWith(context.Prefix, StringComparison.OrdinalIgnoreCase))
+                candidates.TryAdd(value, "C# symbol");
+        }
+
+        if (context.IsMemberAccess)
+        {
+            var ef = EfQueryCompletion.Complete(text[..offset], EfModelAnalyzer.Analyze(text));
+            foreach (var candidate in ef.Candidates.Where(candidate =>
+                         candidate.StartsWith(context.Prefix, StringComparison.OrdinalIgnoreCase)))
+                candidates[candidate] = "EF navigation";
+        }
+
+        return candidates.OrderBy(pair => pair.Key, StringComparer.OrdinalIgnoreCase).Take(100)
+            .Select((pair, index) => new CompletionSuggestion(pair.Key, pair.Value, index.ToString("D5")))
+            .ToImmutableArray();
+    }
+
+    private static int OffsetAt(string text, int line, int character)
+    {
+        var currentLine = 0;
+        var offset = 0;
+        while (currentLine < line)
+        {
+            var newline = text.IndexOf('\n', offset);
+            if (newline < 0) return -1;
+            offset = newline + 1;
+            currentLine++;
+        }
+        var lineEnd = text.IndexOf('\n', offset);
+        if (lineEnd < 0) lineEnd = text.Length;
+        return offset + Math.Min(character, lineEnd - offset);
+    }
+
+    [GeneratedRegex(@"\b[A-Za-z_]\w*\b")]
+    private static partial Regex IdentifierPattern();
+}

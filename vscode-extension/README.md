@@ -6,4 +6,4 @@ Install it from the VS Code Extensions view with **Install from VSIX...**, selec
 
 `.NET Expert Advisor: Start Preview Server`
 
-This preview validates extension activation and server lifecycle. Completion, diagnostics, and the full custom language protocol are still under development.
+The preview includes C# symbol and EF navigation completion through `Ctrl+Space` and `.` triggers. Diagnostics and the rest of the custom language protocol are still under development.

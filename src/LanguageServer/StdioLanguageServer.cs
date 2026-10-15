@@ -30,6 +30,15 @@ public static class StdioLanguageServer
                     result = new { capabilities = new { textDocumentSync = 1, completionProvider = new { triggerCharacters = new[] { "." } } } }
                 }, cancellationToken);
             }
+            else if (method == "textDocument/completion" && root.TryGetProperty("id", out var completionId))
+            {
+                await StdioTransport.WriteAsync(output, new
+                {
+                    jsonrpc = "2.0",
+                    id = completionId,
+                    result = Complete(root)
+                }, cancellationToken);
+            }
             else if (method == "textDocument/signatureHelp" && root.TryGetProperty("id", out var signatureId))
             {
                 var result = new { signatures = Array.Empty<object>(), activeSignature = -1, activeParameter = 0 };
@@ -48,5 +57,31 @@ public static class StdioLanguageServer
                 await StdioTransport.WriteAsync(output, new { jsonrpc = "2.0", id, error = new { code = -32601, message = "Method not implemented" } }, cancellationToken);
             }
         }
+    }
+
+    private static object Complete(JsonElement root)
+    {
+        if (!root.TryGetProperty("params", out var parameters)
+            || !parameters.TryGetProperty("textDocument", out var document)
+            || !document.TryGetProperty("text", out var textProperty)
+            || !parameters.TryGetProperty("position", out var position)
+            || !position.TryGetProperty("line", out var lineProperty)
+            || !position.TryGetProperty("character", out var characterProperty))
+            return new { items = Array.Empty<object>(), isIncomplete = false };
+
+        var text = textProperty.GetString() ?? string.Empty;
+        var suggestions = CompletionEngine.Complete(text, lineProperty.GetInt32(), characterProperty.GetInt32());
+        return new
+        {
+            items = suggestions.Select(suggestion => new
+            {
+                label = suggestion.Label,
+                kind = 3,
+                detail = suggestion.Detail,
+                sortText = suggestion.SortText,
+                data = new { suggestionId = $"completion.{suggestion.Label}", source = "internal" }
+            }).ToArray(),
+            isIncomplete = false
+        };
     }
 }

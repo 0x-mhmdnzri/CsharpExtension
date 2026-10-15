@@ -3,7 +3,7 @@
     "workflow":  "gitflow",
     "currentBranch":  "develop",
     "version":  "0.1.0-alpha.1",
-    "currentTask":  "EF-009",
+    "currentTask":  "KNOW-006",
     "lastCompleted":  [
                           "GOV-001",
                           "GOV-002",
@@ -45,9 +45,12 @@
                           "REL-002",
                           "EF-005",
                           "EF-006",
-                          "EF-007"
+                          "EF-007",
+                          "EF-009",
+                          "EF-010",
+                          "LSP-001"
                       ],
-    "nextTask":  "EF-009",
+    "nextTask":  "KNOW-006",
     "requirements":  {
                          "ownIntellisense":  true,
                          "externalLanguageService":  false,
@@ -70,8 +73,8 @@
                          "contextAwareRanking":  true
                      },
     "validation":  {
-                       "build":  "pending",
-                       "tests":  "EF-005/006/007 provenance conventions fluent HasKey/HasOne",
+                       "build":  "passed",
+                       "tests":  "LSP-001 completion protocol and Ctrl+Space smoke test passed",
                        "graphify":  "installed project-scoped",
                        "ponytail":  "installed project-scoped"
                    }

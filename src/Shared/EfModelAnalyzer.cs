@@ -187,7 +187,7 @@ public static partial class EfModelAnalyzer
     [GeneratedRegex(@"\[Key\]\s*(?:public\s+)?(?:\w+\s+)?(\w+)\s*\{\s*get")]
     private static partial Regex KeyAnnotationPattern();
 
-    [GeneratedRegex(@"\[ForeignKey\s*\(\s*\"([^\"]+)\"\s*\)\]")]
+    [GeneratedRegex(@"\[ForeignKey\s*\(\s*""([^""]+)""\s*\)\]")]
     private static partial Regex ForeignKeyAnnotationPattern();
 
     [GeneratedRegex(@"\[Keyless\]")]

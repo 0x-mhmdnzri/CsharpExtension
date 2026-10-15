@@ -7,6 +7,9 @@ public sealed record EfQueryAnalysis(EfTranslationStatus Status, string? Sql, st
 
 public static partial class EfLinqAnalyzer
 {
+    public static EfTranslationVerdict Analyze(string query, string table, string provider, string providerVersion)
+        => EfTranslationMatrix.Analyze(query, table, provider, providerVersion);
+
     public static EfQueryAnalysis Analyze(string query, string table)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(query);
