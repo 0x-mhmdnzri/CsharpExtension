@@ -6,19 +6,10 @@ Completed items are archived in `docs/workflow/state.json`. This file contains o
 
 | Order | ID | Priority | Status | Dependency | Branch |
 |---:|---|---:|---|---|---|
-| 1 | BIND-005 | P1 | ready | BIND-004 | `feature/binder/overload-resolution` |
-| 2 | BIND-006 | P1 | ready | BIND-005 | `feature/binder/generic-inference` |
-| 3 | BIND-007 | P1 | ready | BIND-006 | `feature/binder/speculative-verification` |
+| 1 | BIND-006 | P1 | ready | BIND-005 | `feature/binder/generic-inference` |
+| 2 | BIND-007 | P1 | ready | BIND-006 | `feature/binder/speculative-verification` |
 
 ## Remaining tasks
-
-### BIND-005 — Overload resolution
-
-Return the best member and candidate rejection reasons for overloaded calls.
-
-Acceptance criteria: overload choice and rejection reason are correct for the supported C# corpus.
-
-Validation: specification tests and differential CI.
 
 ### BIND-006 — Generic inference and LINQ
 

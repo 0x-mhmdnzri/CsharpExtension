@@ -3,7 +3,7 @@
     "workflow":  "gitflow",
     "currentBranch":  "develop",
     "version":  "0.1.0-alpha.1",
-    "currentTask":  "BIND-005",
+    "currentTask":  "BIND-006",
     "lastCompleted":  [
                           "GOV-001",
                           "GOV-002",
@@ -49,9 +49,10 @@
                           "EF-009",
                           "EF-010",
                           "LSP-001",
-                          "KNOW-006"
+                          "KNOW-006",
+                          "BIND-005"
                       ],
-    "nextTask":  "BIND-005",
+    "nextTask":  "BIND-006",
     "requirements":  {
                          "ownIntellisense":  true,
                          "externalLanguageService":  false,
@@ -75,7 +76,7 @@
                      },
     "validation":  {
                        "build":  "passed",
-                       "tests":  "KNOW-006 CLR/C# concept catalog lookup and source links passed",
+                       "tests":  "BIND-005 overload resolution with rejection reasons passed",
                        "graphify":  "installed project-scoped",
                        "ponytail":  "installed project-scoped"
                    }

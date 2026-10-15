@@ -28,6 +28,11 @@ public static partial class EfQueryCompletion
         if (thenInclude.Success)
         {
             var navigationName = thenInclude.Groups[1].Value;
+            if (navigationName.Length == 0)
+            {
+                var previous = PreviousIncludePattern().Match(query);
+                navigationName = previous.Success ? previous.Groups[1].Value : string.Empty;
+            }
             var navigation = entity.Navigations.FirstOrDefault(item => item.Name == navigationName);
             if (navigation is null)
                 return Unknown("The Include navigation is not part of the model.");
@@ -59,11 +64,14 @@ public static partial class EfQueryCompletion
     [GeneratedRegex(@"\b(?:db|context)\.(\w+)")]
     private static partial Regex RootPattern();
 
-    [GeneratedRegex(@"\.Include\s*\(\s*\w+\s*=>\s*\w+\.(\w+)\s*$")]
+    [GeneratedRegex(@"\.Include\s*\(\s*\w+\s*=>\s*\w+\.(\w*)\s*$")]
     private static partial Regex IncludePattern();
 
-    [GeneratedRegex(@"\.ThenInclude\s*\(\s*\w+\s*=>\s*\w+\.(\w+)\s*$")]
+    [GeneratedRegex(@"\.ThenInclude\s*\(\s*\w+\s*=>\s*\w+\.(\w*)\s*$")]
     private static partial Regex ThenIncludePattern();
+
+    [GeneratedRegex(@"\.Include\s*\(\s*\w+\s*=>\s*\w+\.(\w+)\s*\)")]
+    private static partial Regex PreviousIncludePattern();
 
     [GeneratedRegex(@"DbSet<\s*(\w+)\s*>")]
     private static partial Regex DbSetTypePattern();

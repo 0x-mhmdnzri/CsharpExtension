@@ -100,22 +100,24 @@ public static partial class EfModelAnalyzer
         HashSet<string> dbSetNames,
         HashSet<string> entityTypeNames)
     {
+        var entitySource = EntitySource(source, entityName);
         var isKeyless = KeylessPattern().IsMatch(source)
-            && source.Contains($"class {entityName}", StringComparison.Ordinal);
+            && entitySource.Length > 0
+            && KeylessPattern().IsMatch(entitySource);
 
-        var properties = PropertyPattern().Matches(source)
+        var properties = PropertyPattern().Matches(entitySource)
             .Select(property => property.Groups[1].Value)
             .Where(property => !dbSetNames.Contains(property))
             .Where(property => !entityTypeNames.Contains(property))
             .Distinct(StringComparer.Ordinal)
             .Select(property => new EfFact<string>(
                 property,
-                DetectPropertyProvenance(source, property),
+                DetectPropertyProvenance(entitySource, property),
                 EfConfidence.High,
                 property))
             .ToImmutableArray();
 
-        var annotationKeys = KeyAnnotationPattern().Matches(source)
+        var annotationKeys = KeyAnnotationPattern().Matches(entitySource)
             .Select(match => match.Groups[1].Value)
             .Select(name => new EfFact<string>(name, EfProvenance.DataAnnotation, EfConfidence.High, "[Key]"))
             .ToImmutableArray();
@@ -134,7 +136,7 @@ public static partial class EfModelAnalyzer
             .ToImmutableArray();
         var keys = entityAnnotationKeys.Length > 0 ? entityAnnotationKeys : conventionKeys;
 
-        var navigations = NavigationPattern().Matches(source)
+        var navigations = NavigationPattern().Matches(entitySource)
             .Select(match =>
             {
                 var isCollection = match.Groups["collType"].Success;
@@ -148,7 +150,7 @@ public static partial class EfModelAnalyzer
             .Select(navigation => navigation!)
             .ToImmutableArray();
 
-        var foreignKeys = ForeignKeyAnnotationPattern().Matches(source)
+        var foreignKeys = ForeignKeyAnnotationPattern().Matches(entitySource)
             .Select(match => new EfFact<string>(match.Groups[1].Value, EfProvenance.DataAnnotation, EfConfidence.High, "[ForeignKey]"))
             .Concat(properties
                 .Where(property => property.Value.EndsWith("Id", StringComparison.Ordinal) && property.Value.Length > 2)
@@ -159,6 +161,14 @@ public static partial class EfModelAnalyzer
             .ToImmutableArray();
 
         return new EfEntityModel(entityName, properties, keys, navigations, foreignKeys, isKeyless);
+    }
+
+    private static string EntitySource(string source, string entityName)
+    {
+        var start = source.IndexOf($"class {entityName}", StringComparison.Ordinal);
+        if (start < 0) return string.Empty;
+        var next = source.IndexOf("class ", start + 6, StringComparison.Ordinal);
+        return source[start..(next < 0 ? source.Length : next)];
     }
 
     private static EfProvenance DetectPropertyProvenance(string source, string propertyName)

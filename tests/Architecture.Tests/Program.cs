@@ -13,6 +13,7 @@ NuGetProjectIndexTests.Run();
 await StdioTransportTests.RunAsync();
 CompletionContextTests.Run();
 CompletionEngineTests.Run();
+OverloadResolutionTests.Run();
 EditorFeaturesTests.Run();
 DiagnosticsTests.Run();
 Console.WriteLine("Architecture smoke checks passed.");
