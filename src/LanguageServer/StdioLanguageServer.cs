@@ -27,7 +27,7 @@ public static class StdioLanguageServer
                 {
                     jsonrpc = "2.0",
                     id = initializeId,
-                    result = new { capabilities = new { textDocumentSync = 1, completionProvider = new { triggerCharacters = new[] { "." } } } }
+                    result = new { capabilities = new { textDocumentSync = 1, completionProvider = new { triggerCharacters = new[] { "." }, resolveProvider = true } } }
                 }, cancellationToken);
             }
             else if (method == "textDocument/completion" && root.TryGetProperty("id", out var completionId))
@@ -38,6 +38,10 @@ public static class StdioLanguageServer
                     id = completionId,
                     result = Complete(root)
                 }, cancellationToken);
+            }
+            else if (method == "completionItem/resolve" && root.TryGetProperty("id", out var resolveId))
+            {
+                await StdioTransport.WriteAsync(output, new { jsonrpc = "2.0", id = resolveId, result = root.GetProperty("params") }, cancellationToken);
             }
             else if (method == "textDocument/signatureHelp" && root.TryGetProperty("id", out var signatureId))
             {
@@ -79,7 +83,7 @@ public static class StdioLanguageServer
                 kind = 3,
                 detail = suggestion.Detail,
                 sortText = suggestion.SortText,
-                data = new { suggestionId = $"completion.{suggestion.Label}", source = "internal" }
+                data = new { suggestionId = suggestion.SuggestionId, ruleId = suggestion.RuleId, confidence = suggestion.Confidence, source = suggestion.Source }
             }).ToArray(),
             isIncomplete = false
         };

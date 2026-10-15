@@ -3,7 +3,8 @@ using System.Text.RegularExpressions;
 
 namespace DotnetExpertAdvisor.Shared;
 
-public sealed record CompletionSuggestion(string Label, string Detail, string SortText);
+public sealed record CompletionSuggestion(string Label, string Detail, string SortText,
+    string SuggestionId, string RuleId, double Confidence, string Source);
 
 public static partial class CompletionEngine
 {
@@ -20,12 +21,12 @@ public static partial class CompletionEngine
         if (offset < 0) return ImmutableArray<CompletionSuggestion>.Empty;
 
         var context = CompletionContextAnalyzer.Analyze(text, offset);
-        var candidates = new Dictionary<string, string>(StringComparer.Ordinal);
+        var candidates = new Dictionary<string, (string Detail, double Confidence, string RuleId, string Source)>(StringComparer.Ordinal);
         foreach (Match match in IdentifierPattern().Matches(text))
         {
             var value = match.Value;
             if (!Keywords.Contains(value) && value.StartsWith(context.Prefix, StringComparison.OrdinalIgnoreCase))
-                candidates.TryAdd(value, "C# symbol");
+                candidates.TryAdd(value, ("C# symbol", 0.65, "completion.symbol", "internal://csharp"));
         }
 
         if (context.IsMemberAccess)
@@ -33,11 +34,13 @@ public static partial class CompletionEngine
             var ef = EfQueryCompletion.Complete(text[..offset], EfModelAnalyzer.Analyze(text));
             foreach (var candidate in ef.Candidates.Where(candidate =>
                          candidate.StartsWith(context.Prefix, StringComparison.OrdinalIgnoreCase)))
-                candidates[candidate] = "EF navigation";
+                candidates[candidate] = ("EF navigation", 0.95, "completion.ef-navigation", "internal://ef-model");
         }
 
-        return candidates.OrderBy(pair => pair.Key, StringComparer.OrdinalIgnoreCase).Take(100)
-            .Select((pair, index) => new CompletionSuggestion(pair.Key, pair.Value, index.ToString("D5")))
+        return candidates.OrderByDescending(pair => pair.Key.Equals(context.Prefix, StringComparison.OrdinalIgnoreCase))
+            .ThenBy(pair => pair.Key, StringComparer.OrdinalIgnoreCase).Take(100)
+            .Select((pair, index) => new CompletionSuggestion(pair.Key, pair.Value.Detail, index.ToString("D5"),
+                $"{pair.Value.RuleId}:{pair.Key}", pair.Value.RuleId, pair.Value.Confidence, pair.Value.Source))
             .ToImmutableArray();
     }
 

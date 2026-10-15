@@ -9,7 +9,7 @@ let pending = new Map();
 let inputBuffer = Buffer.alloc(0);
 
 function send(message) {
-  if (!serverProcess || serverProcess.killed) return Promise.reject(new Error('Language server is not running'));
+  if (!serverProcess || serverProcess.killed) throw new Error('Language server is not running');
   const payload = Buffer.from(JSON.stringify(message.body));
   serverProcess.stdin.write(Buffer.concat([Buffer.from(`Content-Length: ${payload.length}\r\n\r\n`), payload]));
 }
@@ -61,11 +61,16 @@ function activate(context) {
   start();
   const provider = vscode.languages.registerCompletionItemProvider({ language: 'csharp' }, {
     async provideCompletionItems(document, position) {
-      const result = await request('textDocument/completion', {
-        textDocument: { uri: document.uri.toString(), text: document.getText() },
-        position: { line: position.line, character: position.character }
-      });
-      return result?.items ?? [];
+      try {
+        const result = await request('textDocument/completion', {
+          textDocument: { uri: document.uri.toString(), text: document.getText() },
+          position: { line: position.line, character: position.character }
+        });
+        return result?.items ?? [];
+      } catch (error) {
+        output.appendLine(String(error));
+        return [];
+      }
     }
   }, '.');
   context.subscriptions.push(output, provider, vscode.commands.registerCommand('dotnetExpertAdvisor.startServer', start));
