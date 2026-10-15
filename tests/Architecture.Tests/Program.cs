@@ -14,6 +14,7 @@ await StdioTransportTests.RunAsync();
 CompletionContextTests.Run();
 CompletionEngineTests.Run();
 OverloadResolutionTests.Run();
+GenericInferenceTests.Run();
 EditorFeaturesTests.Run();
 DiagnosticsTests.Run();
 Console.WriteLine("Architecture smoke checks passed.");
