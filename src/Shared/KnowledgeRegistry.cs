@@ -31,8 +31,21 @@ public sealed class KnowledgeRegistry
     }
 
     public IReadOnlyList<KnowledgeConcept> Concepts => concepts.Values.ToArray();
+    public IReadOnlyList<KnowledgeSource> Sources => sources.Values.ToArray();
     public IReadOnlyList<KnowledgeClaim> Claims => claims.Values.ToArray();
     public IReadOnlyList<KnowledgeRule> Rules => rules.Values.ToArray();
+
+    public KnowledgeConcept? ResolveConcept(string id)
+        => id is not null && concepts.TryGetValue(id, out var concept) ? concept : null;
+
+    public KnowledgeSource? ResolveSource(string id)
+        => id is not null && sources.TryGetValue(id, out var source) ? source : null;
+
+    public IReadOnlyList<KnowledgeConcept> FindConceptsByTag(string tag)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(tag);
+        return concepts.Values.Where(concept => concept.Tags.Contains(tag, StringComparer.OrdinalIgnoreCase)).ToArray();
+    }
 
     private static ImmutableDictionary<string, T> ToMap<T>(IEnumerable<T> values, string kind) where T : class
     {

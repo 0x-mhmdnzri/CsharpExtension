@@ -6,20 +6,11 @@ Completed items are archived in `docs/workflow/state.json`. This file contains o
 
 | Order | ID | Priority | Status | Dependency | Branch |
 |---:|---|---:|---|---|---|
-| 1 | KNOW-006 | P1 | ready | GOV-001 | `feature/knowledge/curriculum` |
-| 2 | BIND-005 | P1 | ready | BIND-004 | `feature/binder/overload-resolution` |
-| 3 | BIND-006 | P1 | ready | BIND-005 | `feature/binder/generic-inference` |
-| 4 | BIND-007 | P1 | ready | BIND-006 | `feature/binder/speculative-verification` |
+| 1 | BIND-005 | P1 | ready | BIND-004 | `feature/binder/overload-resolution` |
+| 2 | BIND-006 | P1 | ready | BIND-005 | `feature/binder/generic-inference` |
+| 3 | BIND-007 | P1 | ready | BIND-006 | `feature/binder/speculative-verification` |
 
 ## Remaining tasks
-
-### KNOW-006 — CLR/C# concept registry
-
-Add the remaining CLR and C# concepts needed by completion explanations and ranking.
-
-Acceptance criteria: concepts are addressable by stable IDs, source references are retained, and unknown concepts remain explicit.
-
-Validation: registry unit tests and lookup smoke test.
 
 ### BIND-005 — Overload resolution
 

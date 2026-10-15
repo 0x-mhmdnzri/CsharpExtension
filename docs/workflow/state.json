@@ -3,7 +3,7 @@
     "workflow":  "gitflow",
     "currentBranch":  "develop",
     "version":  "0.1.0-alpha.1",
-    "currentTask":  "KNOW-006",
+    "currentTask":  "BIND-005",
     "lastCompleted":  [
                           "GOV-001",
                           "GOV-002",
@@ -48,9 +48,10 @@
                           "EF-007",
                           "EF-009",
                           "EF-010",
-                          "LSP-001"
+                          "LSP-001",
+                          "KNOW-006"
                       ],
-    "nextTask":  "KNOW-006",
+    "nextTask":  "BIND-005",
     "requirements":  {
                          "ownIntellisense":  true,
                          "externalLanguageService":  false,
@@ -74,7 +75,7 @@
                      },
     "validation":  {
                        "build":  "passed",
-                       "tests":  "LSP-001 completion protocol and Ctrl+Space smoke test passed",
+                       "tests":  "KNOW-006 CLR/C# concept catalog lookup and source links passed",
                        "graphify":  "installed project-scoped",
                        "ponytail":  "installed project-scoped"
                    }

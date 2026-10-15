@@ -20,5 +20,14 @@ public static class KnowledgeRegistryTests
             throw new InvalidOperationException("Invalid knowledge links were accepted.");
         }
         catch (InvalidDataException) { }
+
+        var catalog = ClrConceptCatalog.Create();
+        var gc = catalog.ResolveConcept("clr.gc");
+        if (gc is null || catalog.ResolveSource("ms.gc") is null ||
+            catalog.FindConceptsByTag("memory").All(concept => concept.Id != "clr.gc"))
+            throw new InvalidOperationException("CLR concept catalog lookup failed.");
+        if (catalog.Claims.All(claim => claim.ConceptId != "clr.gc") ||
+            catalog.Rules.All(rule => rule.ClaimId != "clr.gc:definition"))
+            throw new InvalidOperationException("CLR concept source links were not retained.");
     }
 }
