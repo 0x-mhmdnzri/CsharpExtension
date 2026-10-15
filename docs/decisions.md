@@ -1,10 +1,10 @@
 # تصمیم‌های معماری
 
-## ADR-001: موتور semantic اختصاصی
+## ADR-001: موتور semantic اختصاصی (superseded by ADR-009)
 
 ### تصمیم
 
-تمام نتیجه‌گیری‌های مربوط به syntax، symbol، type، compilation، completion و code fix از موتور داخلی پروژه می‌آیند. Roslyn یا language server خارجی authority اجرای افزونه نیست.
+این تصمیم اولیه superseded شده است؛ برای تصمیم جاری درباره‌ی completion به ADR-009 مراجعه کنید.
 
 ### دلیل
 

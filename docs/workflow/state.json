@@ -3,7 +3,7 @@
     "workflow":  "gitflow",
     "currentBranch":  "develop",
     "version":  "0.1.0-alpha.1",
-    "currentTask":  "ARCH-001",
+    "currentTask":  "SUG-001",
     "lastCompleted":  [
                           "GOV-001",
                           "GOV-002",
@@ -52,9 +52,10 @@
                           "KNOW-006",
                           "BIND-005",
                           "BIND-006",
-                          "BIND-007"
+                          "BIND-007",
+                          "ARCH-001"
                       ],
-    "nextTask":  "ARCH-001",
+    "nextTask":  "SUG-001",
     "requirements":  {
                          "ownIntellisense":  true,
                          "externalLanguageService":  false,
@@ -78,8 +79,8 @@
                      },
     "validation":  {
                        "build":  "passed",
-                       "tests":  "ARCH-001 Roslyn semantic authority pending",
-                       "graphify":  "installed project-scoped",
+                       "tests":  "Architecture smoke checks passed",
+                       "graphify":  "command unavailable; update skipped",
                        "ponytail":  "installed project-scoped"
                    }
 }

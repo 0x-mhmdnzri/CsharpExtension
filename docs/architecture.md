@@ -95,7 +95,7 @@
 - incremental analysis و cancellation
 - مدیریت C# 6 تا 15 و چند Target Framework
 
-نام `RoslynHost` فعلاً برای سازگاری با skeleton حفظ شده است؛ در milestone استقلال compiler باید به `CompilerIntelligenceHost` تغییر کند یا صریحاً به adapter آزمایشی خارج از runtime محدود شود.
+`RoslynHost` adapter runtime رسمی Roslyn است؛ Roslyn مجموعه‌ی کاندیدهای معتبر را تولید می‌کند و موتور داخلی فقط مسئول ranking و intent است.
 
 ### 4. Project Semantic Graph
 

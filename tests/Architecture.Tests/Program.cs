@@ -11,6 +11,7 @@ ContractSmokeTests.ValidateParser();
 MetadataReaderTests.Run(args.FirstOrDefault());
 NuGetProjectIndexTests.Run();
 await StdioTransportTests.RunAsync();
+await RoslynHostTests.RunAsync();
 CompletionContextTests.Run();
 CompletionEngineTests.Run();
 OverloadResolutionTests.Run();

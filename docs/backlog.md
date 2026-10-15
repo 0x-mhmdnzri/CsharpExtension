@@ -6,7 +6,7 @@ This backlog turns the product direction into executable work. Correct candidate
 
 | Order | ID | Priority | Status | Dependency | Branch |
 |---:|---|---:|---|---|---|
-| 1 | ARCH-001 | P0 | ready | existing RoslynHost skeleton | `feature/roslyn/semantic-authority` |
+| 1 | ARCH-001 | P0 | done | existing RoslynHost skeleton | `feature/roslyn/semantic-authority` |
 | 2 | SUG-001 | P0 | ready | ARCH-001 | `feature/suggestion/project-context` |
 | 3 | SUG-009 | P0 | ready | ARCH-001,SUG-001 | `feature/suggestion/roslyn-candidates` |
 | 4 | SUG-010 | P0 | ready | SUG-009 | `feature/suggestion/expected-type-filter` |
@@ -27,13 +27,13 @@ This backlog turns the product direction into executable work. Correct candidate
 
 ## Remaining tasks
 
-### ARCH-001 — Roslyn semantic authority
+### ARCH-001 — Roslyn semantic authority (done)
 
 Make Roslyn the source of valid syntax, symbols, types, expected types, overloads, and semantic model data. Keep the internal engine as the intent/ranking layer and use Roslyn differential checks where product independence requires it.
 
 Acceptance criteria: runtime completion candidates are Roslyn-backed, unsupported candidates are never invented, and the architecture decision is explicit about the Roslyn runtime dependency.
 
-Validation: solution fixture with syntax errors, overloads, generics, lambdas, LINQ, and incomplete edits.
+Validation: Roslyn-backed language-server smoke test and architecture fixture with incomplete C# edits.
 
 ### SUG-001 — Project context snapshot
 

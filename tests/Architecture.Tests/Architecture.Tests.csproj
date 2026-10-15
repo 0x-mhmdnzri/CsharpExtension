@@ -10,5 +10,6 @@
     <ProjectReference Include="../../src/Shared/Shared.csproj" />
     <ProjectReference Include="../../src/Protocol/Protocol.csproj" />
     <ProjectReference Include="../../src/RankingEngine/RankingEngine.csproj" />
+    <ProjectReference Include="../../src/RoslynHost/RoslynHost.csproj" />
   </ItemGroup>
 </Project>

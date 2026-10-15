@@ -1,6 +1,7 @@
 using System.Text.Json;
 using DotnetExpertAdvisor.Protocol;
 using DotnetExpertAdvisor.Shared;
+using RoslynCompletionHost = DotnetExpertAdvisor.RoslynHost.RoslynHost;
 
 namespace DotnetExpertAdvisor.LanguageServer;
 
@@ -36,7 +37,7 @@ public static class StdioLanguageServer
                 {
                     jsonrpc = "2.0",
                     id = completionId,
-                    result = Complete(root)
+                    result = await CompleteAsync(root, cancellationToken)
                 }, cancellationToken);
             }
             else if (method == "completionItem/resolve" && root.TryGetProperty("id", out var resolveId))
@@ -63,7 +64,7 @@ public static class StdioLanguageServer
         }
     }
 
-    private static object Complete(JsonElement root)
+    private static async Task<object> CompleteAsync(JsonElement root, CancellationToken cancellationToken)
     {
         if (!root.TryGetProperty("params", out var parameters)
             || !parameters.TryGetProperty("textDocument", out var document)
@@ -74,16 +75,20 @@ public static class StdioLanguageServer
             return new { items = Array.Empty<object>(), isIncomplete = false };
 
         var text = textProperty.GetString() ?? string.Empty;
-        var suggestions = CompletionEngine.Complete(text, lineProperty.GetInt32(), characterProperty.GetInt32());
+        var request = new DocumentRequest(new WorkspaceId("lsp"),
+            new DocumentId(document.TryGetProperty("uri", out var uri) ? uri.GetString() ?? "document" : "document"),
+            new ProjectId("lsp"), new TargetFrameworkId("unknown"), 0, text);
+        var result = await new RoslynCompletionHost().GetCompletionAsync(request, lineProperty.GetInt32(),
+            characterProperty.GetInt32(), cancellationToken);
         return new
         {
-            items = suggestions.Select(suggestion => new
+            items = result.Candidates.Select((candidate, index) => new
             {
-                label = suggestion.Label,
+                label = candidate.Label,
                 kind = 3,
-                detail = suggestion.Detail,
-                sortText = suggestion.SortText,
-                data = new { suggestionId = suggestion.SuggestionId, ruleId = suggestion.RuleId, confidence = suggestion.Confidence, source = suggestion.Source }
+                detail = candidate.Detail,
+                sortText = index.ToString("D5"),
+                data = new { suggestionId = $"roslyn:{candidate.SymbolId}", ruleId = "roslyn.semantic", confidence = 1.0, source = "roslyn://semantic-model" }
             }).ToArray(),
             isIncomplete = false
         };
