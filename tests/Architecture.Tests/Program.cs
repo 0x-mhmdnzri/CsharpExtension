@@ -15,6 +15,7 @@ CompletionContextTests.Run();
 CompletionEngineTests.Run();
 OverloadResolutionTests.Run();
 GenericInferenceTests.Run();
+SpeculativeVerificationTests.Run();
 EditorFeaturesTests.Run();
 DiagnosticsTests.Run();
 Console.WriteLine("Architecture smoke checks passed.");

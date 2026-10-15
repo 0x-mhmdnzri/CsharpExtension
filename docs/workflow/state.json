@@ -3,7 +3,7 @@
     "workflow":  "gitflow",
     "currentBranch":  "develop",
     "version":  "0.1.0-alpha.1",
-    "currentTask":  "BIND-007",
+    "currentTask":  "COMPLETE",
     "lastCompleted":  [
                           "GOV-001",
                           "GOV-002",
@@ -51,9 +51,10 @@
                           "LSP-001",
                           "KNOW-006",
                           "BIND-005",
-                          "BIND-006"
+                          "BIND-006",
+                          "BIND-007"
                       ],
-    "nextTask":  "BIND-007",
+    "nextTask":  null,
     "requirements":  {
                          "ownIntellisense":  true,
                          "externalLanguageService":  false,
@@ -77,7 +78,7 @@
                      },
     "validation":  {
                        "build":  "passed",
-                       "tests":  "BIND-006 generic inference substitution and constraints passed",
+                       "tests":  "BIND-007 speculative verification baseline filtering passed",
                        "graphify":  "installed project-scoped",
                        "ponytail":  "installed project-scoped"
                    }
