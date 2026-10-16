@@ -61,7 +61,6 @@ function activate(context) {
   start();
   const provider = vscode.languages.registerCompletionItemProvider({ language: 'csharp' }, {
     async provideCompletionItems(document, position) {
-      if (!vscode.workspace.isTrusted) return [];
       try {
         const version = document.version;
         const settings = vscode.workspace.getConfiguration('dotnetExpertAdvisor', document.uri);
