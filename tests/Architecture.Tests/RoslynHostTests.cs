@@ -76,5 +76,23 @@ public static class RoslynHostTests
             varText.IndexOf("DateTi", StringComparison.Ordinal) + 6, CancellationToken.None);
         if (varResult.ExpectedType is not null || !varResult.Candidates.Any(candidate => candidate.Label == "DateTime"))
             throw new InvalidOperationException("var initializer completion incorrectly applied a hard expected-type filter.");
+
+        var sourceFile = Path.Combine(Path.GetTempPath(), $"cross-file-{Guid.NewGuid():N}.cs");
+        try
+        {
+            File.WriteAllText(sourceFile, "public class CrossFileType { }");
+            var crossContext = packageContext with { SourceFiles = [sourceFile] };
+            var crossText = "class C { void M() { CrossFi } }";
+            var crossResult = await new RoslynCompletionHost { Context = crossContext }.GetCompletionAsync(
+                request with { Text = crossText }, 0, crossText.LastIndexOf("CrossFi", StringComparison.Ordinal) + 7, CancellationToken.None);
+            if (!crossResult.Candidates.Any(candidate => candidate.Label == "CrossFileType"))
+                throw new InvalidOperationException("Cross-file Roslyn compilation did not expose a referenced source symbol.");
+            var beforeCache = RoslynSyntaxTreeCache.GetStats();
+            await new RoslynCompletionHost { Context = crossContext }.GetCompletionAsync(
+                request with { Text = crossText }, 0, crossText.LastIndexOf("CrossFi", StringComparison.Ordinal) + 7, CancellationToken.None);
+            if (RoslynSyntaxTreeCache.GetStats().Hits <= beforeCache.Hits)
+                throw new InvalidOperationException("Unchanged cross-file syntax was reparsed instead of using the cache.");
+        }
+        finally { File.Delete(sourceFile); }
     }
 }

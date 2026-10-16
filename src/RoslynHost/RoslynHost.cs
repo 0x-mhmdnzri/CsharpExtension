@@ -56,7 +56,16 @@ public sealed class RoslynHost : IRoslynHost
             ? parsed : Microsoft.CodeAnalysis.CSharp.LanguageVersion.Default;
         var options = new CSharpParseOptions(language, preprocessorSymbols: Context?.Defines ?? []);
         var tree = CSharpSyntaxTree.ParseText(request.Text, options, cancellationToken: cancellationToken);
-        var compilation = CSharpCompilation.Create(request.ProjectId.Value, [tree], References,
+        var trees = new List<SyntaxTree> { tree };
+        if (Context?.SourceFiles.IsDefault == false)
+        {
+            foreach (var sourceFile in Context.SourceFiles.Where(File.Exists))
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+                trees.Add(RoslynSyntaxTreeCache.Get(sourceFile, File.ReadAllText(sourceFile), options, cancellationToken));
+            }
+        }
+        var compilation = CSharpCompilation.Create(request.ProjectId.Value, trees, References,
             new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary, usings: Context?.Imports ?? []));
         var model = compilation.GetSemanticModel(tree);
         var prefix = CurrentPrefix(request.Text, offset);

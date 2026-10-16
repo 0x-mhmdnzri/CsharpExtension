@@ -39,4 +39,5 @@ QaQualityGateTests.Run();
 SuggestionReplayTests.Run();
 ConfidenceCalibrationTests.Run();
 WorkspaceInventoryTests.Run();
+DependencyGraphTests.Run();
 

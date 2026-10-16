@@ -13,7 +13,8 @@ public sealed record ProjectContextSnapshot(string? ProjectPath, string? TargetF
     string? LanguageVersion, string Configuration, int DocumentVersion,
     ImmutableArray<string> Imports, ImmutableArray<string> References,
     ImmutableArray<string> Defines, ImmutableArray<string> Issues, NuGetApiIndex? NuGetApi = null,
-    ImmutableArray<LoadedAssemblyEvidence> Assemblies = default, ProjectPatternSnapshot? Patterns = null)
+    ImmutableArray<LoadedAssemblyEvidence> Assemblies = default, ProjectPatternSnapshot? Patterns = null,
+    ImmutableArray<string> SourceFiles = default)
 {
     public bool IsComplete => Issues.IsEmpty;
 }
@@ -97,13 +98,15 @@ public static class ProjectContextReader
             var sourceFiles = Items("Compile").Select(path => Path.IsPathRooted(path) ? path : Path.Combine(Path.GetDirectoryName(projectPath)!, path))
                 .Where(File.Exists).Select(File.ReadAllText).Append(documentText);
             var patterns = ProjectPatternIndexer.Build(sourceFiles);
+            var sourcePaths = Items("Compile").Select(path => Path.IsPathRooted(path) ? path : Path.Combine(Path.GetDirectoryName(projectPath)!, path))
+                .Where(File.Exists).Distinct(StringComparer.OrdinalIgnoreCase).ToImmutableArray();
             return new(Path.GetFullPath(projectPath), targetFramework, language, Property("Configuration"), version,
                 Items("Using").AddRange(CSharpSyntaxTree.ParseText(documentText, cancellationToken: cancellationToken)
                     .GetCompilationUnitRoot(cancellationToken).Usings
                     .Where(item => item.Alias is null && item.StaticKeyword.RawKind == 0 && item.Name is not null)
                     .Select(item => item.Name!.ToString())).Distinct(StringComparer.Ordinal).ToImmutableArray(),
                 Items("Reference").AddRange(Items("ReferencePath")).AddRange(Items("ProjectReference")),
-                Property("DefineConstants").Split(';', StringSplitOptions.RemoveEmptyEntries).ToImmutableArray(), issues.ToImmutable(), nuGetApi, assemblies, patterns);
+                Property("DefineConstants").Split(';', StringSplitOptions.RemoveEmptyEntries).ToImmutableArray(), issues.ToImmutable(), nuGetApi, assemblies, patterns, sourcePaths);
         }
         catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested)
         {

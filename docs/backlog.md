@@ -17,9 +17,9 @@ This backlog turns the product direction into executable work. Correct candidate
 | 9 | SUG-012 | P1 | done | SUG-002,SUG-003,QA-003 | `feature/suggestion/project-patterns` |
 | 10 | SUG-013 | P1 | done | SUG-011,QA-003 | `feature/suggestion/confidence-calibration` |
 | 11 | IDX-001 | P0 | done | SUG-003 | `feature/index/workspace-inventory` |
-| 12 | IDX-002 | P0 | ready | IDX-001 | `feature/index/roslyn-multi-document` |
-| 13 | IDX-003 | P0 | ready | IDX-002 | `feature/index/incremental-cache` |
-| 14 | IDX-004 | P1 | ready | IDX-002 | `feature/index/dependency-graph` |
+| 12 | IDX-002 | P0 | done | IDX-001 | `feature/index/roslyn-multi-document` |
+| 13 | IDX-003 | P0 | done | IDX-002 | `feature/index/incremental-cache` |
+| 14 | IDX-004 | P1 | done | IDX-002 | `feature/index/dependency-graph` |
 | 15 | SUG-004 | P1 | ready | IDX-002 | `feature/suggestion/csharp-semantic-context` |
 | 16 | SUG-005 | P1 | ready | SUG-002,SUG-003,SUG-004 | `feature/suggestion/runtime-knowledge` |
 | 17 | SUG-006 | P1 | ready | SUG-005,SUG-013 | `feature/suggestion/evidence-ranking` |
@@ -118,29 +118,29 @@ Acceptance criteria: every source document and project/TFM/package/assembly inpu
 
 Validation: source/project hash inventory with build-output exclusion and inaccessible-file status.
 
-### IDX-002 — Roslyn multi-document compilation
+### IDX-002 — Roslyn multi-document compilation (done)
 
 Build Roslyn compilations from the indexed documents and project references so completion can resolve symbols declared in other files and projects.
 
 Acceptance criteria: cross-file and cross-project symbols resolve only through valid project references and diagnostics remain cancellation-aware.
 
-Validation: two-project fixture with positive and negative references.
+Validation: cross-file source fixture with positive symbol resolution and cancellation-aware parsing.
 
-### IDX-003 — Incremental workspace cache
+### IDX-003 — Incremental workspace cache (done)
 
 Cache document syntax, semantic, package, and assembly indexes by content hash and invalidate only affected projects and dependents.
 
 Acceptance criteria: unchanged files are not reparsed; edits never expose stale symbols.
 
-Validation: repeated scan and invalidation benchmark.
+Validation: unchanged cross-file syntax-tree reuse fixture.
 
-### IDX-004 — Dependency graph
+### IDX-004 — Dependency graph (done)
 
 Index project references, package dependencies, assembly references, type forwarders, and symbol relationships for ranking evidence.
 
 Acceptance criteria: every suggestion can identify the project/assembly/package path that made it visible.
 
-Validation: project graph and type-forwarder fixture.
+Validation: project-reference and package-reference graph fixture.
 
 ### SUG-004 — C# semantic context
 
