@@ -9,6 +9,7 @@ let pending = new Map();
 let inputBuffer = Buffer.alloc(0);
 let statusBar;
 let errorTerminal;
+const debounceTimers = new Map();
 
 function setStatus(text, tooltip) {
   if (!statusBar) return;
@@ -128,12 +129,29 @@ function activate(context) {
       }
     }
   }, '.');
-  context.subscriptions.push(output, provider, statusBar, errorTerminal, vscode.commands.registerCommand('dotnetExpertAdvisor.startServer', start));
+  const changeSubscription = vscode.workspace.onDidChangeTextDocument(event => {
+    if (event.document.languageId !== 'csharp' || event.contentChanges.length === 0) return;
+    const uri = event.document.uri.toString();
+    const existing = debounceTimers.get(uri);
+    if (existing) clearTimeout(existing);
+    const debounceMs = vscode.workspace.getConfiguration('dotnetExpertAdvisor', event.document.uri)
+      .get('completionDebounceMs', 180);
+    debounceTimers.set(uri, setTimeout(() => {
+      debounceTimers.delete(uri);
+      const editor = vscode.window.activeTextEditor;
+      if (!editor || editor.document.uri.toString() !== uri || editor.document.version !== event.document.version) return;
+      vscode.commands.executeCommand('editor.action.triggerSuggest').catch(error => reportError(error));
+    }, Math.max(50, Number(debounceMs) || 180)));
+  });
+  context.subscriptions.push(output, provider, statusBar, errorTerminal, changeSubscription,
+    vscode.commands.registerCommand('dotnetExpertAdvisor.startServer', start));
 }
 
 function deactivate() {
   if (serverProcess && !serverProcess.killed) serverProcess.kill();
   pending.clear();
+  for (const timer of debounceTimers.values()) clearTimeout(timer);
+  debounceTimers.clear();
   statusBar = undefined;
   errorTerminal = undefined;
 }
