@@ -1,4 +1,5 @@
 using System.Collections.Immutable;
+using System.Text.RegularExpressions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -15,7 +16,8 @@ public interface IRoslynHost
 
 public sealed record RoslynCompletionCandidate(string Label, string Kind, int LspKind, string Detail,
     string Documentation, string SymbolId, int EditStart, int EditLength, double IntentScore = 0,
-    ImmutableArray<string> Signals = default, string? AssemblyName = null, double Confidence = 0.35);
+    ImmutableArray<string> Signals = default, string? AssemblyName = null, double Confidence = 0.35,
+    string? RequiredImport = null);
 public sealed record RoslynCompletionResult(ImmutableArray<RoslynCompletionCandidate> Candidates,
     ImmutableArray<string> Diagnostics, string? ExpectedType = null);
 
@@ -84,15 +86,73 @@ public sealed class RoslynHost : IRoslynHost
         var diagnostics = compilation.GetDiagnostics(cancellationToken)
             .Where(diagnostic => diagnostic.Severity == DiagnosticSeverity.Error)
             .Select(diagnostic => diagnostic.Id).Distinct(StringComparer.Ordinal).ToImmutableArray();
-        var candidates = ranked.Select(item => new RoslynCompletionCandidate(item.Symbol.Name, item.Symbol.Kind.ToString(), ToLspKind(item.Symbol.Kind),
+        var baseCandidates = ranked.Select(item => new RoslynCompletionCandidate(item.Symbol.Name, item.Symbol.Kind.ToString(), ToLspKind(item.Symbol.Kind),
                 item.Symbol.ToDisplayString(SymbolDisplayFormat.MinimallyQualifiedFormat),
                 item.Symbol.GetDocumentationCommentXml() ?? string.Empty,
-                item.Symbol.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat), editStart, prefix.Length,
+                item.Symbol.GetDocumentationCommentId() ?? item.Symbol.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat), editStart, prefix.Length,
                 item.Intent.Score, item.Intent.Signals, item.Symbol.ContainingAssembly?.Identity.Name,
                 ConfidenceCalibration.Calibrate(item.Intent.Score, Context?.IsComplete == true,
                     expectedType is not null, !diagnostics.IsEmpty)))
             .ToImmutableArray();
+        var importCandidates = BuildImportAwareCandidates(compilation, tree.GetCompilationUnitRoot(cancellationToken), request.Text,
+            offset, prefix, editStart, cancellationToken);
+        var candidates = baseCandidates.Concat(importCandidates)
+            .GroupBy(candidate => $"{candidate.SymbolId}:{candidate.EditStart}:{candidate.EditLength}", StringComparer.Ordinal)
+            .Select(group => group.OrderByDescending(candidate => candidate.IntentScore).First())
+            .OrderByDescending(candidate => candidate.IntentScore)
+            .ThenBy(candidate => candidate.Label, StringComparer.OrdinalIgnoreCase)
+            .Take(100)
+            .ToImmutableArray();
         return Task.FromResult(new RoslynCompletionResult(candidates, diagnostics, expectedType?.ToDisplayString(SymbolDisplayFormat.MinimallyQualifiedFormat)));
+    }
+
+    private static ImmutableArray<RoslynCompletionCandidate> BuildImportAwareCandidates(
+        CSharpCompilation compilation, CompilationUnitSyntax root, string source, int offset, string prefix,
+        int editStart, CancellationToken cancellationToken)
+    {
+        var builder = ImmutableArray.CreateBuilder<RoslynCompletionCandidate>();
+        var before = source[..offset];
+        var memberMatch = Regex.Match(before, @"(?<receiver>[A-Za-z_]\w*)\.(?<member>[A-Za-z_]\w*)?$");
+        if (memberMatch.Success)
+        {
+            var receiver = memberMatch.Groups["receiver"].Value;
+            var type = compilation.GetTypeByMetadataName($"System.{receiver}");
+            if (type is not null)
+            {
+                var import = MissingImport(root, type.ContainingNamespace?.ToDisplayString());
+                foreach (var member in type.GetMembers().Where(member => member.CanBeReferencedByName
+                             && member.Name.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)))
+                {
+                    cancellationToken.ThrowIfCancellationRequested();
+                    builder.Add(new RoslynCompletionCandidate(member.Name, member.Kind.ToString(), ToLspKind(member.Kind),
+                        member.ToDisplayString(SymbolDisplayFormat.MinimallyQualifiedFormat), member.GetDocumentationCommentXml() ?? string.Empty,
+                        member.GetDocumentationCommentId() ?? member.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat), editStart, prefix.Length, 0.65,
+                        ImmutableArray.Create("unimported-type", "required-import"), type.ContainingAssembly?.Identity.Name,
+                        0.55, import));
+                }
+            }
+            return builder.ToImmutable();
+        }
+
+        var system = compilation.GlobalNamespace.GetNamespaceMembers().FirstOrDefault(namespaceSymbol => namespaceSymbol.Name == "System");
+        if (system is not null && prefix.Length >= 2)
+        {
+            var import = MissingImport(root, "System");
+            foreach (var type in system.GetTypeMembers().Where(type => type.Name.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)))
+                builder.Add(new RoslynCompletionCandidate(type.Name, type.Kind.ToString(), ToLspKind(type.Kind),
+                    type.ToDisplayString(SymbolDisplayFormat.MinimallyQualifiedFormat), type.GetDocumentationCommentXml() ?? string.Empty,
+                    type.GetDocumentationCommentId() ?? type.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat), editStart, prefix.Length, 0.55,
+                    ImmutableArray.Create("unimported-type", "required-import"), type.ContainingAssembly?.Identity.Name,
+                    0.5, import));
+        }
+        return builder.ToImmutable();
+    }
+
+    private static string? MissingImport(CompilationUnitSyntax root, string? namespaceName)
+    {
+        if (string.IsNullOrWhiteSpace(namespaceName) || root.Usings.Any(usingDirective => usingDirective.Name?.ToString() == namespaceName))
+            return null;
+        return namespaceName;
     }
 
     private static readonly ImmutableArray<MetadataReference> FrameworkReferences =

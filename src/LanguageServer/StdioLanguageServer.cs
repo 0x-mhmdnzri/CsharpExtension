@@ -126,6 +126,14 @@ public static class StdioLanguageServer
                     },
                     newText = candidate.Label
                 },
+                additionalTextEdits = candidate.RequiredImport is null ? null : new[]
+                {
+                    new
+                    {
+                        range = new { start = new { line = 0, character = 0 }, end = new { line = 0, character = 0 } },
+                        newText = $"using {candidate.RequiredImport};{Environment.NewLine}"
+                    }
+                },
                 data = new { suggestionId = $"roslyn:{candidate.SymbolId}", ruleId = "roslyn.semantic",
                     confidence = candidate.Confidence,
                     source = "roslyn://semantic-model", expectedType = result.ExpectedType,

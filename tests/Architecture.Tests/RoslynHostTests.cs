@@ -77,6 +77,13 @@ public static class RoslynHostTests
         if (varResult.ExpectedType is not null || !varResult.Candidates.Any(candidate => candidate.Label == "DateTime"))
             throw new InvalidOperationException("var initializer completion incorrectly applied a hard expected-type filter.");
 
+        var importText = "class C { void M() { var date = DateTime. } }";
+        var importResult = await new RoslynCompletionHost().GetCompletionAsync(request with { Text = importText }, 0,
+            importText.IndexOf("DateTime.", StringComparison.Ordinal) + "DateTime.".Length, CancellationToken.None);
+        var now = importResult.Candidates.FirstOrDefault(candidate => candidate.Label == "Now");
+        if (now is null || now.RequiredImport != "System")
+            throw new InvalidOperationException("Unimported DateTime member completion did not carry the System import.");
+
         var sourceFile = Path.Combine(Path.GetTempPath(), $"cross-file-{Guid.NewGuid():N}.cs");
         try
         {

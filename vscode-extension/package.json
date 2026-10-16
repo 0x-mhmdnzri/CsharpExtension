@@ -2,7 +2,7 @@
     "name":  "dotnet-expert-advisor",
     "displayName":  ".NET Expert Advisor (Preview)",
     "description":  "Developer preview for the custom C# semantic engine and binder.",
-    "version":  "0.1.0-alpha.7",
+    "version":  "0.1.0-alpha.8",
     "publisher":  "dotnet-expert-advisor",
     "engines":  {
                     "vscode":  "^1.90.0"
