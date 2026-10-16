@@ -47,5 +47,16 @@ public static class RoslynHostTests
         var unused = intentResult.Candidates.FirstOrDefault(candidate => candidate.Label == "unusedCount");
         if (unused is null || !unused.Signals.Contains("unused-local-or-parameter") || unused.IntentScore <= 0)
             throw new InvalidOperationException("Cheap intent signals did not identify an unused local.");
+
+        var packageAssembly = typeof(CSharpLexer).Assembly.Location;
+        var packageMetadata = new AssemblyMetadataReader().Read(packageAssembly);
+        var packageContext = new ProjectContextSnapshot("sample.csproj", "net10.0", "14", "Debug", 1,
+            ["DotnetExpertAdvisor.Shared"], [], [], [],
+            new NuGetApiIndex("net10.0", [new NuGetPackageApi("Example.Core", "1.0.0", packageAssembly, packageMetadata)]));
+        var packageText = "using DotnetExpertAdvisor.Shared; class C { void M() { CSharpLe } }";
+        var packageResult = await new RoslynCompletionHost { Context = packageContext }.GetCompletionAsync(
+            request with { Text = packageText }, 0, packageText.LastIndexOf("CSharpLe", StringComparison.Ordinal) + 8, CancellationToken.None);
+        if (!packageResult.Candidates.Any(candidate => candidate.Label == "CSharpLexer"))
+            throw new InvalidOperationException("Package API assembly was not available to Roslyn completion.");
     }
 }

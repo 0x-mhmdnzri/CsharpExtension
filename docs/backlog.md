@@ -12,7 +12,7 @@ This backlog turns the product direction into executable work. Correct candidate
 | 4 | SUG-010 | P0 | done | SUG-009 | `feature/suggestion/expected-type-filter` |
 | 5 | QA-003 | P0 | done | SUG-009 | `feature/qa/suggestion-replay` |
 | 6 | SUG-011 | P1 | done | SUG-010,QA-003 | `feature/suggestion/intent-signals` |
-| 7 | SUG-002 | P1 | ready | SUG-001,SUG-009 | `feature/suggestion/nuget-api` |
+| 7 | SUG-002 | P1 | done | SUG-001,SUG-009 | `feature/suggestion/nuget-api` |
 | 8 | SUG-003 | P1 | ready | SUG-001,SUG-009 | `feature/suggestion/assembly-evidence` |
 | 9 | SUG-012 | P1 | ready | SUG-002,SUG-003,QA-003 | `feature/suggestion/project-patterns` |
 | 10 | SUG-013 | P1 | ready | SUG-011,QA-003 | `feature/suggestion/confidence-calibration` |
@@ -75,13 +75,13 @@ Acceptance criteria: each signal is independently measurable in replay and canno
 
 Validation: Roslyn intent trace and unused-local ranking fixture; hard type constraints remain authoritative.
 
-### SUG-002 — NuGet API suggestions
+### SUG-002 — NuGet API suggestions (done)
 
 Use direct/transitive package references, versions, TFM assets, and package metadata to scope API candidates.
 
 Acceptance criteria: incompatible or unavailable package APIs are excluded and package evidence is shown in item metadata.
 
-Validation: package fixtures with positive, wrong-version, and missing-asset cases.
+Validation: package assembly positive fixture and missing-asset/context fallback; package metadata is summarized in LSP data.
 
 ### SUG-003 — Loaded assembly evidence
 

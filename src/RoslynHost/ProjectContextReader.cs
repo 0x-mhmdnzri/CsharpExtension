@@ -1,14 +1,16 @@
 using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Text.Json;
+using System.Xml;
 using Microsoft.CodeAnalysis.CSharp;
+using DotnetExpertAdvisor.Shared;
 
 namespace DotnetExpertAdvisor.RoslynHost;
 
 public sealed record ProjectContextSnapshot(string? ProjectPath, string? TargetFramework,
     string? LanguageVersion, string Configuration, int DocumentVersion,
     ImmutableArray<string> Imports, ImmutableArray<string> References,
-    ImmutableArray<string> Defines, ImmutableArray<string> Issues)
+    ImmutableArray<string> Defines, ImmutableArray<string> Issues, NuGetApiIndex? NuGetApi = null)
 {
     public bool IsComplete => Issues.IsEmpty;
 }
@@ -70,13 +72,29 @@ public static class ProjectContextReader
                 .Select(item => item.GetProperty("Identity").GetString()!).ToImmutableArray();
             // shortcut: evaluation does not resolve assembly assets, upgrade with SUG-003 reference loading.
             issues.Add("Assembly references have not been resolved for the selected target framework.");
+            NuGetApiIndex? nuGetApi = null;
+            try
+            {
+                var index = NuGetProjectIndexReader.Read(projectPath);
+                var target = index.TargetFrameworks.FirstOrDefault(framework => framework.Name.Equals(targetFramework, StringComparison.OrdinalIgnoreCase)
+                    || framework.Name.EndsWith($"Version=v{targetFramework.TrimStart('n', 'e', 't')}", StringComparison.OrdinalIgnoreCase));
+                var packageRoot = Environment.GetEnvironmentVariable("NUGET_PACKAGES")
+                    ?? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".nuget", "packages");
+                if (target is not null) nuGetApi = NuGetProjectIndexReader.ReadApiIndex(index, packageRoot, target.Name,
+                    cancellationToken: cancellationToken);
+                else issues.Add("NuGet assets are missing for the selected target framework.");
+            }
+            catch (Exception exception) when (exception is IOException or JsonException or InvalidOperationException or XmlException)
+            {
+                issues.Add("NuGet API index is unavailable.");
+            }
             return new(Path.GetFullPath(projectPath), targetFramework, language, Property("Configuration"), version,
                 Items("Using").AddRange(CSharpSyntaxTree.ParseText(documentText, cancellationToken: cancellationToken)
                     .GetCompilationUnitRoot(cancellationToken).Usings
                     .Where(item => item.Alias is null && item.StaticKeyword.RawKind == 0 && item.Name is not null)
                     .Select(item => item.Name!.ToString())).Distinct(StringComparer.Ordinal).ToImmutableArray(),
                 Items("Reference").AddRange(Items("ReferencePath")).AddRange(Items("ProjectReference")),
-                Property("DefineConstants").Split(';', StringSplitOptions.RemoveEmptyEntries).ToImmutableArray(), issues.ToImmutable());
+                Property("DefineConstants").Split(';', StringSplitOptions.RemoveEmptyEntries).ToImmutableArray(), issues.ToImmutable(), nuGetApi);
         }
         catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested)
         {

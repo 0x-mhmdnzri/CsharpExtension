@@ -48,7 +48,7 @@ public sealed class RoslynHost : IRoslynHost
             ? parsed : Microsoft.CodeAnalysis.CSharp.LanguageVersion.Default;
         var options = new CSharpParseOptions(language, preprocessorSymbols: Context?.Defines ?? []);
         var tree = CSharpSyntaxTree.ParseText(request.Text, options, cancellationToken: cancellationToken);
-        var compilation = CSharpCompilation.Create(request.ProjectId.Value, [tree], FrameworkReferences,
+        var compilation = CSharpCompilation.Create(request.ProjectId.Value, [tree], References,
             new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary, usings: Context?.Imports ?? []));
         var model = compilation.GetSemanticModel(tree);
         var prefix = CurrentPrefix(request.Text, offset);
@@ -81,6 +81,11 @@ public sealed class RoslynHost : IRoslynHost
         MetadataReference.CreateFromFile(typeof(Enumerable).Assembly.Location),
         MetadataReference.CreateFromFile(typeof(Task).Assembly.Location)
     ];
+
+    private ImmutableArray<MetadataReference> References => FrameworkReferences.AddRange(
+        Context?.NuGetApi?.Packages
+            .Select(package => MetadataReference.CreateFromFile(package.AssemblyPath))
+            .Cast<MetadataReference>() ?? []);
 
     private static string CurrentPrefix(string text, int offset)
     {
