@@ -7,6 +7,13 @@ let serverProcess;
 let nextRequestId = 1;
 let pending = new Map();
 let inputBuffer = Buffer.alloc(0);
+let statusBar;
+
+function setStatus(text, tooltip) {
+  if (!statusBar) return;
+  statusBar.text = `$(database) DEA: ${text}`;
+  statusBar.tooltip = tooltip ?? text;
+}
 
 function send(message) {
   if (!serverProcess || serverProcess.killed) throw new Error('Language server is not running');
@@ -45,6 +52,10 @@ function request(method, params) {
 
 function activate(context) {
   const output = vscode.window.createOutputChannel('.NET Expert Advisor');
+  statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
+  statusBar.name = '.NET Expert Advisor index';
+  statusBar.show();
+  setStatus('Ready', 'Semantic index is ready.');
   const start = () => {
     if (serverProcess && !serverProcess.killed) return;
     const serverDirectory = path.join(context.extensionPath, 'server');
@@ -56,11 +67,16 @@ function activate(context) {
     serverProcess.stdout.on('data', handleOutput);
     serverProcess.stderr.on('data', data => output.append(data.toString()));
     serverProcess.on('exit', () => { serverProcess = undefined; });
-    request('initialize', { processId: process.pid, capabilities: {} }).catch(error => output.appendLine(String(error)));
+    setStatus('Indexing…', 'Starting the semantic index.');
+    request('initialize', { processId: process.pid, capabilities: {} })
+      .then(() => setStatus('Ready', 'Semantic index is ready.'))
+      .catch(error => { setStatus('Error', String(error)); output.appendLine(String(error)); });
   };
   start();
   const provider = vscode.languages.registerCompletionItemProvider({ language: 'csharp' }, {
     async provideCompletionItems(document, position) {
+      const started = Date.now();
+      setStatus('Indexing…', 'Scanning project context and resolving Roslyn symbols.');
       try {
         const version = document.version;
         const settings = vscode.workspace.getConfiguration('dotnetExpertAdvisor', document.uri);
@@ -74,19 +90,24 @@ function activate(context) {
           position: { line: position.line, character: position.character }
         });
         if (document.version !== version) return [];
-        return result?.items ?? [];
+        const items = result?.items ?? [];
+        const elapsed = Date.now() - started;
+        setStatus(`Index 100% · ${items.length} · ${elapsed}ms`, `Semantic index ready; ${items.length} suggestions in ${elapsed}ms.`);
+        return items;
       } catch (error) {
+        setStatus('Error', String(error));
         output.appendLine(String(error));
         return [];
       }
     }
   }, '.');
-  context.subscriptions.push(output, provider, vscode.commands.registerCommand('dotnetExpertAdvisor.startServer', start));
+  context.subscriptions.push(output, provider, statusBar, vscode.commands.registerCommand('dotnetExpertAdvisor.startServer', start));
 }
 
 function deactivate() {
   if (serverProcess && !serverProcess.killed) serverProcess.kill();
   pending.clear();
+  statusBar = undefined;
 }
 
 module.exports = { activate, deactivate };
