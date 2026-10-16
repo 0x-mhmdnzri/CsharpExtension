@@ -25,7 +25,8 @@ function reportError(error) {
   setStatus(`Error · ${message.split('\n')[0].slice(0, 80)}`, message);
   if (errorTerminal) {
     errorTerminal.show(true);
-    errorTerminal.sendText(`printf '%s\\n' ${shellQuote(`[DEA] ${message}`)}`, true);
+    const oneLine = message.replace(/\r?\n/g, '\\n');
+    errorTerminal.sendText(`printf '%s\\n' ${shellQuote(`[DEA] ${oneLine}`)}`, true);
   }
 }
 
@@ -80,7 +81,10 @@ function activate(context) {
   setStatus('Ready', 'Semantic index is ready.');
   const start = () => {
     if (serverProcess && !serverProcess.killed) return;
-    const serverDirectory = path.join(context.extensionPath, 'server');
+    const rid = process.platform === 'win32' ? 'win-x64' :
+      process.platform === 'darwin' ? (process.arch === 'arm64' ? 'osx-arm64' : 'osx-x64') :
+      process.arch === 'arm64' ? 'linux-arm64' : 'linux-x64';
+    const serverDirectory = path.join(context.extensionPath, 'server', rid);
     const bundledExecutable = path.join(serverDirectory, process.platform === 'win32' ? 'LanguageServer.exe' : 'LanguageServer');
     const serverDll = path.join(serverDirectory, 'LanguageServer.dll');
     const command = fs.existsSync(bundledExecutable) ? bundledExecutable : 'dotnet';
