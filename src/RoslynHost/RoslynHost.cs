@@ -25,8 +25,16 @@ public sealed class RoslynHost : IRoslynHost
     public Task<WorkspaceSnapshot> LoadWorkspaceAsync(WorkspaceRequest request, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
-        var projects = request.ProjectPaths.Select(path => new ProjectSnapshot(new ProjectId(path),
-            Path.GetFileNameWithoutExtension(path), new TargetFrameworkId("unknown"), Array.Empty<string>())).ToArray();
+        var inventory = WorkspaceInventoryBuilder.Build(request.RootPath, cancellationToken);
+        var projects = request.ProjectPaths.Select(path =>
+        {
+            var projectRoot = Path.GetDirectoryName(Path.GetFullPath(path)) ?? request.RootPath;
+            var documents = inventory.Files.Where(file => file.Kind == "document"
+                && Path.GetFullPath(Path.Combine(inventory.RootPath, file.Path)).StartsWith(projectRoot, StringComparison.OrdinalIgnoreCase))
+                .Select(file => Path.Combine(inventory.RootPath, file.Path)).ToArray();
+            return new ProjectSnapshot(new ProjectId(path), Path.GetFileNameWithoutExtension(path),
+                new TargetFrameworkId("unknown"), documents);
+        }).ToArray();
         return Task.FromResult(new WorkspaceSnapshot(request.WorkspaceId, projects, DateTimeOffset.UtcNow));
     }
 

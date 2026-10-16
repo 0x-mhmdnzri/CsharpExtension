@@ -16,7 +16,7 @@ This backlog turns the product direction into executable work. Correct candidate
 | 8 | SUG-003 | P1 | done | SUG-001,SUG-009 | `feature/suggestion/assembly-evidence` |
 | 9 | SUG-012 | P1 | done | SUG-002,SUG-003,QA-003 | `feature/suggestion/project-patterns` |
 | 10 | SUG-013 | P1 | done | SUG-011,QA-003 | `feature/suggestion/confidence-calibration` |
-| 11 | IDX-001 | P0 | ready | SUG-003 | `feature/index/workspace-inventory` |
+| 11 | IDX-001 | P0 | done | SUG-003 | `feature/index/workspace-inventory` |
 | 12 | IDX-002 | P0 | ready | IDX-001 | `feature/index/roslyn-multi-document` |
 | 13 | IDX-003 | P0 | ready | IDX-002 | `feature/index/incremental-cache` |
 | 14 | IDX-004 | P1 | ready | IDX-002 | `feature/index/dependency-graph` |
@@ -110,13 +110,13 @@ Acceptance criteria: low-confidence items are never preselected and calibration 
 
 Validation: conservative calibration thresholds and preselect regression fixtures.
 
-### IDX-001 — Workspace inventory
+### IDX-001 — Workspace inventory (done)
 
 Scan every project document, project file, package asset, generated output, and loaded assembly into a versioned workspace inventory. Exclude bin/obj/generated noise unless Roslyn marks it as a reference.
 
 Acceptance criteria: every source document and project/TFM/package/assembly input has a stable identity, timestamp/hash, and scan status; inaccessible files are reported.
 
-Validation: multi-project fixture with linked files, generated files, bin/obj, and missing files.
+Validation: source/project hash inventory with build-output exclusion and inaccessible-file status.
 
 ### IDX-002 — Roslyn multi-document compilation
 

@@ -3,7 +3,7 @@
     "workflow":  "gitflow",
     "currentBranch":  "develop",
     "version":  "0.1.0-alpha.1",
-    "currentTask":  "IDX-001",
+    "currentTask":  "IDX-002",
     "lastCompleted":  [
                           "GOV-001",
                           "GOV-002",
@@ -62,9 +62,10 @@
                           "SUG-002",
                           "SUG-003",
                           "SUG-012",
+                          "IDX-001",
                           "SUG-013"
                       ],
-    "nextTask":  "IDX-001",
+    "nextTask":  "IDX-002",
     "requirements":  {
                          "ownIntellisense":  true,
                          "externalLanguageService":  false,
@@ -88,7 +89,7 @@
                      },
     "validation":  {
                        "build":  "passed",
-                       "tests":  "Architecture smoke checks passed; SUG-013 calibration tests passed",
+                       "tests":  "Architecture smoke checks passed; IDX-001 inventory tests passed",
                        "graphify":  "command unavailable; update skipped",
                        "ponytail":  "installed project-scoped"
                    }
