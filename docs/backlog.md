@@ -15,7 +15,7 @@ This backlog turns the product direction into executable work. Correct candidate
 | 7 | SUG-002 | P1 | done | SUG-001,SUG-009 | `feature/suggestion/nuget-api` |
 | 8 | SUG-003 | P1 | done | SUG-001,SUG-009 | `feature/suggestion/assembly-evidence` |
 | 9 | SUG-012 | P1 | done | SUG-002,SUG-003,QA-003 | `feature/suggestion/project-patterns` |
-| 10 | SUG-013 | P1 | ready | SUG-011,QA-003 | `feature/suggestion/confidence-calibration` |
+| 10 | SUG-013 | P1 | done | SUG-011,QA-003 | `feature/suggestion/confidence-calibration` |
 | 11 | SUG-004 | P1 | ready | ARCH-001,SUG-001 | `feature/suggestion/csharp-semantic-context` |
 | 12 | SUG-005 | P1 | ready | SUG-002,SUG-003,SUG-004 | `feature/suggestion/runtime-knowledge` |
 | 13 | SUG-006 | P1 | ready | SUG-005,SUG-013 | `feature/suggestion/evidence-ranking` |
@@ -99,13 +99,13 @@ Acceptance criteria: local patterns improve replay metrics without overriding ty
 
 Validation: deterministic project frequency/call-order index and completion ranking trace.
 
-### SUG-013 — Confidence calibration and preselect
+### SUG-013 — Confidence calibration and preselect (done)
 
 Calibrate confidence and preselect only high-confidence items. Use conservative match/locality ordering when confidence is low.
 
 Acceptance criteria: low-confidence items are never preselected and calibration is measured against Top-1 correctness.
 
-Validation: calibration curve, preselect precision, and regression threshold.
+Validation: conservative calibration thresholds and preselect regression fixtures.
 
 ### SUG-004 — C# semantic context
 

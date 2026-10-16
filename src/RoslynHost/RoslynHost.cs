@@ -15,7 +15,7 @@ public interface IRoslynHost
 
 public sealed record RoslynCompletionCandidate(string Label, string Kind, int LspKind, string Detail,
     string Documentation, string SymbolId, int EditStart, int EditLength, double IntentScore = 0,
-    ImmutableArray<string> Signals = default, string? AssemblyName = null);
+    ImmutableArray<string> Signals = default, string? AssemblyName = null, double Confidence = 0.35);
 public sealed record RoslynCompletionResult(ImmutableArray<RoslynCompletionCandidate> Candidates,
     ImmutableArray<string> Diagnostics, string? ExpectedType = null);
 
@@ -54,7 +54,7 @@ public sealed class RoslynHost : IRoslynHost
         var prefix = CurrentPrefix(request.Text, offset);
         var editStart = offset - prefix.Length;
         var expectedType = FindExpectedType(model, tree.GetRoot(cancellationToken), offset);
-        var candidates = model.LookupSymbols(offset)
+        var ranked = model.LookupSymbols(offset)
             .Where(symbol => symbol.CanBeReferencedByName && symbol.Name.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
             .GroupBy(symbol => $"{symbol.ContainingAssembly?.Identity}:{symbol.GetDocumentationCommentId() ?? symbol.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat)}:{editStart}:{prefix.Length}", StringComparer.Ordinal)
             .Select(group => group.OrderBy(symbol => symbol.Kind).First())
@@ -63,15 +63,18 @@ public sealed class RoslynHost : IRoslynHost
             .OrderByDescending(item => item.Intent.Score)
             .ThenBy(item => item.Symbol.Name, StringComparer.OrdinalIgnoreCase)
             .Take(100)
-            .Select(item => new RoslynCompletionCandidate(item.Symbol.Name, item.Symbol.Kind.ToString(), ToLspKind(item.Symbol.Kind),
-                item.Symbol.ToDisplayString(SymbolDisplayFormat.MinimallyQualifiedFormat),
-                item.Symbol.GetDocumentationCommentXml() ?? string.Empty,
-                item.Symbol.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat), editStart, prefix.Length,
-                item.Intent.Score, item.Intent.Signals, item.Symbol.ContainingAssembly?.Identity.Name))
-            .ToImmutableArray();
+            .ToArray();
         var diagnostics = compilation.GetDiagnostics(cancellationToken)
             .Where(diagnostic => diagnostic.Severity == DiagnosticSeverity.Error)
             .Select(diagnostic => diagnostic.Id).Distinct(StringComparer.Ordinal).ToImmutableArray();
+        var candidates = ranked.Select(item => new RoslynCompletionCandidate(item.Symbol.Name, item.Symbol.Kind.ToString(), ToLspKind(item.Symbol.Kind),
+                item.Symbol.ToDisplayString(SymbolDisplayFormat.MinimallyQualifiedFormat),
+                item.Symbol.GetDocumentationCommentXml() ?? string.Empty,
+                item.Symbol.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat), editStart, prefix.Length,
+                item.Intent.Score, item.Intent.Signals, item.Symbol.ContainingAssembly?.Identity.Name,
+                ConfidenceCalibration.Calibrate(item.Intent.Score, Context?.IsComplete == true,
+                    expectedType is not null, !diagnostics.IsEmpty)))
+            .ToImmutableArray();
         return Task.FromResult(new RoslynCompletionResult(candidates, diagnostics, expectedType?.ToDisplayString(SymbolDisplayFormat.MinimallyQualifiedFormat)));
     }
 

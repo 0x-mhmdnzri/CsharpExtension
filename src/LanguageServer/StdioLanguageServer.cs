@@ -96,7 +96,7 @@ public static class StdioLanguageServer
                 kind = candidate.LspKind,
                 detail = candidate.Detail,
                 sortText = index.ToString("D5"),
-                preselect = false,
+                preselect = candidate.Confidence >= 0.85,
                 documentation = string.IsNullOrEmpty(candidate.Documentation) ? null : candidate.Documentation,
                 textEdit = new
                 {
@@ -108,8 +108,7 @@ public static class StdioLanguageServer
                     newText = candidate.Label
                 },
                 data = new { suggestionId = $"roslyn:{candidate.SymbolId}", ruleId = "roslyn.semantic",
-                    confidence = context.IsComplete && result.Diagnostics.IsEmpty && result.ExpectedType is not null ? 0.9 :
-                        context.IsComplete && result.Diagnostics.IsEmpty ? 0.8 : 0.35,
+                    confidence = candidate.Confidence,
                     source = "roslyn://semantic-model", expectedType = result.ExpectedType,
                     intentScore = candidate.IntentScore, signals = candidate.Signals, assembly = candidate.AssemblyName,
                     projectContext = new
