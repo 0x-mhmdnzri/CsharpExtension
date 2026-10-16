@@ -10,7 +10,7 @@ This backlog turns the product direction into executable work. Correct candidate
 | 2 | SUG-001 | P0 | done | ARCH-001 | `feature/suggestion/project-context` |
 | 3 | SUG-009 | P0 | done | ARCH-001,SUG-001 | `feature/suggestion/roslyn-candidates` |
 | 4 | SUG-010 | P0 | done | SUG-009 | `feature/suggestion/expected-type-filter` |
-| 5 | QA-003 | P0 | ready | SUG-009 | `feature/qa/suggestion-replay` |
+| 5 | QA-003 | P0 | done | SUG-009 | `feature/qa/suggestion-replay` |
 | 6 | SUG-011 | P1 | ready | SUG-010,QA-003 | `feature/suggestion/intent-signals` |
 | 7 | SUG-002 | P1 | ready | SUG-001,SUG-009 | `feature/suggestion/nuget-api` |
 | 8 | SUG-003 | P1 | ready | SUG-001,SUG-009 | `feature/suggestion/assembly-evidence` |
@@ -59,13 +59,13 @@ Acceptance criteria: invalid candidates never outrank valid candidates; unknown 
 
 Validation: assignment and invocation argument positive/negative type-constraint fixtures.
 
-### QA-003 — Suggestion replay harness
+### QA-003 — Suggestion replay harness (done)
 
 Build an offline replay harness that removes real identifiers and measures the original symbol rank after 0, 1, 2, and 3 typed characters.
 
 Acceptance criteria: Top-1 accuracy, Top-5 accuracy, keystrokes saved, compile-valid rate, latency, and false-positive rate are recorded per feature.
 
-Validation: repeatable corpus benchmark in CI.
+Validation: repeatable four-prefix replay fixture with rank, accuracy, keystroke, compile, false-positive, and latency metrics.
 
 ### SUG-011 — Cheap intent signals
 

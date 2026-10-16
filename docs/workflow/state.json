@@ -3,7 +3,7 @@
     "workflow":  "gitflow",
     "currentBranch":  "develop",
     "version":  "0.1.0-alpha.1",
-    "currentTask":  "QA-003",
+    "currentTask":  "SUG-011",
     "lastCompleted":  [
                           "GOV-001",
                           "GOV-002",
@@ -56,9 +56,10 @@
                           "ARCH-001",
                           "SUG-001",
                           "SUG-009",
-                          "SUG-010"
+                          "SUG-010",
+                          "QA-003"
                       ],
-    "nextTask":  "QA-003",
+    "nextTask":  "SUG-011",
     "requirements":  {
                          "ownIntellisense":  true,
                          "externalLanguageService":  false,
@@ -82,7 +83,7 @@
                      },
     "validation":  {
                        "build":  "passed",
-                       "tests":  "Architecture smoke checks passed; SUG-010 type-filter tests passed",
+                       "tests":  "Architecture smoke checks passed; QA-003 replay tests passed",
                        "graphify":  "command unavailable; update skipped",
                        "ponytail":  "installed project-scoped"
                    }

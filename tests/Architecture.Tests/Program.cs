@@ -36,4 +36,5 @@ CorpusManifestTests.Run();
 QaMetricsTests.Run();
 QaRegressionTests.Run();
 QaQualityGateTests.Run();
+SuggestionReplayTests.Run();
 
