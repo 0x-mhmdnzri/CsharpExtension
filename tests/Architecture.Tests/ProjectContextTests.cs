@@ -29,6 +29,11 @@ public static class ProjectContextTests
                 || older.DocumentVersion != 7 || !older.Imports.Contains("System.Linq")
                 || !older.References.Contains("Example") || older.IsComplete)
                 throw new InvalidOperationException("Evaluated project/TFM snapshot is incorrect or overconfident.");
+            var first = await ProjectContextReader.ReadAsync(uri, 11, project, "net8.0", "Debug", CancellationToken.None);
+            var second = await ProjectContextReader.ReadAsync(uri, 12, project, "net8.0", "Debug", CancellationToken.None);
+            if (first.IndexCacheHit || !second.IndexCacheHit
+                || !File.Exists(Path.Combine(directory, ".vscode", "dotnet-expert-advisor.index.json")))
+                throw new InvalidOperationException("Project context cache did not persist and reload the index.");
             var ambiguousTfm = await ProjectContextReader.ReadAsync(uri, 9, project, null, "Debug", CancellationToken.None);
             if (!ambiguousTfm.Issues.Any(issue => issue.Contains("ambiguous")))
                 throw new InvalidOperationException("Multi-TFM context must require an explicit selection.");

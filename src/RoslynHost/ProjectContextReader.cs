@@ -14,7 +14,7 @@ public sealed record ProjectContextSnapshot(string? ProjectPath, string? TargetF
     ImmutableArray<string> Imports, ImmutableArray<string> References,
     ImmutableArray<string> Defines, ImmutableArray<string> Issues, NuGetApiIndex? NuGetApi = null,
     ImmutableArray<LoadedAssemblyEvidence> Assemblies = default, ProjectPatternSnapshot? Patterns = null,
-    ImmutableArray<string> SourceFiles = default)
+    ImmutableArray<string> SourceFiles = default, bool IndexCacheHit = false)
 {
     public bool IsComplete => Issues.IsEmpty;
 }
@@ -43,6 +43,18 @@ public static class ProjectContextReader
         if (projectPath is null || !File.Exists(projectPath))
             return new(projectPath, targetFramework, null, configuration, version, [], [], [],
                 issues.ToImmutable().Add("Project is unknown or missing."));
+
+        var cachePath = WorkspaceIndexCache.CachePath(projectPath);
+        var cacheKey = $"{Path.GetFullPath(projectPath)}|{targetFramework}|{configuration}";
+        var fingerprint = WorkspaceIndexCache.Fingerprint(projectPath, targetFramework, configuration);
+        if (WorkspaceIndexCache.TryLoad(cachePath, cacheKey, fingerprint, out var cached))
+        {
+            var imports = cached.Imports.AddRange(CSharpSyntaxTree.ParseText(documentText, cancellationToken: cancellationToken)
+                .GetCompilationUnitRoot(cancellationToken).Usings
+                .Where(item => item.Alias is null && item.StaticKeyword.RawKind == 0 && item.Name is not null)
+                .Select(item => item.Name!.ToString())).Distinct(StringComparer.Ordinal).ToImmutableArray();
+            return cached with { DocumentVersion = version, Imports = imports, IndexCacheHit = true };
+        }
 
         var start = new ProcessStartInfo("dotnet") { RedirectStandardOutput = true, RedirectStandardError = true, UseShellExecute = false };
         foreach (var argument in new[] { "msbuild", Path.GetFullPath(projectPath), "-nologo",
@@ -100,13 +112,15 @@ public static class ProjectContextReader
             var patterns = ProjectPatternIndexer.Build(sourceFiles);
             var sourcePaths = Items("Compile").Select(path => Path.IsPathRooted(path) ? path : Path.Combine(Path.GetDirectoryName(projectPath)!, path))
                 .Where(File.Exists).Distinct(StringComparer.OrdinalIgnoreCase).ToImmutableArray();
-            return new(Path.GetFullPath(projectPath), targetFramework, language, Property("Configuration"), version,
+            var context = new ProjectContextSnapshot(Path.GetFullPath(projectPath), targetFramework, language, Property("Configuration"), version,
                 Items("Using").AddRange(CSharpSyntaxTree.ParseText(documentText, cancellationToken: cancellationToken)
                     .GetCompilationUnitRoot(cancellationToken).Usings
                     .Where(item => item.Alias is null && item.StaticKeyword.RawKind == 0 && item.Name is not null)
                     .Select(item => item.Name!.ToString())).Distinct(StringComparer.Ordinal).ToImmutableArray(),
                 Items("Reference").AddRange(Items("ReferencePath")).AddRange(Items("ProjectReference")),
                 Property("DefineConstants").Split(';', StringSplitOptions.RemoveEmptyEntries).ToImmutableArray(), issues.ToImmutable(), nuGetApi, assemblies, patterns, sourcePaths);
+            WorkspaceIndexCache.Save(cachePath, cacheKey, fingerprint, context);
+            return context;
         }
         catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested)
         {

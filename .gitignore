@@ -11,6 +11,7 @@ TestResults/
 # IDE/editor files
 .vs/
 .idea/
+.vscode/dotnet-expert-advisor.index.json
 *.user
 *.suo
 *.userosscache

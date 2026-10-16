@@ -99,7 +99,7 @@ public static class StdioLanguageServer
             && value.ValueKind == JsonValueKind.String ? value.GetString() : null;
         var context = await ProjectContextReader.ReadAsync(documentUri, version, Setting("projectPath"),
             Setting("targetFramework"), Setting("configuration") ?? "Debug", cancellationToken, text);
-        await ReportAsync(45, "Indexing project files and references");
+        await ReportAsync(45, context.IndexCacheHit ? "Loaded cached project index" : "Built and cached project index");
         var request = new DocumentRequest(new WorkspaceId("lsp"),
             new DocumentId(documentUri), new ProjectId(context.ProjectPath ?? "lsp"),
             new TargetFrameworkId(context.TargetFramework ?? "unknown"), version, text);
