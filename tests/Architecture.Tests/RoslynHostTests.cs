@@ -70,5 +70,11 @@ public static class RoslynHostTests
         var save = patternResult.Candidates.FirstOrDefault(candidate => candidate.Label == "Save");
         if (save is null || !save.Signals.Contains("project-frequency") || !save.Signals.Contains("project-call-order"))
             throw new InvalidOperationException("Project pattern signals were not applied to completion ranking.");
+
+        var varText = "using System; class C { void M() { var date = DateTi; } }";
+        var varResult = await new RoslynCompletionHost().GetCompletionAsync(request with { Text = varText }, 0,
+            varText.IndexOf("DateTi", StringComparison.Ordinal) + 6, CancellationToken.None);
+        if (varResult.ExpectedType is not null || !varResult.Candidates.Any(candidate => candidate.Label == "DateTime"))
+            throw new InvalidOperationException("var initializer completion incorrectly applied a hard expected-type filter.");
     }
 }

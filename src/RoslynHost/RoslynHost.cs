@@ -111,7 +111,7 @@ public sealed class RoslynHost : IRoslynHost
             if (current is EqualsValueClauseSyntax equalsValue)
             {
                 if (equalsValue.Parent is VariableDeclaratorSyntax { Parent: VariableDeclarationSyntax declaration })
-                    return model.GetTypeInfo(declaration.Type).Type;
+                    return declaration.Type.IsVar ? null : model.GetTypeInfo(declaration.Type).Type;
                 if (equalsValue.Parent is PropertyDeclarationSyntax property)
                     return model.GetTypeInfo(property.Type).Type;
             }
