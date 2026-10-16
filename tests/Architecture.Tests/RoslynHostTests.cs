@@ -56,7 +56,8 @@ public static class RoslynHostTests
         var packageText = "using DotnetExpertAdvisor.Shared; class C { void M() { CSharpLe } }";
         var packageResult = await new RoslynCompletionHost { Context = packageContext }.GetCompletionAsync(
             request with { Text = packageText }, 0, packageText.LastIndexOf("CSharpLe", StringComparison.Ordinal) + 8, CancellationToken.None);
-        if (!packageResult.Candidates.Any(candidate => candidate.Label == "CSharpLexer"))
+        var packageCandidate = packageResult.Candidates.FirstOrDefault(candidate => candidate.Label == "CSharpLexer");
+        if (packageCandidate is null || packageCandidate.AssemblyName != packageMetadata.Name)
             throw new InvalidOperationException("Package API assembly was not available to Roslyn completion.");
     }
 }

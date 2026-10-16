@@ -15,7 +15,7 @@ public interface IRoslynHost
 
 public sealed record RoslynCompletionCandidate(string Label, string Kind, int LspKind, string Detail,
     string Documentation, string SymbolId, int EditStart, int EditLength, double IntentScore = 0,
-    ImmutableArray<string> Signals = default);
+    ImmutableArray<string> Signals = default, string? AssemblyName = null);
 public sealed record RoslynCompletionResult(ImmutableArray<RoslynCompletionCandidate> Candidates,
     ImmutableArray<string> Diagnostics, string? ExpectedType = null);
 
@@ -56,7 +56,7 @@ public sealed class RoslynHost : IRoslynHost
         var expectedType = FindExpectedType(model, tree.GetRoot(cancellationToken), offset);
         var candidates = model.LookupSymbols(offset)
             .Where(symbol => symbol.CanBeReferencedByName && symbol.Name.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
-            .GroupBy(symbol => $"{symbol.GetDocumentationCommentId() ?? symbol.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat)}:{editStart}:{prefix.Length}", StringComparer.Ordinal)
+            .GroupBy(symbol => $"{symbol.ContainingAssembly?.Identity}:{symbol.GetDocumentationCommentId() ?? symbol.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat)}:{editStart}:{prefix.Length}", StringComparer.Ordinal)
             .Select(group => group.OrderBy(symbol => symbol.Kind).First())
             .Where(symbol => expectedType is null || IsCompatible(symbol, expectedType, compilation))
             .Select(symbol => (Symbol: symbol, Intent: IntentSignals.Score(symbol, model, tree.GetRoot(cancellationToken), request.Text, offset, prefix)))
@@ -67,7 +67,7 @@ public sealed class RoslynHost : IRoslynHost
                 item.Symbol.ToDisplayString(SymbolDisplayFormat.MinimallyQualifiedFormat),
                 item.Symbol.GetDocumentationCommentXml() ?? string.Empty,
                 item.Symbol.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat), editStart, prefix.Length,
-                item.Intent.Score, item.Intent.Signals))
+                item.Intent.Score, item.Intent.Signals, item.Symbol.ContainingAssembly?.Identity.Name))
             .ToImmutableArray();
         var diagnostics = compilation.GetDiagnostics(cancellationToken)
             .Where(diagnostic => diagnostic.Severity == DiagnosticSeverity.Error)
@@ -83,9 +83,10 @@ public sealed class RoslynHost : IRoslynHost
     ];
 
     private ImmutableArray<MetadataReference> References => FrameworkReferences.AddRange(
-        Context?.NuGetApi?.Packages
-            .Select(package => MetadataReference.CreateFromFile(package.AssemblyPath))
-            .Cast<MetadataReference>() ?? []);
+        (Context?.Assemblies.IsDefault == false ? Context.Assemblies.Select(assembly => assembly.Path) : [])
+            .Concat(Context?.NuGetApi?.Packages.Select(package => package.AssemblyPath) ?? [])
+            .Where(File.Exists).Distinct(StringComparer.OrdinalIgnoreCase)
+            .Select(path => MetadataReference.CreateFromFile(path)).Cast<MetadataReference>());
 
     private static string CurrentPrefix(string text, int offset)
     {

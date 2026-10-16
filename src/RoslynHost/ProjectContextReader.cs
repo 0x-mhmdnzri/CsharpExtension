@@ -7,10 +7,13 @@ using DotnetExpertAdvisor.Shared;
 
 namespace DotnetExpertAdvisor.RoslynHost;
 
+public sealed record LoadedAssemblyEvidence(string Name, string Path, string TargetFramework, bool HasTypeForwarders);
+
 public sealed record ProjectContextSnapshot(string? ProjectPath, string? TargetFramework,
     string? LanguageVersion, string Configuration, int DocumentVersion,
     ImmutableArray<string> Imports, ImmutableArray<string> References,
-    ImmutableArray<string> Defines, ImmutableArray<string> Issues, NuGetApiIndex? NuGetApi = null)
+    ImmutableArray<string> Defines, ImmutableArray<string> Issues, NuGetApiIndex? NuGetApi = null,
+    ImmutableArray<LoadedAssemblyEvidence> Assemblies = default)
 {
     public bool IsComplete => Issues.IsEmpty;
 }
@@ -42,7 +45,7 @@ public static class ProjectContextReader
 
         var start = new ProcessStartInfo("dotnet") { RedirectStandardOutput = true, RedirectStandardError = true, UseShellExecute = false };
         foreach (var argument in new[] { "msbuild", Path.GetFullPath(projectPath), "-nologo",
-                     "-getProperty:LangVersion,TargetFramework,TargetFrameworks,Configuration,DefineConstants",
+                     "-getProperty:LangVersion,TargetFramework,TargetFrameworks,Configuration,DefineConstants,TargetPath",
                      "-getItem:Using,Reference,ReferencePath,ProjectReference", $"-property:Configuration={configuration}" })
             start.ArgumentList.Add(argument);
         if (!string.IsNullOrEmpty(targetFramework)) start.ArgumentList.Add($"-property:TargetFramework={targetFramework}");
@@ -70,8 +73,6 @@ public static class ProjectContextReader
             var items = json.RootElement.GetProperty("Items");
             ImmutableArray<string> Items(string name) => items.GetProperty(name).EnumerateArray()
                 .Select(item => item.GetProperty("Identity").GetString()!).ToImmutableArray();
-            // shortcut: evaluation does not resolve assembly assets, upgrade with SUG-003 reference loading.
-            issues.Add("Assembly references have not been resolved for the selected target framework.");
             NuGetApiIndex? nuGetApi = null;
             try
             {
@@ -88,13 +89,18 @@ public static class ProjectContextReader
             {
                 issues.Add("NuGet API index is unavailable.");
             }
+            var assemblyPaths = Items("ReferencePath").Concat([Property("TargetPath")])
+                .Where(path => !string.IsNullOrWhiteSpace(path) && File.Exists(path)).Distinct(StringComparer.OrdinalIgnoreCase).ToArray();
+            var assemblies = assemblyPaths.Select(path => ReadAssemblyEvidence(path, targetFramework!))
+                .Where(evidence => evidence is not null).Cast<LoadedAssemblyEvidence>().ToImmutableArray();
+            if (assemblies.IsEmpty) issues.Add("Assembly references are unavailable for the selected target framework.");
             return new(Path.GetFullPath(projectPath), targetFramework, language, Property("Configuration"), version,
                 Items("Using").AddRange(CSharpSyntaxTree.ParseText(documentText, cancellationToken: cancellationToken)
                     .GetCompilationUnitRoot(cancellationToken).Usings
                     .Where(item => item.Alias is null && item.StaticKeyword.RawKind == 0 && item.Name is not null)
                     .Select(item => item.Name!.ToString())).Distinct(StringComparer.Ordinal).ToImmutableArray(),
                 Items("Reference").AddRange(Items("ReferencePath")).AddRange(Items("ProjectReference")),
-                Property("DefineConstants").Split(';', StringSplitOptions.RemoveEmptyEntries).ToImmutableArray(), issues.ToImmutable(), nuGetApi);
+                Property("DefineConstants").Split(';', StringSplitOptions.RemoveEmptyEntries).ToImmutableArray(), issues.ToImmutable(), nuGetApi, assemblies);
         }
         catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested)
         {
@@ -110,5 +116,18 @@ public static class ProjectContextReader
             catch (InvalidOperationException) { }
         }
         return new(projectPath, targetFramework, null, configuration, version, [], [], [], issues.ToImmutable());
+    }
+
+    private static LoadedAssemblyEvidence? ReadAssemblyEvidence(string path, string targetFramework)
+    {
+        try
+        {
+            var metadata = new AssemblyMetadataReader().Read(path);
+            return new(metadata.Name, Path.GetFullPath(path), targetFramework, !metadata.TypeForwarders.IsEmpty);
+        }
+        catch (Exception exception) when (exception is IOException or BadImageFormatException or UnauthorizedAccessException)
+        {
+            return null;
+        }
     }
 }

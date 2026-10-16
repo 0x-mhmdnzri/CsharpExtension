@@ -13,7 +13,7 @@ This backlog turns the product direction into executable work. Correct candidate
 | 5 | QA-003 | P0 | done | SUG-009 | `feature/qa/suggestion-replay` |
 | 6 | SUG-011 | P1 | done | SUG-010,QA-003 | `feature/suggestion/intent-signals` |
 | 7 | SUG-002 | P1 | done | SUG-001,SUG-009 | `feature/suggestion/nuget-api` |
-| 8 | SUG-003 | P1 | ready | SUG-001,SUG-009 | `feature/suggestion/assembly-evidence` |
+| 8 | SUG-003 | P1 | done | SUG-001,SUG-009 | `feature/suggestion/assembly-evidence` |
 | 9 | SUG-012 | P1 | ready | SUG-002,SUG-003,QA-003 | `feature/suggestion/project-patterns` |
 | 10 | SUG-013 | P1 | ready | SUG-011,QA-003 | `feature/suggestion/confidence-calibration` |
 | 11 | SUG-004 | P1 | ready | ARCH-001,SUG-001 | `feature/suggestion/csharp-semantic-context` |
@@ -83,13 +83,13 @@ Acceptance criteria: incompatible or unavailable package APIs are excluded and p
 
 Validation: package assembly positive fixture and missing-asset/context fallback; package metadata is summarized in LSP data.
 
-### SUG-003 — Loaded assembly evidence
+### SUG-003 — Loaded assembly evidence (done)
 
 Use project outputs, referenced assemblies, type forwarders, and target framework metadata to gate candidates.
 
 Acceptance criteria: suggestions only use assemblies visible to the active project/TFM and preserve assembly identity.
 
-Validation: assembly reference and type-forwarder fixtures.
+Validation: MSBuild reference-path loading, package assembly identity, and type-forwarder evidence capture.
 
 ### SUG-012 — Project pattern signals
 

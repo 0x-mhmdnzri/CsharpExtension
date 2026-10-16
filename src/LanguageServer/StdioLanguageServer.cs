@@ -111,7 +111,7 @@ public static class StdioLanguageServer
                     confidence = context.IsComplete && result.Diagnostics.IsEmpty && result.ExpectedType is not null ? 0.9 :
                         context.IsComplete && result.Diagnostics.IsEmpty ? 0.8 : 0.35,
                     source = "roslyn://semantic-model", expectedType = result.ExpectedType,
-                    intentScore = candidate.IntentScore, signals = candidate.Signals,
+                    intentScore = candidate.IntentScore, signals = candidate.Signals, assembly = candidate.AssemblyName,
                     projectContext = new
                     {
                         context.ProjectPath, context.TargetFramework, context.LanguageVersion,
