@@ -3,7 +3,7 @@
     "workflow":  "gitflow",
     "currentBranch":  "develop",
     "version":  "0.1.0-alpha.1",
-    "currentTask":  "SUG-004",
+    "currentTask":  "IDX-001",
     "lastCompleted":  [
                           "GOV-001",
                           "GOV-002",
@@ -64,7 +64,7 @@
                           "SUG-012",
                           "SUG-013"
                       ],
-    "nextTask":  "SUG-004",
+    "nextTask":  "IDX-001",
     "requirements":  {
                          "ownIntellisense":  true,
                          "externalLanguageService":  false,

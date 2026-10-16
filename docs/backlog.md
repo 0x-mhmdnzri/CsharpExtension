@@ -16,14 +16,17 @@ This backlog turns the product direction into executable work. Correct candidate
 | 8 | SUG-003 | P1 | done | SUG-001,SUG-009 | `feature/suggestion/assembly-evidence` |
 | 9 | SUG-012 | P1 | done | SUG-002,SUG-003,QA-003 | `feature/suggestion/project-patterns` |
 | 10 | SUG-013 | P1 | done | SUG-011,QA-003 | `feature/suggestion/confidence-calibration` |
-| 11 | SUG-004 | P1 | ready | ARCH-001,SUG-001 | `feature/suggestion/csharp-semantic-context` |
-| 12 | SUG-005 | P1 | ready | SUG-002,SUG-003,SUG-004 | `feature/suggestion/runtime-knowledge` |
-| 13 | SUG-006 | P1 | ready | SUG-005,SUG-013 | `feature/suggestion/evidence-ranking` |
-| 14 | SUG-007 | P1 | ready | SUG-006 | `feature/suggestion/incremental-cache` |
-| 15 | SUG-008 | P1 | ready | QA-003,SUG-013 | `feature/suggestion/accuracy-corpus` |
-| 16 | SUG-014 | P2 | ready | SUG-008,SUG-013 | `feature/suggestion/ml-reranker` |
-| 17 | SUG-015 | P2 | ready | SUG-013,SUG-014 | `feature/suggestion/mru-personalization` |
-| 18 | SUG-016 | P3 | deferred | SUG-009,SUG-013 | `feature/suggestion/optional-llm-signal` |
+| 11 | IDX-001 | P0 | ready | SUG-003 | `feature/index/workspace-inventory` |
+| 12 | IDX-002 | P0 | ready | IDX-001 | `feature/index/roslyn-multi-document` |
+| 13 | IDX-003 | P0 | ready | IDX-002 | `feature/index/incremental-cache` |
+| 14 | IDX-004 | P1 | ready | IDX-002 | `feature/index/dependency-graph` |
+| 15 | SUG-004 | P1 | ready | IDX-002 | `feature/suggestion/csharp-semantic-context` |
+| 16 | SUG-005 | P1 | ready | SUG-002,SUG-003,SUG-004 | `feature/suggestion/runtime-knowledge` |
+| 17 | SUG-006 | P1 | ready | SUG-005,SUG-013 | `feature/suggestion/evidence-ranking` |
+| 18 | SUG-008 | P1 | ready | QA-003,SUG-013 | `feature/suggestion/accuracy-corpus` |
+| 19 | SUG-014 | P2 | ready | SUG-008,SUG-013 | `feature/suggestion/ml-reranker` |
+| 20 | SUG-015 | P2 | ready | SUG-013,SUG-014 | `feature/suggestion/mru-personalization` |
+| 21 | SUG-016 | P3 | deferred | SUG-009,SUG-013 | `feature/suggestion/optional-llm-signal` |
 
 ## Remaining tasks
 
@@ -106,6 +109,38 @@ Calibrate confidence and preselect only high-confidence items. Use conservative 
 Acceptance criteria: low-confidence items are never preselected and calibration is measured against Top-1 correctness.
 
 Validation: conservative calibration thresholds and preselect regression fixtures.
+
+### IDX-001 — Workspace inventory
+
+Scan every project document, project file, package asset, generated output, and loaded assembly into a versioned workspace inventory. Exclude bin/obj/generated noise unless Roslyn marks it as a reference.
+
+Acceptance criteria: every source document and project/TFM/package/assembly input has a stable identity, timestamp/hash, and scan status; inaccessible files are reported.
+
+Validation: multi-project fixture with linked files, generated files, bin/obj, and missing files.
+
+### IDX-002 — Roslyn multi-document compilation
+
+Build Roslyn compilations from the indexed documents and project references so completion can resolve symbols declared in other files and projects.
+
+Acceptance criteria: cross-file and cross-project symbols resolve only through valid project references and diagnostics remain cancellation-aware.
+
+Validation: two-project fixture with positive and negative references.
+
+### IDX-003 — Incremental workspace cache
+
+Cache document syntax, semantic, package, and assembly indexes by content hash and invalidate only affected projects and dependents.
+
+Acceptance criteria: unchanged files are not reparsed; edits never expose stale symbols.
+
+Validation: repeated scan and invalidation benchmark.
+
+### IDX-004 — Dependency graph
+
+Index project references, package dependencies, assembly references, type forwarders, and symbol relationships for ranking evidence.
+
+Acceptance criteria: every suggestion can identify the project/assembly/package path that made it visible.
+
+Validation: project graph and type-forwarder fixture.
 
 ### SUG-004 — C# semantic context
 
