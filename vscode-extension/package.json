@@ -2,7 +2,7 @@
     "name":  "dotnet-expert-advisor",
     "displayName":  ".NET Expert Advisor (Preview)",
     "description":  "Developer preview for the custom C# semantic engine and binder.",
-    "version":  "0.1.0-alpha.11",
+    "version":  "0.1.0-alpha.12",
     "publisher":  "dotnet-expert-advisor",
     "engines":  {
                     "vscode":  "^1.90.0"
@@ -38,6 +38,17 @@
                                     "default": 180,
                                     "minimum": 50,
                                     "description": "Delay before refreshing C# suggestions after typing."
+                                },
+                                "dotnetExpertAdvisor.buildOnType": {
+                                    "type": "boolean",
+                                    "default": true,
+                                    "description": "Run dotnet build in the background after C# edits and underline compiler diagnostics."
+                                },
+                                "dotnetExpertAdvisor.buildDebounceMs": {
+                                    "type": "number",
+                                    "default": 700,
+                                    "minimum": 200,
+                                    "description": "Delay before starting a background build after typing."
                                 }
                             }
                         },

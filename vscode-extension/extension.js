@@ -10,6 +10,9 @@ let inputBuffer = Buffer.alloc(0);
 let statusBar;
 let errorTerminal;
 const debounceTimers = new Map();
+const buildTimers = new Map();
+let buildProcess;
+let buildDiagnostics;
 
 function setStatus(text, tooltip) {
   if (!statusBar) return;
@@ -73,8 +76,73 @@ function request(method, params) {
   });
 }
 
+function findProjectPath(document, settings) {
+  const configured = settings.get('projectPath');
+  if (configured && fs.existsSync(configured)) return configured;
+  const folder = vscode.workspace.getWorkspaceFolder(document.uri);
+  if (!folder) return undefined;
+  return fs.readdirSync(folder.uri.fsPath).find(name => name.endsWith('.csproj'))
+    ? path.join(folder.uri.fsPath, fs.readdirSync(folder.uri.fsPath).find(name => name.endsWith('.csproj')))
+    : undefined;
+}
+
+function parseBuildDiagnostics(output, cwd) {
+  const grouped = new Map();
+  const pattern = /^(.*)\((\d+),(\d+)(?:-(\d+),(\d+))?\):\s+(error|warning)\s+([^:]+):\s*(.*)$/i;
+  for (const line of output.split(/\r?\n/)) {
+    const match = pattern.exec(line.trim());
+    if (!match) continue;
+    const filePath = path.isAbsolute(match[1]) ? match[1] : path.resolve(cwd, match[1]);
+    const uri = vscode.Uri.file(filePath).toString();
+    const startLine = Math.max(0, Number(match[2]) - 1);
+    const startCharacter = Math.max(0, Number(match[3]) - 1);
+    const endLine = Math.max(startLine, Number(match[4] || match[2]) - 1);
+    const endCharacter = Number(match[5] || match[3]);
+    const severity = match[6].toLowerCase() === 'error'
+      ? vscode.DiagnosticSeverity.Error : vscode.DiagnosticSeverity.Warning;
+    const diagnostic = new vscode.Diagnostic(new vscode.Range(startLine, startCharacter, endLine, endCharacter),
+      `${match[7]}: ${match[8]}`, severity);
+    diagnostic.source = 'DEA build';
+    if (!grouped.has(uri)) grouped.set(uri, []);
+    grouped.get(uri).push(diagnostic);
+  }
+  return grouped;
+}
+
+function scheduleBuild(document, output) {
+  const settings = vscode.workspace.getConfiguration('dotnetExpertAdvisor', document.uri);
+  if (!settings.get('buildOnType', true)) return;
+  const projectPath = findProjectPath(document, settings);
+  if (!projectPath) return;
+  const uri = document.uri.toString();
+  const existing = buildTimers.get(uri);
+  if (existing) clearTimeout(existing);
+  buildTimers.set(uri, setTimeout(() => {
+    buildTimers.delete(uri);
+    if (buildProcess) buildProcess.kill();
+    buildDiagnostics.clear();
+    setStatus('Build…', `Building ${path.basename(projectPath)} in the background.`);
+    buildProcess = cp.spawn('dotnet', ['build', projectPath, '--no-restore', '--nologo', '-v:minimal'],
+      { cwd: path.dirname(projectPath), stdio: ['ignore', 'pipe', 'pipe'] });
+    let outputText = '';
+    buildProcess.stdout.on('data', data => { outputText += data.toString(); });
+    buildProcess.stderr.on('data', data => { outputText += data.toString(); });
+    buildProcess.on('error', error => reportError(error));
+    buildProcess.on('close', code => {
+      if (buildProcess?.pid !== undefined && buildProcess.pid !== 0) buildProcess = undefined;
+      const diagnostics = parseBuildDiagnostics(outputText, path.dirname(projectPath));
+      for (const [fileUri, items] of diagnostics) buildDiagnostics.set(vscode.Uri.parse(fileUri), items);
+      const count = [...diagnostics.values()].reduce((sum, items) => sum + items.length, 0);
+      setStatus(code === 0 ? `Build OK · ${count}` : `Build errors · ${count}`,
+        code === 0 ? 'Background build completed.' : 'Background build produced diagnostics.');
+      if (code !== 0) output.appendLine(outputText);
+    });
+  }, Math.max(200, Number(settings.get('buildDebounceMs', 700)) || 700)));
+}
+
 function activate(context) {
   const output = vscode.window.createOutputChannel('.NET Expert Advisor');
+  buildDiagnostics = vscode.languages.createDiagnosticCollection('dotnet-expert-advisor-build');
   errorTerminal = vscode.window.createTerminal({ name: '.NET Expert Advisor Errors' });
   statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
   statusBar.name = '.NET Expert Advisor index';
@@ -162,16 +230,21 @@ function activate(context) {
       if (!editor || editor.document.uri.toString() !== uri || editor.document.version !== event.document.version) return;
       vscode.commands.executeCommand('editor.action.triggerSuggest').catch(error => reportError(error));
     }, Math.max(50, Number(debounceMs) || 180)));
+    scheduleBuild(event.document, output);
   });
   context.subscriptions.push(output, provider, hoverProvider, definitionProvider, statusBar, errorTerminal, changeSubscription,
+    buildDiagnostics,
     vscode.commands.registerCommand('dotnetExpertAdvisor.startServer', start));
 }
 
 function deactivate() {
   if (serverProcess && !serverProcess.killed) serverProcess.kill();
+  if (buildProcess) buildProcess.kill();
   pending.clear();
   for (const timer of debounceTimers.values()) clearTimeout(timer);
   debounceTimers.clear();
+  for (const timer of buildTimers.values()) clearTimeout(timer);
+  buildTimers.clear();
   statusBar = undefined;
   errorTerminal = undefined;
 }
