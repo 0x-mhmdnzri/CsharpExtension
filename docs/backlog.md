@@ -7,7 +7,7 @@ This backlog turns the product direction into executable work. Correct candidate
 | Order | ID | Priority | Status | Dependency | Branch |
 |---:|---|---:|---|---|---|
 | 1 | ARCH-001 | P0 | done | existing RoslynHost skeleton | `feature/roslyn/semantic-authority` |
-| 2 | SUG-001 | P0 | ready | ARCH-001 | `feature/suggestion/project-context` |
+| 2 | SUG-001 | P0 | done | ARCH-001 | `feature/suggestion/project-context` |
 | 3 | SUG-009 | P0 | ready | ARCH-001,SUG-001 | `feature/suggestion/roslyn-candidates` |
 | 4 | SUG-010 | P0 | ready | SUG-009 | `feature/suggestion/expected-type-filter` |
 | 5 | QA-003 | P0 | ready | SUG-009 | `feature/qa/suggestion-replay` |
@@ -35,13 +35,13 @@ Acceptance criteria: runtime completion candidates are Roslyn-backed, unsupporte
 
 Validation: Roslyn-backed language-server smoke test and architecture fixture with incomplete C# edits.
 
-### SUG-001 — Project context snapshot
+### SUG-001 — Project context snapshot (done)
 
 Capture language version, target framework, project configuration, imports, references, document version, and active project for every completion request.
 
 Acceptance criteria: stale or unknown context lowers confidence and cannot produce a certain suggestion.
 
-Validation: multi-project and multi-TFM fixtures.
+Validation: multi-project and multi-TFM fixtures, including ambiguous-context confidence handling.
 
 ### SUG-009 — Roslyn candidate normalization
 

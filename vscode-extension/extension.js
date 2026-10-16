@@ -61,11 +61,20 @@ function activate(context) {
   start();
   const provider = vscode.languages.registerCompletionItemProvider({ language: 'csharp' }, {
     async provideCompletionItems(document, position) {
+      if (!vscode.workspace.isTrusted) return [];
       try {
+        const version = document.version;
+        const settings = vscode.workspace.getConfiguration('dotnetExpertAdvisor', document.uri);
         const result = await request('textDocument/completion', {
-          textDocument: { uri: document.uri.toString(), text: document.getText() },
+          textDocument: { uri: document.uri.toString(), text: document.getText(), version },
+          projectContext: {
+            projectPath: settings.get('projectPath'),
+            targetFramework: settings.get('targetFramework'),
+            configuration: settings.get('configuration', 'Debug')
+          },
           position: { line: position.line, character: position.character }
         });
+        if (document.version !== version) return [];
         return result?.items ?? [];
       } catch (error) {
         output.appendLine(String(error));

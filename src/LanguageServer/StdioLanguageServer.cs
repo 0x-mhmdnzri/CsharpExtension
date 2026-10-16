@@ -1,6 +1,7 @@
 using System.Text.Json;
 using DotnetExpertAdvisor.Protocol;
 using DotnetExpertAdvisor.Shared;
+using DotnetExpertAdvisor.RoslynHost;
 using RoslynCompletionHost = DotnetExpertAdvisor.RoslynHost.RoslynHost;
 
 namespace DotnetExpertAdvisor.LanguageServer;
@@ -75,10 +76,17 @@ public static class StdioLanguageServer
             return new { items = Array.Empty<object>(), isIncomplete = false };
 
         var text = textProperty.GetString() ?? string.Empty;
+        var documentUri = document.TryGetProperty("uri", out var uri) ? uri.GetString() ?? "document" : "document";
+        var version = document.TryGetProperty("version", out var documentVersion) ? documentVersion.GetInt32() : -1;
+        var settings = parameters.TryGetProperty("projectContext", out var projectContext) ? projectContext : default;
+        string? Setting(string name) => settings.ValueKind == JsonValueKind.Object && settings.TryGetProperty(name, out var value)
+            && value.ValueKind == JsonValueKind.String ? value.GetString() : null;
+        var context = await ProjectContextReader.ReadAsync(documentUri, version, Setting("projectPath"),
+            Setting("targetFramework"), Setting("configuration") ?? "Debug", cancellationToken, text);
         var request = new DocumentRequest(new WorkspaceId("lsp"),
-            new DocumentId(document.TryGetProperty("uri", out var uri) ? uri.GetString() ?? "document" : "document"),
-            new ProjectId("lsp"), new TargetFrameworkId("unknown"), 0, text);
-        var result = await new RoslynCompletionHost().GetCompletionAsync(request, lineProperty.GetInt32(),
+            new DocumentId(documentUri), new ProjectId(context.ProjectPath ?? "lsp"),
+            new TargetFrameworkId(context.TargetFramework ?? "unknown"), version, text);
+        var result = await new RoslynCompletionHost { Context = context }.GetCompletionAsync(request, lineProperty.GetInt32(),
             characterProperty.GetInt32(), cancellationToken);
         return new
         {
@@ -88,7 +96,10 @@ public static class StdioLanguageServer
                 kind = 3,
                 detail = candidate.Detail,
                 sortText = index.ToString("D5"),
-                data = new { suggestionId = $"roslyn:{candidate.SymbolId}", ruleId = "roslyn.semantic", confidence = 1.0, source = "roslyn://semantic-model" }
+                preselect = false,
+                data = new { suggestionId = $"roslyn:{candidate.SymbolId}", ruleId = "roslyn.semantic",
+                    confidence = context.IsComplete && result.Diagnostics.IsEmpty ? 0.8 : 0.35,
+                    source = "roslyn://semantic-model", projectContext = context }
             }).ToArray(),
             isIncomplete = false
         };

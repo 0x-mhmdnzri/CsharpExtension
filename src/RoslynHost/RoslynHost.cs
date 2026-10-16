@@ -17,6 +17,7 @@ public sealed record RoslynCompletionResult(ImmutableArray<RoslynCompletionCandi
 
 public sealed class RoslynHost : IRoslynHost
 {
+    public ProjectContextSnapshot? Context { get; init; }
     public Task<WorkspaceSnapshot> LoadWorkspaceAsync(WorkspaceRequest request, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
@@ -39,10 +40,13 @@ public sealed class RoslynHost : IRoslynHost
             return Task.FromResult(new RoslynCompletionResult(ImmutableArray<RoslynCompletionCandidate>.Empty,
                 ImmutableArray.Create("Invalid document position.")));
 
-        var tree = CSharpSyntaxTree.ParseText(request.Text, cancellationToken: cancellationToken);
+        var language = LanguageVersionFacts.TryParse(Context?.LanguageVersion ?? "default", out var parsed)
+            ? parsed : Microsoft.CodeAnalysis.CSharp.LanguageVersion.Default;
+        var options = new CSharpParseOptions(language, preprocessorSymbols: Context?.Defines ?? []);
+        var tree = CSharpSyntaxTree.ParseText(request.Text, options, cancellationToken: cancellationToken);
         var compilation = CSharpCompilation.Create(request.ProjectId.Value, [tree], FrameworkReferences,
-            new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
-        var model = compilation.GetSemanticModel(tree, ignoreAccessibility: true);
+            new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary, usings: Context?.Imports ?? []));
+        var model = compilation.GetSemanticModel(tree);
         var prefix = CurrentPrefix(request.Text, offset);
         var candidates = model.LookupSymbols(offset)
             .Where(symbol => symbol.CanBeReferencedByName && symbol.Name.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))

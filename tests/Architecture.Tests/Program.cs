@@ -12,6 +12,7 @@ MetadataReaderTests.Run(args.FirstOrDefault());
 NuGetProjectIndexTests.Run();
 await StdioTransportTests.RunAsync();
 await RoslynHostTests.RunAsync();
+await ProjectContextTests.RunAsync();
 CompletionContextTests.Run();
 CompletionEngineTests.Run();
 OverloadResolutionTests.Run();

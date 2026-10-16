@@ -17,6 +17,24 @@
                          ],
     "main":  "./extension.js",
     "contributes":  {
+                        "configuration": {
+                            "title": ".NET Expert Advisor",
+                            "properties": {
+                                "dotnetExpertAdvisor.projectPath": {
+                                    "type": "string",
+                                    "description": "Absolute path of the active C# project. Required when project ownership is ambiguous."
+                                },
+                                "dotnetExpertAdvisor.targetFramework": {
+                                    "type": "string",
+                                    "description": "Active target framework, for example net10.0. Required for multi-target projects."
+                                },
+                                "dotnetExpertAdvisor.configuration": {
+                                    "type": "string",
+                                    "default": "Debug",
+                                    "description": "MSBuild configuration used to evaluate completion context."
+                                }
+                            }
+                        },
                         "commands":  [
                                          {
                                              "command":  "dotnetExpertAdvisor.startServer",
