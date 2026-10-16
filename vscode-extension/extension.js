@@ -8,11 +8,25 @@ let nextRequestId = 1;
 let pending = new Map();
 let inputBuffer = Buffer.alloc(0);
 let statusBar;
+let errorTerminal;
 
 function setStatus(text, tooltip) {
   if (!statusBar) return;
   statusBar.text = `$(database) DEA: ${text}`;
   statusBar.tooltip = tooltip ?? text;
+}
+
+function shellQuote(value) {
+  return `'${String(value).replace(/'/g, "'\\''")}'`;
+}
+
+function reportError(error) {
+  const message = error instanceof Error ? error.stack ?? error.message : String(error);
+  setStatus(`Error · ${message.split('\n')[0].slice(0, 80)}`, message);
+  if (errorTerminal) {
+    errorTerminal.show(true);
+    errorTerminal.sendText(`printf '%s\\n' ${shellQuote(`[DEA] ${message}`)}`, true);
+  }
 }
 
 function send(message) {
@@ -34,9 +48,16 @@ function handleOutput(chunk) {
     if (inputBuffer.length < start + length) return;
     const body = JSON.parse(inputBuffer.subarray(start, start + length).toString('utf8'));
     inputBuffer = inputBuffer.subarray(start + length);
+    if (body.method === '$/progress') {
+      const value = body.params?.value;
+      if (body.params?.token === 'dea-index' && value) setStatus(`Index ${value.percentage ?? 0}% · ${value.message ?? ''}`.trim(), value.message);
+      continue;
+    }
     if (body.id !== undefined && pending.has(body.id)) {
-      pending.get(body.id)(body.result);
+      const resolve = pending.get(body.id);
       pending.delete(body.id);
+      if (body.error) resolve(Promise.reject(new Error(body.error.message ?? JSON.stringify(body.error))));
+      else resolve(body.result);
     }
   }
 }
@@ -52,6 +73,7 @@ function request(method, params) {
 
 function activate(context) {
   const output = vscode.window.createOutputChannel('.NET Expert Advisor');
+  errorTerminal = vscode.window.createTerminal({ name: '.NET Expert Advisor Errors' });
   statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 100);
   statusBar.name = '.NET Expert Advisor index';
   statusBar.show();
@@ -65,18 +87,18 @@ function activate(context) {
     const args = command === 'dotnet' ? [serverDll, '--stdio'] : ['--stdio'];
     serverProcess = cp.spawn(command, args, { cwd: context.extensionPath, stdio: ['pipe', 'pipe', 'pipe'] });
     serverProcess.stdout.on('data', handleOutput);
-    serverProcess.stderr.on('data', data => output.append(data.toString()));
+    serverProcess.stderr.on('data', data => { const message = data.toString().trim(); if (message) { output.appendLine(message); reportError(message); } });
     serverProcess.on('exit', () => { serverProcess = undefined; });
     setStatus('Indexing…', 'Starting the semantic index.');
     request('initialize', { processId: process.pid, capabilities: {} })
       .then(() => setStatus('Ready', 'Semantic index is ready.'))
-      .catch(error => { setStatus('Error', String(error)); output.appendLine(String(error)); });
+      .catch(error => { output.appendLine(String(error)); reportError(error); });
   };
   start();
   const provider = vscode.languages.registerCompletionItemProvider({ language: 'csharp' }, {
     async provideCompletionItems(document, position) {
       const started = Date.now();
-      setStatus('Indexing…', 'Scanning project context and resolving Roslyn symbols.');
+      setStatus('Index 0% · starting', 'Scanning project context and resolving Roslyn symbols.');
       try {
         const version = document.version;
         const settings = vscode.workspace.getConfiguration('dotnetExpertAdvisor', document.uri);
@@ -88,6 +110,7 @@ function activate(context) {
             configuration: settings.get('configuration', 'Debug')
           },
           position: { line: position.line, character: position.character }
+          , progressToken: 'dea-index'
         });
         if (document.version !== version) return [];
         const items = result?.items ?? [];
@@ -95,19 +118,20 @@ function activate(context) {
         setStatus(`Index 100% · ${items.length} · ${elapsed}ms`, `Semantic index ready; ${items.length} suggestions in ${elapsed}ms.`);
         return items;
       } catch (error) {
-        setStatus('Error', String(error));
         output.appendLine(String(error));
+        reportError(error);
         return [];
       }
     }
   }, '.');
-  context.subscriptions.push(output, provider, statusBar, vscode.commands.registerCommand('dotnetExpertAdvisor.startServer', start));
+  context.subscriptions.push(output, provider, statusBar, errorTerminal, vscode.commands.registerCommand('dotnetExpertAdvisor.startServer', start));
 }
 
 function deactivate() {
   if (serverProcess && !serverProcess.killed) serverProcess.kill();
   pending.clear();
   statusBar = undefined;
+  errorTerminal = undefined;
 }
 
 module.exports = { activate, deactivate };

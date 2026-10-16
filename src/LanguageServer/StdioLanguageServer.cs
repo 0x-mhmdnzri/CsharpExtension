@@ -34,12 +34,20 @@ public static class StdioLanguageServer
             }
             else if (method == "textDocument/completion" && root.TryGetProperty("id", out var completionId))
             {
-                await StdioTransport.WriteAsync(output, new
+                try
                 {
-                    jsonrpc = "2.0",
-                    id = completionId,
-                    result = await CompleteAsync(root, cancellationToken)
-                }, cancellationToken);
+                    await StdioTransport.WriteAsync(output, new
+                    {
+                        jsonrpc = "2.0",
+                        id = completionId,
+                        result = await CompleteAsync(root, output, cancellationToken)
+                    }, cancellationToken);
+                }
+                catch (Exception exception) when (exception is not OperationCanceledException)
+                {
+                    await StdioTransport.WriteAsync(output, new { jsonrpc = "2.0", id = completionId,
+                        error = new { code = -32603, message = exception.ToString() } }, cancellationToken);
+                }
             }
             else if (method == "completionItem/resolve" && root.TryGetProperty("id", out var resolveId))
             {
@@ -65,7 +73,7 @@ public static class StdioLanguageServer
         }
     }
 
-    private static async Task<object> CompleteAsync(JsonElement root, CancellationToken cancellationToken)
+    private static async Task<object> CompleteAsync(JsonElement root, Stream output, CancellationToken cancellationToken)
     {
         if (!root.TryGetProperty("params", out var parameters)
             || !parameters.TryGetProperty("textDocument", out var document)
@@ -76,6 +84,14 @@ public static class StdioLanguageServer
             return new { items = Array.Empty<object>(), isIncomplete = false };
 
         var text = textProperty.GetString() ?? string.Empty;
+        var progressToken = parameters.TryGetProperty("progressToken", out var token) ? token.GetString() : null;
+        async Task ReportAsync(int percentage, string message)
+        {
+            if (progressToken is null) return;
+            await StdioTransport.WriteAsync(output, new { jsonrpc = "2.0", method = "$/progress",
+                @params = new { token = progressToken, value = new { kind = "report", percentage, message } } }, cancellationToken);
+        }
+        await ReportAsync(10, "Loading project context");
         var documentUri = document.TryGetProperty("uri", out var uri) ? uri.GetString() ?? "document" : "document";
         var version = document.TryGetProperty("version", out var documentVersion) ? documentVersion.GetInt32() : -1;
         var settings = parameters.TryGetProperty("projectContext", out var projectContext) ? projectContext : default;
@@ -83,11 +99,14 @@ public static class StdioLanguageServer
             && value.ValueKind == JsonValueKind.String ? value.GetString() : null;
         var context = await ProjectContextReader.ReadAsync(documentUri, version, Setting("projectPath"),
             Setting("targetFramework"), Setting("configuration") ?? "Debug", cancellationToken, text);
+        await ReportAsync(45, "Indexing project files and references");
         var request = new DocumentRequest(new WorkspaceId("lsp"),
             new DocumentId(documentUri), new ProjectId(context.ProjectPath ?? "lsp"),
             new TargetFrameworkId(context.TargetFramework ?? "unknown"), version, text);
         var result = await new RoslynCompletionHost { Context = context }.GetCompletionAsync(request, lineProperty.GetInt32(),
             characterProperty.GetInt32(), cancellationToken);
+        await ReportAsync(95, "Resolving Roslyn candidates");
+        await ReportAsync(100, $"Complete ({result.Candidates.Length} suggestions)");
         return new
         {
             items = result.Candidates.Select((candidate, index) => new
