@@ -12,7 +12,8 @@ public interface IRoslynHost
     Task<RoslynCompletionResult> GetCompletionAsync(DocumentRequest request, int line, int character, CancellationToken cancellationToken);
 }
 
-public sealed record RoslynCompletionCandidate(string Label, string Kind, string Detail, string SymbolId);
+public sealed record RoslynCompletionCandidate(string Label, string Kind, int LspKind, string Detail,
+    string Documentation, string SymbolId, int EditStart, int EditLength);
 public sealed record RoslynCompletionResult(ImmutableArray<RoslynCompletionCandidate> Candidates, ImmutableArray<string> Diagnostics);
 
 public sealed class RoslynHost : IRoslynHost
@@ -48,16 +49,18 @@ public sealed class RoslynHost : IRoslynHost
             new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary, usings: Context?.Imports ?? []));
         var model = compilation.GetSemanticModel(tree);
         var prefix = CurrentPrefix(request.Text, offset);
+        var editStart = offset - prefix.Length;
         var candidates = model.LookupSymbols(offset)
             .Where(symbol => symbol.CanBeReferencedByName && symbol.Name.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
-            .GroupBy(symbol => symbol.Name, StringComparer.Ordinal)
+            .GroupBy(symbol => $"{symbol.GetDocumentationCommentId() ?? symbol.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat)}:{editStart}:{prefix.Length}", StringComparer.Ordinal)
             .Select(group => group.OrderBy(symbol => symbol.Kind).First())
             .OrderBy(symbol => !symbol.Name.Equals(prefix, StringComparison.OrdinalIgnoreCase))
             .ThenBy(symbol => symbol.Name, StringComparer.OrdinalIgnoreCase)
             .Take(100)
-            .Select(symbol => new RoslynCompletionCandidate(symbol.Name, symbol.Kind.ToString(),
+            .Select(symbol => new RoslynCompletionCandidate(symbol.Name, symbol.Kind.ToString(), ToLspKind(symbol.Kind),
                 symbol.ToDisplayString(SymbolDisplayFormat.MinimallyQualifiedFormat),
-                symbol.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat)))
+                symbol.GetDocumentationCommentXml() ?? string.Empty,
+                symbol.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat), editStart, prefix.Length))
             .ToImmutableArray();
         var diagnostics = compilation.GetDiagnostics(cancellationToken)
             .Where(diagnostic => diagnostic.Severity == DiagnosticSeverity.Error)
@@ -78,6 +81,22 @@ public sealed class RoslynHost : IRoslynHost
         while (start > 0 && (char.IsLetterOrDigit(text[start - 1]) || text[start - 1] == '_')) start--;
         return text[start..offset];
     }
+
+    private static int ToLspKind(Microsoft.CodeAnalysis.SymbolKind kind) => kind switch
+    {
+        Microsoft.CodeAnalysis.SymbolKind.Namespace => 9,
+        Microsoft.CodeAnalysis.SymbolKind.NamedType => 7,
+        Microsoft.CodeAnalysis.SymbolKind.Method => 2,
+        Microsoft.CodeAnalysis.SymbolKind.Property => 10,
+        Microsoft.CodeAnalysis.SymbolKind.Field => 5,
+        Microsoft.CodeAnalysis.SymbolKind.Event => EventKind,
+        Microsoft.CodeAnalysis.SymbolKind.Parameter => 6,
+        Microsoft.CodeAnalysis.SymbolKind.Local => 6,
+        Microsoft.CodeAnalysis.SymbolKind.TypeParameter => 25,
+        _ => 1
+    };
+
+    private const int EventKind = 24;
 
     private static int OffsetAt(string text, int line, int character)
     {

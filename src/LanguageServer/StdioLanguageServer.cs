@@ -93,10 +93,20 @@ public static class StdioLanguageServer
             items = result.Candidates.Select((candidate, index) => new
             {
                 label = candidate.Label,
-                kind = 3,
+                kind = candidate.LspKind,
                 detail = candidate.Detail,
                 sortText = index.ToString("D5"),
                 preselect = false,
+                documentation = string.IsNullOrEmpty(candidate.Documentation) ? null : candidate.Documentation,
+                textEdit = new
+                {
+                    range = new
+                    {
+                        start = new { line = lineProperty.GetInt32(), character = characterProperty.GetInt32() - candidate.EditLength },
+                        end = new { line = lineProperty.GetInt32(), character = characterProperty.GetInt32() }
+                    },
+                    newText = candidate.Label
+                },
                 data = new { suggestionId = $"roslyn:{candidate.SymbolId}", ruleId = "roslyn.semantic",
                     confidence = context.IsComplete && result.Diagnostics.IsEmpty ? 0.8 : 0.35,
                     source = "roslyn://semantic-model", projectContext = context }

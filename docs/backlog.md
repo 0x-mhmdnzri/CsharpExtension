@@ -8,7 +8,7 @@ This backlog turns the product direction into executable work. Correct candidate
 |---:|---|---:|---|---|---|
 | 1 | ARCH-001 | P0 | done | existing RoslynHost skeleton | `feature/roslyn/semantic-authority` |
 | 2 | SUG-001 | P0 | done | ARCH-001 | `feature/suggestion/project-context` |
-| 3 | SUG-009 | P0 | ready | ARCH-001,SUG-001 | `feature/suggestion/roslyn-candidates` |
+| 3 | SUG-009 | P0 | done | ARCH-001,SUG-001 | `feature/suggestion/roslyn-candidates` |
 | 4 | SUG-010 | P0 | ready | SUG-009 | `feature/suggestion/expected-type-filter` |
 | 5 | QA-003 | P0 | ready | SUG-009 | `feature/qa/suggestion-replay` |
 | 6 | SUG-011 | P1 | ready | SUG-010,QA-003 | `feature/suggestion/intent-signals` |
@@ -43,13 +43,13 @@ Acceptance criteria: stale or unknown context lowers confidence and cannot produ
 
 Validation: multi-project and multi-TFM fixtures, including ambiguous-context confidence handling.
 
-### SUG-009 — Roslyn candidate normalization
+### SUG-009 — Roslyn candidate normalization (done)
 
 Normalize Roslyn completion candidates into the project LSP model with symbol identity, display text, edit range, kind, overload data, and documentation.
 
 Acceptance criteria: duplicate candidates collapse by symbol/edit/intent and every item retains its originating symbol identity.
 
-Validation: candidate normalization and duplicate fixtures.
+Validation: candidate identity, overload, duplicate, documentation, kind, and edit-range fixtures.
 
 ### SUG-010 — Expected-type hard filtering
 
