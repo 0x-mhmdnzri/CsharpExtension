@@ -20,6 +20,8 @@ public sealed record RoslynCompletionCandidate(string Label, string Kind, int Ls
     string? RequiredImport = null);
 public sealed record RoslynCompletionResult(ImmutableArray<RoslynCompletionCandidate> Candidates,
     ImmutableArray<string> Diagnostics, string? ExpectedType = null);
+public sealed record RoslynSymbolInfo(string Name, string Detail, string Documentation, string AssemblyName,
+    string? PackageId, string? TargetPath, int StartLine, int StartCharacter, int EndLine, int EndCharacter);
 
 public sealed class RoslynHost : IRoslynHost
 {
@@ -54,22 +56,7 @@ public sealed class RoslynHost : IRoslynHost
             return Task.FromResult(new RoslynCompletionResult(ImmutableArray<RoslynCompletionCandidate>.Empty,
                 ImmutableArray.Create("Invalid document position.")));
 
-        var language = LanguageVersionFacts.TryParse(Context?.LanguageVersion ?? "default", out var parsed)
-            ? parsed : Microsoft.CodeAnalysis.CSharp.LanguageVersion.Default;
-        var options = new CSharpParseOptions(language, preprocessorSymbols: Context?.Defines ?? []);
-        var tree = CSharpSyntaxTree.ParseText(request.Text, options, cancellationToken: cancellationToken);
-        var trees = new List<SyntaxTree> { tree };
-        if (Context?.SourceFiles.IsDefault == false)
-        {
-            foreach (var sourceFile in Context.SourceFiles.Where(File.Exists))
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-                trees.Add(RoslynSyntaxTreeCache.Get(sourceFile, File.ReadAllText(sourceFile), options, cancellationToken));
-            }
-        }
-        var compilation = CSharpCompilation.Create(request.ProjectId.Value, trees, References,
-            new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary, usings: Context?.Imports ?? []));
-        var model = compilation.GetSemanticModel(tree);
+        var (compilation, tree, model) = CreateSemanticModel(request, cancellationToken);
         var prefix = CurrentPrefix(request.Text, offset);
         var editStart = offset - prefix.Length;
         var expectedType = FindExpectedType(model, tree.GetRoot(cancellationToken), offset);
@@ -104,6 +91,52 @@ public sealed class RoslynHost : IRoslynHost
             .Take(100)
             .ToImmutableArray();
         return Task.FromResult(new RoslynCompletionResult(candidates, diagnostics, expectedType?.ToDisplayString(SymbolDisplayFormat.MinimallyQualifiedFormat)));
+    }
+
+    public Task<RoslynSymbolInfo?> GetSymbolInfoAsync(DocumentRequest request, int line, int character, CancellationToken cancellationToken)
+    {
+        var offset = OffsetAt(request.Text, line, character);
+        if (offset < 0) return Task.FromResult<RoslynSymbolInfo?>(null);
+        var (compilation, tree, model) = CreateSemanticModel(request, cancellationToken);
+        var token = tree.GetRoot(cancellationToken).FindToken(Math.Max(0, offset - 1));
+        if (token.Parent is null) return Task.FromResult<RoslynSymbolInfo?>(null);
+        var symbol = model.GetSymbolInfo(token.Parent, cancellationToken).Symbol ?? model.GetDeclaredSymbol(token.Parent, cancellationToken);
+        if (symbol is null) return Task.FromResult<RoslynSymbolInfo?>(null);
+        var location = symbol.Locations.FirstOrDefault(candidate => candidate.IsInSource);
+        var targetPath = location?.SourceTree?.FilePath;
+        var startLine = 0;
+        var startCharacter = 0;
+        var endLine = 0;
+        var endCharacter = 0;
+        if (location is not null)
+        {
+            var span = location.SourceTree!.GetText(cancellationToken).Lines.GetLinePositionSpan(location.SourceSpan);
+            startLine = span.Start.Line; startCharacter = span.Start.Character;
+            endLine = span.End.Line; endCharacter = span.End.Character;
+        }
+        var assemblyName = symbol.ContainingAssembly?.Identity.Name ?? "source";
+        var package = Context?.NuGetApi?.Packages.FirstOrDefault(item => item.Metadata.Name == assemblyName);
+        var target = targetPath ?? package?.AssemblyPath;
+        return Task.FromResult<RoslynSymbolInfo?>(new(symbol.Name,
+            symbol.ToDisplayString(SymbolDisplayFormat.MinimallyQualifiedFormat),
+            symbol.GetDocumentationCommentXml() ?? string.Empty, assemblyName, package?.PackageId, target,
+            startLine, startCharacter, endLine, endCharacter));
+    }
+
+    private (CSharpCompilation Compilation, SyntaxTree Tree, SemanticModel Model) CreateSemanticModel(
+        DocumentRequest request, CancellationToken cancellationToken)
+    {
+        var language = LanguageVersionFacts.TryParse(Context?.LanguageVersion ?? "default", out var parsed)
+            ? parsed : Microsoft.CodeAnalysis.CSharp.LanguageVersion.Default;
+        var options = new CSharpParseOptions(language, preprocessorSymbols: Context?.Defines ?? []);
+        var tree = CSharpSyntaxTree.ParseText(request.Text, options, cancellationToken: cancellationToken);
+        var trees = new List<SyntaxTree> { tree };
+        if (Context?.SourceFiles.IsDefault == false)
+            foreach (var sourceFile in Context.SourceFiles.Where(File.Exists))
+                trees.Add(RoslynSyntaxTreeCache.Get(sourceFile, File.ReadAllText(sourceFile), options, cancellationToken));
+        var compilation = CSharpCompilation.Create(request.ProjectId.Value, trees, References,
+            new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary, usings: Context?.Imports ?? []));
+        return (compilation, tree, compilation.GetSemanticModel(tree));
     }
 
     private static ImmutableArray<RoslynCompletionCandidate> BuildImportAwareCandidates(

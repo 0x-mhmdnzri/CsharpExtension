@@ -129,6 +129,26 @@ function activate(context) {
       }
     }
   }, '.');
+  const hoverProvider = vscode.languages.registerHoverProvider({ language: 'csharp' }, {
+    async provideHover(document, position) {
+      try {
+        const settings = vscode.workspace.getConfiguration('dotnetExpertAdvisor', document.uri);
+        return await request('textDocument/hover', { textDocument: { uri: document.uri.toString(), text: document.getText(), version: document.version },
+          projectContext: { projectPath: settings.get('projectPath'), targetFramework: settings.get('targetFramework'), configuration: settings.get('configuration', 'Debug') },
+          position: { line: position.line, character: position.character } });
+      } catch (error) { reportError(error); return undefined; }
+    }
+  });
+  const definitionProvider = vscode.languages.registerDefinitionProvider({ language: 'csharp' }, {
+    async provideDefinition(document, position) {
+      try {
+        const settings = vscode.workspace.getConfiguration('dotnetExpertAdvisor', document.uri);
+        return await request('textDocument/definition', { textDocument: { uri: document.uri.toString(), text: document.getText(), version: document.version },
+          projectContext: { projectPath: settings.get('projectPath'), targetFramework: settings.get('targetFramework'), configuration: settings.get('configuration', 'Debug') },
+          position: { line: position.line, character: position.character } });
+      } catch (error) { reportError(error); return []; }
+    }
+  });
   const changeSubscription = vscode.workspace.onDidChangeTextDocument(event => {
     if (event.document.languageId !== 'csharp' || event.contentChanges.length === 0) return;
     const uri = event.document.uri.toString();
@@ -143,7 +163,7 @@ function activate(context) {
       vscode.commands.executeCommand('editor.action.triggerSuggest').catch(error => reportError(error));
     }, Math.max(50, Number(debounceMs) || 180)));
   });
-  context.subscriptions.push(output, provider, statusBar, errorTerminal, changeSubscription,
+  context.subscriptions.push(output, provider, hoverProvider, definitionProvider, statusBar, errorTerminal, changeSubscription,
     vscode.commands.registerCommand('dotnetExpertAdvisor.startServer', start));
 }
 

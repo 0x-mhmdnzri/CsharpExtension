@@ -60,11 +60,13 @@ public static class StdioLanguageServer
             }
             else if (method == "textDocument/hover" && root.TryGetProperty("id", out var hoverId))
             {
-                await StdioTransport.WriteAsync(output, new { jsonrpc = "2.0", id = hoverId, result = (object?)null }, cancellationToken);
+                await StdioTransport.WriteAsync(output, new { jsonrpc = "2.0", id = hoverId,
+                    result = await HoverAsync(root, cancellationToken) }, cancellationToken);
             }
             else if (method == "textDocument/definition" && root.TryGetProperty("id", out var definitionId))
             {
-                await StdioTransport.WriteAsync(output, new { jsonrpc = "2.0", id = definitionId, result = Array.Empty<object>() }, cancellationToken);
+                await StdioTransport.WriteAsync(output, new { jsonrpc = "2.0", id = definitionId,
+                    result = await DefinitionAsync(root, cancellationToken) }, cancellationToken);
             }
             else if (root.TryGetProperty("id", out var id))
             {
@@ -148,4 +150,45 @@ public static class StdioLanguageServer
             isIncomplete = false
         };
     }
+
+    private static async Task<object?> HoverAsync(JsonElement root, CancellationToken cancellationToken)
+    {
+        var request = await ReadDocumentRequestAsync(root, cancellationToken);
+        if (request is null) return null;
+        var info = await request.Value.Host.GetSymbolInfoAsync(request.Value.Document, request.Value.Line, request.Value.Character, cancellationToken);
+        if (info is null) return null;
+        var package = info.PackageId is null ? "project/source" : $"package `{info.PackageId}`";
+        var link = info.TargetPath is null ? string.Empty : $"\n\n[Open code behind]({FileUri(info.TargetPath)})";
+        return new { contents = new object[] { new { language = "csharp", value = info.Detail },
+            new { kind = "markdown", value = $"{package}\n\n{info.Documentation}{link}" } } };
+    }
+
+    private static async Task<object> DefinitionAsync(JsonElement root, CancellationToken cancellationToken)
+    {
+        var request = await ReadDocumentRequestAsync(root, cancellationToken);
+        if (request is null) return Array.Empty<object>();
+        var info = await request.Value.Host.GetSymbolInfoAsync(request.Value.Document, request.Value.Line, request.Value.Character, cancellationToken);
+        if (info?.TargetPath is null) return Array.Empty<object>();
+        return new[] { new { uri = FileUri(info.TargetPath),
+            range = new { start = new { line = info.StartLine, character = info.StartCharacter },
+                end = new { line = info.EndLine, character = info.EndCharacter } } } };
+    }
+
+    private static async Task<(RoslynCompletionHost Host, DocumentRequest Document, int Line, int Character)?> ReadDocumentRequestAsync(JsonElement root, CancellationToken cancellationToken)
+    {
+        var parameters = root.GetProperty("params");
+        var document = parameters.GetProperty("textDocument");
+        var text = document.GetProperty("text").GetString() ?? string.Empty;
+        var uri = document.TryGetProperty("uri", out var uriProperty) ? uriProperty.GetString() ?? "document" : "document";
+        var version = document.TryGetProperty("version", out var versionProperty) ? versionProperty.GetInt32() : -1;
+        var position = parameters.GetProperty("position");
+        var settings = parameters.TryGetProperty("projectContext", out var context) ? context : default;
+        string? Setting(string name) => settings.ValueKind == JsonValueKind.Object && settings.TryGetProperty(name, out var value) && value.ValueKind == JsonValueKind.String ? value.GetString() : null;
+        var project = await ProjectContextReader.ReadAsync(uri, version, Setting("projectPath"), Setting("targetFramework"), Setting("configuration") ?? "Debug", cancellationToken, text);
+        return (new RoslynCompletionHost { Context = project }, new DocumentRequest(new WorkspaceId("lsp"), new DocumentId(uri),
+            new ProjectId(project.ProjectPath ?? "lsp"), new TargetFrameworkId(project.TargetFramework ?? "unknown"), version, text),
+            position.GetProperty("line").GetInt32(), position.GetProperty("character").GetInt32());
+    }
+
+    private static string FileUri(string path) => new UriBuilder("file", string.Empty) { Path = Path.GetFullPath(path) }.Uri.AbsoluteUri;
 }
