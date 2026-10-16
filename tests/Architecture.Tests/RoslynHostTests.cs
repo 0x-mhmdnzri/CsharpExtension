@@ -40,5 +40,12 @@ public static class RoslynHostTests
         if (argumentResult.ExpectedType != "string" || !argumentResult.Candidates.Any(candidate => candidate.Label == "Text")
             || argumentResult.Candidates.Any(candidate => candidate.Label == "Count"))
             throw new InvalidOperationException($"Argument expected-type filtering failed: expected={argumentResult.ExpectedType}; {string.Join(";", argumentResult.Candidates.Select(candidate => $"{candidate.Label}/{candidate.Detail}"))}");
+
+        var intentText = "class C { void M() { int unusedCount = 1; string used = \"\"; used.ToString();  } }";
+        var intentResult = await new RoslynCompletionHost().GetCompletionAsync(request with { Text = intentText }, 0,
+            intentText.IndexOf("  }", StringComparison.Ordinal) + 1, CancellationToken.None);
+        var unused = intentResult.Candidates.FirstOrDefault(candidate => candidate.Label == "unusedCount");
+        if (unused is null || !unused.Signals.Contains("unused-local-or-parameter") || unused.IntentScore <= 0)
+            throw new InvalidOperationException("Cheap intent signals did not identify an unused local.");
     }
 }

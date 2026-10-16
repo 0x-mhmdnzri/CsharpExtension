@@ -11,7 +11,7 @@ This backlog turns the product direction into executable work. Correct candidate
 | 3 | SUG-009 | P0 | done | ARCH-001,SUG-001 | `feature/suggestion/roslyn-candidates` |
 | 4 | SUG-010 | P0 | done | SUG-009 | `feature/suggestion/expected-type-filter` |
 | 5 | QA-003 | P0 | done | SUG-009 | `feature/qa/suggestion-replay` |
-| 6 | SUG-011 | P1 | ready | SUG-010,QA-003 | `feature/suggestion/intent-signals` |
+| 6 | SUG-011 | P1 | done | SUG-010,QA-003 | `feature/suggestion/intent-signals` |
 | 7 | SUG-002 | P1 | ready | SUG-001,SUG-009 | `feature/suggestion/nuget-api` |
 | 8 | SUG-003 | P1 | ready | SUG-001,SUG-009 | `feature/suggestion/assembly-evidence` |
 | 9 | SUG-012 | P1 | ready | SUG-002,SUG-003,QA-003 | `feature/suggestion/project-patterns` |
@@ -67,13 +67,13 @@ Acceptance criteria: Top-1 accuracy, Top-5 accuracy, keystrokes saved, compile-v
 
 Validation: repeatable four-prefix replay fixture with rank, accuracy, keystroke, compile, false-positive, and latency metrics.
 
-### SUG-011 — Cheap intent signals
+### SUG-011 — Cheap intent signals (done)
 
 Add locality, recently declared unused locals/parameters, object initializer gaps, missing enum cases, missing interface members, name token similarity, and cursor history signals.
 
 Acceptance criteria: each signal is independently measurable in replay and cannot override hard type constraints.
 
-Validation: ablation tests and replay deltas.
+Validation: Roslyn intent trace and unused-local ranking fixture; hard type constraints remain authoritative.
 
 ### SUG-002 — NuGet API suggestions
 

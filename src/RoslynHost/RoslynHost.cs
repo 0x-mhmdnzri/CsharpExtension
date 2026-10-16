@@ -14,7 +14,8 @@ public interface IRoslynHost
 }
 
 public sealed record RoslynCompletionCandidate(string Label, string Kind, int LspKind, string Detail,
-    string Documentation, string SymbolId, int EditStart, int EditLength);
+    string Documentation, string SymbolId, int EditStart, int EditLength, double IntentScore = 0,
+    ImmutableArray<string> Signals = default);
 public sealed record RoslynCompletionResult(ImmutableArray<RoslynCompletionCandidate> Candidates,
     ImmutableArray<string> Diagnostics, string? ExpectedType = null);
 
@@ -58,13 +59,15 @@ public sealed class RoslynHost : IRoslynHost
             .GroupBy(symbol => $"{symbol.GetDocumentationCommentId() ?? symbol.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat)}:{editStart}:{prefix.Length}", StringComparer.Ordinal)
             .Select(group => group.OrderBy(symbol => symbol.Kind).First())
             .Where(symbol => expectedType is null || IsCompatible(symbol, expectedType, compilation))
-            .OrderBy(symbol => !symbol.Name.Equals(prefix, StringComparison.OrdinalIgnoreCase))
-            .ThenBy(symbol => symbol.Name, StringComparer.OrdinalIgnoreCase)
+            .Select(symbol => (Symbol: symbol, Intent: IntentSignals.Score(symbol, model, tree.GetRoot(cancellationToken), request.Text, offset, prefix)))
+            .OrderByDescending(item => item.Intent.Score)
+            .ThenBy(item => item.Symbol.Name, StringComparer.OrdinalIgnoreCase)
             .Take(100)
-            .Select(symbol => new RoslynCompletionCandidate(symbol.Name, symbol.Kind.ToString(), ToLspKind(symbol.Kind),
-                symbol.ToDisplayString(SymbolDisplayFormat.MinimallyQualifiedFormat),
-                symbol.GetDocumentationCommentXml() ?? string.Empty,
-                symbol.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat), editStart, prefix.Length))
+            .Select(item => new RoslynCompletionCandidate(item.Symbol.Name, item.Symbol.Kind.ToString(), ToLspKind(item.Symbol.Kind),
+                item.Symbol.ToDisplayString(SymbolDisplayFormat.MinimallyQualifiedFormat),
+                item.Symbol.GetDocumentationCommentXml() ?? string.Empty,
+                item.Symbol.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat), editStart, prefix.Length,
+                item.Intent.Score, item.Intent.Signals))
             .ToImmutableArray();
         var diagnostics = compilation.GetDiagnostics(cancellationToken)
             .Where(diagnostic => diagnostic.Severity == DiagnosticSeverity.Error)

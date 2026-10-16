@@ -110,7 +110,8 @@ public static class StdioLanguageServer
                 data = new { suggestionId = $"roslyn:{candidate.SymbolId}", ruleId = "roslyn.semantic",
                     confidence = context.IsComplete && result.Diagnostics.IsEmpty && result.ExpectedType is not null ? 0.9 :
                         context.IsComplete && result.Diagnostics.IsEmpty ? 0.8 : 0.35,
-                    source = "roslyn://semantic-model", expectedType = result.ExpectedType, projectContext = context }
+                    source = "roslyn://semantic-model", expectedType = result.ExpectedType,
+                    intentScore = candidate.IntentScore, signals = candidate.Signals, projectContext = context }
             }).ToArray(),
             isIncomplete = false
         };
