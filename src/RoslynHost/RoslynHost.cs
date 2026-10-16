@@ -59,7 +59,7 @@ public sealed class RoslynHost : IRoslynHost
             .GroupBy(symbol => $"{symbol.ContainingAssembly?.Identity}:{symbol.GetDocumentationCommentId() ?? symbol.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat)}:{editStart}:{prefix.Length}", StringComparer.Ordinal)
             .Select(group => group.OrderBy(symbol => symbol.Kind).First())
             .Where(symbol => expectedType is null || IsCompatible(symbol, expectedType, compilation))
-            .Select(symbol => (Symbol: symbol, Intent: IntentSignals.Score(symbol, model, tree.GetRoot(cancellationToken), request.Text, offset, prefix)))
+            .Select(symbol => (Symbol: symbol, Intent: IntentSignals.Score(symbol, model, tree.GetRoot(cancellationToken), request.Text, offset, prefix, Context?.Patterns)))
             .OrderByDescending(item => item.Intent.Score)
             .ThenBy(item => item.Symbol.Name, StringComparer.OrdinalIgnoreCase)
             .Take(100)

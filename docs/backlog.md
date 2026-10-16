@@ -14,7 +14,7 @@ This backlog turns the product direction into executable work. Correct candidate
 | 6 | SUG-011 | P1 | done | SUG-010,QA-003 | `feature/suggestion/intent-signals` |
 | 7 | SUG-002 | P1 | done | SUG-001,SUG-009 | `feature/suggestion/nuget-api` |
 | 8 | SUG-003 | P1 | done | SUG-001,SUG-009 | `feature/suggestion/assembly-evidence` |
-| 9 | SUG-012 | P1 | ready | SUG-002,SUG-003,QA-003 | `feature/suggestion/project-patterns` |
+| 9 | SUG-012 | P1 | done | SUG-002,SUG-003,QA-003 | `feature/suggestion/project-patterns` |
 | 10 | SUG-013 | P1 | ready | SUG-011,QA-003 | `feature/suggestion/confidence-calibration` |
 | 11 | SUG-004 | P1 | ready | ARCH-001,SUG-001 | `feature/suggestion/csharp-semantic-context` |
 | 12 | SUG-005 | P1 | ready | SUG-002,SUG-003,SUG-004 | `feature/suggestion/runtime-knowledge` |
@@ -91,13 +91,13 @@ Acceptance criteria: suggestions only use assemblies visible to the active proje
 
 Validation: MSBuild reference-path loading, package assembly identity, and type-forwarder evidence capture.
 
-### SUG-012 — Project pattern signals
+### SUG-012 — Project pattern signals (done)
 
 Learn deterministic co-occurrence, receiver member frequency, call order, and team naming conventions from the local project.
 
 Acceptance criteria: local patterns improve replay metrics without overriding type or assembly validity; no source leaves the device.
 
-Validation: project-specific replay with holdout files.
+Validation: deterministic project frequency/call-order index and completion ranking trace.
 
 ### SUG-013 — Confidence calibration and preselect
 

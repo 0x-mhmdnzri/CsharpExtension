@@ -59,5 +59,16 @@ public static class RoslynHostTests
         var packageCandidate = packageResult.Candidates.FirstOrDefault(candidate => candidate.Label == "CSharpLexer");
         if (packageCandidate is null || packageCandidate.AssemblyName != packageMetadata.Name)
             throw new InvalidOperationException("Package API assembly was not available to Roslyn completion.");
+
+        var patterns = ProjectPatternIndexer.Build(["class C { void Save() {} void Load() { Load(); Save(); Save(); } }"]);
+        if (!patterns.SymbolFrequency.ContainsKey("Save") || !ProjectPatternIndexer.HasCallOrder(patterns, "Load", "Save"))
+            throw new InvalidOperationException("Project pattern index did not capture frequency and call order.");
+        var patternText = "class C { void Save() {} void Load() { Load(); Sa } }";
+        var patternContext = packageContext with { Patterns = patterns };
+        var patternResult = await new RoslynCompletionHost { Context = patternContext }.GetCompletionAsync(
+            request with { Text = patternText }, 0, patternText.LastIndexOf("Sa", StringComparison.Ordinal) + 2, CancellationToken.None);
+        var save = patternResult.Candidates.FirstOrDefault(candidate => candidate.Label == "Save");
+        if (save is null || !save.Signals.Contains("project-frequency") || !save.Signals.Contains("project-call-order"))
+            throw new InvalidOperationException("Project pattern signals were not applied to completion ranking.");
     }
 }

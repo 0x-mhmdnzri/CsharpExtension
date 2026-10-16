@@ -13,7 +13,7 @@ public sealed record ProjectContextSnapshot(string? ProjectPath, string? TargetF
     string? LanguageVersion, string Configuration, int DocumentVersion,
     ImmutableArray<string> Imports, ImmutableArray<string> References,
     ImmutableArray<string> Defines, ImmutableArray<string> Issues, NuGetApiIndex? NuGetApi = null,
-    ImmutableArray<LoadedAssemblyEvidence> Assemblies = default)
+    ImmutableArray<LoadedAssemblyEvidence> Assemblies = default, ProjectPatternSnapshot? Patterns = null)
 {
     public bool IsComplete => Issues.IsEmpty;
 }
@@ -46,7 +46,7 @@ public static class ProjectContextReader
         var start = new ProcessStartInfo("dotnet") { RedirectStandardOutput = true, RedirectStandardError = true, UseShellExecute = false };
         foreach (var argument in new[] { "msbuild", Path.GetFullPath(projectPath), "-nologo",
                      "-getProperty:LangVersion,TargetFramework,TargetFrameworks,Configuration,DefineConstants,TargetPath",
-                     "-getItem:Using,Reference,ReferencePath,ProjectReference", $"-property:Configuration={configuration}" })
+                     "-getItem:Using,Reference,ReferencePath,ProjectReference,Compile", $"-property:Configuration={configuration}" })
             start.ArgumentList.Add(argument);
         if (!string.IsNullOrEmpty(targetFramework)) start.ArgumentList.Add($"-property:TargetFramework={targetFramework}");
         using var process = new Process { StartInfo = start };
@@ -94,13 +94,16 @@ public static class ProjectContextReader
             var assemblies = assemblyPaths.Select(path => ReadAssemblyEvidence(path, targetFramework!))
                 .Where(evidence => evidence is not null).Cast<LoadedAssemblyEvidence>().ToImmutableArray();
             if (assemblies.IsEmpty) issues.Add("Assembly references are unavailable for the selected target framework.");
+            var sourceFiles = Items("Compile").Select(path => Path.IsPathRooted(path) ? path : Path.Combine(Path.GetDirectoryName(projectPath)!, path))
+                .Where(File.Exists).Select(File.ReadAllText).Append(documentText);
+            var patterns = ProjectPatternIndexer.Build(sourceFiles);
             return new(Path.GetFullPath(projectPath), targetFramework, language, Property("Configuration"), version,
                 Items("Using").AddRange(CSharpSyntaxTree.ParseText(documentText, cancellationToken: cancellationToken)
                     .GetCompilationUnitRoot(cancellationToken).Usings
                     .Where(item => item.Alias is null && item.StaticKeyword.RawKind == 0 && item.Name is not null)
                     .Select(item => item.Name!.ToString())).Distinct(StringComparer.Ordinal).ToImmutableArray(),
                 Items("Reference").AddRange(Items("ReferencePath")).AddRange(Items("ProjectReference")),
-                Property("DefineConstants").Split(';', StringSplitOptions.RemoveEmptyEntries).ToImmutableArray(), issues.ToImmutable(), nuGetApi, assemblies);
+                Property("DefineConstants").Split(';', StringSplitOptions.RemoveEmptyEntries).ToImmutableArray(), issues.ToImmutable(), nuGetApi, assemblies, patterns);
         }
         catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested)
         {
