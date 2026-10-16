@@ -9,7 +9,7 @@ This backlog turns the product direction into executable work. Correct candidate
 | 1 | ARCH-001 | P0 | done | existing RoslynHost skeleton | `feature/roslyn/semantic-authority` |
 | 2 | SUG-001 | P0 | done | ARCH-001 | `feature/suggestion/project-context` |
 | 3 | SUG-009 | P0 | done | ARCH-001,SUG-001 | `feature/suggestion/roslyn-candidates` |
-| 4 | SUG-010 | P0 | ready | SUG-009 | `feature/suggestion/expected-type-filter` |
+| 4 | SUG-010 | P0 | done | SUG-009 | `feature/suggestion/expected-type-filter` |
 | 5 | QA-003 | P0 | ready | SUG-009 | `feature/qa/suggestion-replay` |
 | 6 | SUG-011 | P1 | ready | SUG-010,QA-003 | `feature/suggestion/intent-signals` |
 | 7 | SUG-002 | P1 | ready | SUG-001,SUG-009 | `feature/suggestion/nuget-api` |
@@ -51,13 +51,13 @@ Acceptance criteria: duplicate candidates collapse by symbol/edit/intent and eve
 
 Validation: candidate identity, overload, duplicate, documentation, kind, and edit-range fixtures.
 
-### SUG-010 — Expected-type hard filtering
+### SUG-010 — Expected-type hard filtering (done)
 
 Infer the expected type at the cursor and remove or demote candidates that cannot satisfy it, including argument, assignment, return, initializer, lambda, generic, and overload contexts.
 
 Acceptance criteria: invalid candidates never outrank valid candidates; unknown expected type keeps candidates as uncertain rather than deleting them.
 
-Validation: positive and negative type-constraint corpus.
+Validation: assignment and invocation argument positive/negative type-constraint fixtures.
 
 ### QA-003 — Suggestion replay harness
 

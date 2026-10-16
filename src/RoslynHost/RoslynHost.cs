@@ -1,6 +1,7 @@
 using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using DotnetExpertAdvisor.Shared;
 
 namespace DotnetExpertAdvisor.RoslynHost;
@@ -14,7 +15,8 @@ public interface IRoslynHost
 
 public sealed record RoslynCompletionCandidate(string Label, string Kind, int LspKind, string Detail,
     string Documentation, string SymbolId, int EditStart, int EditLength);
-public sealed record RoslynCompletionResult(ImmutableArray<RoslynCompletionCandidate> Candidates, ImmutableArray<string> Diagnostics);
+public sealed record RoslynCompletionResult(ImmutableArray<RoslynCompletionCandidate> Candidates,
+    ImmutableArray<string> Diagnostics, string? ExpectedType = null);
 
 public sealed class RoslynHost : IRoslynHost
 {
@@ -50,10 +52,12 @@ public sealed class RoslynHost : IRoslynHost
         var model = compilation.GetSemanticModel(tree);
         var prefix = CurrentPrefix(request.Text, offset);
         var editStart = offset - prefix.Length;
+        var expectedType = FindExpectedType(model, tree.GetRoot(cancellationToken), offset);
         var candidates = model.LookupSymbols(offset)
             .Where(symbol => symbol.CanBeReferencedByName && symbol.Name.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
             .GroupBy(symbol => $"{symbol.GetDocumentationCommentId() ?? symbol.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat)}:{editStart}:{prefix.Length}", StringComparer.Ordinal)
             .Select(group => group.OrderBy(symbol => symbol.Kind).First())
+            .Where(symbol => expectedType is null || IsCompatible(symbol, expectedType, compilation))
             .OrderBy(symbol => !symbol.Name.Equals(prefix, StringComparison.OrdinalIgnoreCase))
             .ThenBy(symbol => symbol.Name, StringComparer.OrdinalIgnoreCase)
             .Take(100)
@@ -65,7 +69,7 @@ public sealed class RoslynHost : IRoslynHost
         var diagnostics = compilation.GetDiagnostics(cancellationToken)
             .Where(diagnostic => diagnostic.Severity == DiagnosticSeverity.Error)
             .Select(diagnostic => diagnostic.Id).Distinct(StringComparer.Ordinal).ToImmutableArray();
-        return Task.FromResult(new RoslynCompletionResult(candidates, diagnostics));
+        return Task.FromResult(new RoslynCompletionResult(candidates, diagnostics, expectedType?.ToDisplayString(SymbolDisplayFormat.MinimallyQualifiedFormat)));
     }
 
     private static readonly ImmutableArray<MetadataReference> FrameworkReferences =
@@ -81,6 +85,57 @@ public sealed class RoslynHost : IRoslynHost
         while (start > 0 && (char.IsLetterOrDigit(text[start - 1]) || text[start - 1] == '_')) start--;
         return text[start..offset];
     }
+
+    private static ITypeSymbol? FindExpectedType(SemanticModel model, Microsoft.CodeAnalysis.SyntaxNode root, int offset)
+    {
+        var probe = Math.Max(0, Math.Min(offset, root.FullSpan.End) - 1);
+        var node = root.FindToken(probe).Parent;
+        for (var current = node; current is not null; current = current.Parent)
+        {
+            if (current is ReturnStatementSyntax)
+                return (model.GetEnclosingSymbol(offset) as IMethodSymbol)?.ReturnType;
+            if (current is AssignmentExpressionSyntax assignment)
+                return SymbolType(model.GetSymbolInfo(assignment.Left).Symbol) ?? model.GetTypeInfo(assignment.Left).Type;
+            if (current is EqualsValueClauseSyntax equalsValue)
+            {
+                if (equalsValue.Parent is VariableDeclaratorSyntax { Parent: VariableDeclarationSyntax declaration })
+                    return model.GetTypeInfo(declaration.Type).Type;
+                if (equalsValue.Parent is PropertyDeclarationSyntax property)
+                    return model.GetTypeInfo(property.Type).Type;
+            }
+            if (current is ArgumentSyntax argument)
+            {
+                var invocation = argument.Ancestors().OfType<InvocationExpressionSyntax>().FirstOrDefault();
+                if (invocation is not null)
+                {
+                    var info = model.GetSymbolInfo(invocation.Expression);
+                    var method = info.Symbol as IMethodSymbol ?? info.CandidateSymbols.OfType<IMethodSymbol>().FirstOrDefault();
+                    if (method is null) continue;
+                    var index = invocation.ArgumentList.Arguments.IndexOf(argument);
+                    if (index >= 0 && index < method.Parameters.Length) return method.Parameters[index].Type;
+                }
+            }
+        }
+        return null;
+    }
+
+    private static bool IsCompatible(ISymbol symbol, ITypeSymbol expected, Compilation compilation)
+    {
+        var actual = SymbolType(symbol);
+        return actual is not null && compilation.ClassifyConversion(actual, expected).IsImplicit;
+    }
+
+    private static ITypeSymbol? SymbolType(ISymbol? symbol) => symbol switch
+    {
+        ITypeSymbol type => type,
+        IMethodSymbol method => method.ReturnsVoid ? null : method.ReturnType,
+        IPropertySymbol property => property.Type,
+        IFieldSymbol field => field.Type,
+        IEventSymbol @event => @event.Type,
+        ILocalSymbol local => local.Type,
+        IParameterSymbol parameter => parameter.Type,
+        _ => null
+    };
 
     private static int ToLspKind(Microsoft.CodeAnalysis.SymbolKind kind) => kind switch
     {

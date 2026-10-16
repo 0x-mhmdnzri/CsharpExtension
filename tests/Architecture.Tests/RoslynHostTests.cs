@@ -26,5 +26,19 @@ public static class RoslynHostTests
         if (doCandidates.Length != 2 || doCandidates.Any(candidate => candidate.EditLength != 2 || candidate.EditStart < 0
             || candidate.SymbolId.Length == 0 || candidate.LspKind != 2))
             throw new InvalidOperationException($"Roslyn candidate normalization lost overload identity or edit range: {string.Join(";", doCandidates.Select(candidate => $"{candidate.Label}/{candidate.Detail}/{candidate.EditStart}/{candidate.EditLength}/{candidate.LspKind}"))}");
+
+        var typeText = "class C { static string Text => \"\"; static int Count => 1; void M() { string value = Te; } }";
+        var typeResult = await new RoslynCompletionHost().GetCompletionAsync(request with { Text = typeText }, 0,
+            typeText.LastIndexOf("Te", StringComparison.Ordinal) + 2, CancellationToken.None);
+        if (typeResult.ExpectedType != "string" || !typeResult.Candidates.Any(candidate => candidate.Label == "Text")
+            || typeResult.Candidates.Any(candidate => candidate.Label == "Count"))
+            throw new InvalidOperationException($"Expected-type filtering failed: expected={typeResult.ExpectedType}; {string.Join(";", typeResult.Candidates.Select(candidate => $"{candidate.Label}/{candidate.Detail}"))}");
+
+        var argumentText = "class C { static void Use(string value) {} static string Text => \"\"; static int Count => 1; void M() { Use(Te); } }";
+        var argumentResult = await new RoslynCompletionHost().GetCompletionAsync(request with { Text = argumentText }, 0,
+            argumentText.LastIndexOf("Te", StringComparison.Ordinal) + 2, CancellationToken.None);
+        if (argumentResult.ExpectedType != "string" || !argumentResult.Candidates.Any(candidate => candidate.Label == "Text")
+            || argumentResult.Candidates.Any(candidate => candidate.Label == "Count"))
+            throw new InvalidOperationException($"Argument expected-type filtering failed: expected={argumentResult.ExpectedType}; {string.Join(";", argumentResult.Candidates.Select(candidate => $"{candidate.Label}/{candidate.Detail}"))}");
     }
 }
