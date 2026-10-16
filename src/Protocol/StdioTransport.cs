@@ -32,7 +32,8 @@ public static class StdioTransport
                 if (count == 0) throw new EndOfStreamException("LSP payload ended early.");
                 offset += count;
             }
-            return JsonDocument.Parse(payload.AsMemory(0, contentLength));
+            // JsonDocument retains the input bytes; do not return the pooled buffer while it is still referenced.
+            return JsonDocument.Parse(payload.AsMemory(0, contentLength).ToArray());
         }
         finally { ArrayPool<byte>.Shared.Return(payload); }
     }
